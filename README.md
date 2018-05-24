@@ -5,7 +5,11 @@ vgo by example is a series of work-along guides that look to help explain:
 * how vgo works
 * how to get things done with vgo
 
-They are work-in-progress and pending review.
+They are:
+
+* work-in-progress
+* pending review
+* likely to move somewhere else
 
 ### Structure
 
