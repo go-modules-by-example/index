@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh
+<!-- __JSON: egrunner script.sh # LONG ONLINE
 
 ### Intro
 
@@ -63,6 +63,12 @@ We can check go.mod for the exact version that was resolved:
 
 Notice that the previously resolved v1 of the yaml package remains in the go.mod file. Pruning or trimming of
 dependencies is being discussed in https://github.com/golang/go/issues/24101.
+
+### Version details
+
+```
+{{PrintBlockOut "version details" -}}
+```
 
 -->
 
@@ -196,5 +202,12 @@ require (
 
 Notice that the previously resolved v1 of the yaml package remains in the go.mod file. Pruning or trimming of
 dependencies is being discussed in https://github.com/golang/go/issues/24101.
+
+### Version details
+
+```
+go version go1.10.2 linux/amd64 vgo:2018-02-20.1
+vgo commit: b39cea3cb5353f4fc7f08919d32a0006ea3ed62a
+```
 
 <!-- END -->

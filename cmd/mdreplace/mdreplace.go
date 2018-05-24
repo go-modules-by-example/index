@@ -10,7 +10,10 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
+	"sync"
 
 	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
 )
@@ -106,7 +109,57 @@ When called with no file arguments, mdreplace works with stdin
 			files = append(files, i)
 		}
 
-		for ind, f := range files {
+		// if we have more than one file we fork another mdreplace
+		// because we want to have a cwd of the file's dir when processing
+		if len(files) > 1 {
+			var wg sync.WaitGroup
+			for i, f := range files {
+				wg.Add(1)
+				fn := f.Name()
+				ofn := flag.Arg(i)
+
+				go func() {
+					defer func() {
+						wg.Done()
+					}()
+					args := []string{os.Args[0]}
+					if *fWrite {
+						args = append(args, "-w")
+					}
+					if *fStrip {
+						args = append(args, "-strip")
+					}
+					if *fDebug {
+						args = append(args, "-debug")
+					}
+					if *fLong {
+						args = append(args, "-long")
+					}
+					if *fOnline {
+						args = append(args, "-online")
+					}
+					args = append(args, fn)
+
+					cmd := exec.Command(args[0], args[1:]...)
+					cmd.Dir = filepath.Dir(fn)
+
+					fmt.Fprintf(os.Stderr, "Processing %v...\n", ofn)
+
+					out, err := cmd.CombinedOutput()
+					if err != nil {
+						fatalf("cmd %v failed: %v\n%s", strings.Join(cmd.Args, " "), err, out)
+					}
+
+					fmt.Fprintf(os.Stderr, "Done processing %v\n", ofn)
+				}()
+			}
+
+			wg.Wait()
+			return
+		}
+
+		{
+			f := files[0]
 			dir := filepath.Dir(f.Name())
 			if err := os.Chdir(dir); err != nil {
 				fatalf("failed to chdir to %v: %v", dir, err)
@@ -119,7 +172,6 @@ When called with no file arguments, mdreplace works with stdin
 				out = os.Stdout
 			}
 
-			infof("Processing %v...\n", args[ind])
 			if err := run(f, out); err != nil {
 				fatalf("%v\n", err)
 			}
@@ -135,7 +187,6 @@ When called with no file arguments, mdreplace works with stdin
 			}
 		}
 	}
-
 }
 
 func run(r io.Reader, w io.Writer) error {

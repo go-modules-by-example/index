@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh
+<!-- __JSON: egrunner script.sh # LONG ONLINE
 
 ### Examples
 
@@ -310,6 +310,12 @@ Please try vgo. Start tagging versions in your repositories. Create and check
 in go.mod files. File issues at golang.org/issue, and please include “x/vgo:”
 at the start of the title. More posts tomorrow. Thanks, and have fun!
 
+### Version details
+
+```
+{{PrintBlockOut "version details" -}}
+```
+
 -->
 
 ### Examples
@@ -485,13 +491,13 @@ created:
 $ vgo test all
 ?   	github.com/you/hello	[no test files]
 ?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.010s
+ok  	golang.org/x/text/internal/tag	0.004s
 ?   	golang.org/x/text/internal/testtext	[no test files]
-ok  	golang.org/x/text/internal/ucd	0.025s
-ok  	golang.org/x/text/language	0.046s
-ok  	golang.org/x/text/unicode/cldr	0.056s
-ok  	rsc.io/quote	0.006s
-ok  	rsc.io/sampler	0.003s
+ok  	golang.org/x/text/internal/ucd	0.002s
+ok  	golang.org/x/text/language	0.044s
+ok  	golang.org/x/text/unicode/cldr	0.055s
+ok  	rsc.io/quote	0.009s
+ok  	rsc.io/sampler	0.017s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -550,12 +556,12 @@ ok  	golang.org/x/text/unicode/cldr	(cached)
 --- FAIL: TestHello (0.00s)
 	quote_test.go:19: Hello() = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 FAIL
-FAIL	rsc.io/quote	0.002s
+FAIL	rsc.io/quote	0.003s
 --- FAIL: TestHello (0.00s)
 	hello_test.go:31: Hello([en-US fr]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 	hello_test.go:31: Hello([fr en-US]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Bonjour le monde."
 FAIL
-FAIL	rsc.io/sampler	0.003s
+FAIL	rsc.io/sampler	0.002s
 ```
 
 It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
@@ -688,7 +694,7 @@ require (
 $ vgo test all
 vgo: downloading rsc.io/quote v1.3.0
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.002s
+ok  	rsc.io/quote	0.003s
 ```
 
 Let's go back to the state where everything is the latest version, including
@@ -786,8 +792,7 @@ check out the quote module, using an ordinary git command:
 
 
 ```
-$ git clone https://github.com/rsc/quote ../quote
-Cloning into '../quote'...
+$ git clone -q https://github.com/rsc/quote ../quote
 ```
 
 Then edit ../quote/quote.go to change something about func Hello. For example,
@@ -831,12 +836,10 @@ fork github.com/rsc/quote and then push your change to your fork.
 ```
 $ cd ../quote
 $ git commit -a -m 'my fork'
-[master 2908baf] my fork
+[master 323d605] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git tag v0.0.0-myfork
-$ git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
-To https://github.com/myitcv/vgo-by-example-quote-fork
- * [new tag]         v0.0.0-myfork -> v0.0.0-myfork
+$ git push -q https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
 ```
 
 Then you can use that as the replacement:
@@ -894,5 +897,12 @@ directories entirely, as will module-aware go command builds.
 Please try vgo. Start tagging versions in your repositories. Create and check
 in go.mod files. File issues at golang.org/issue, and please include “x/vgo:”
 at the start of the title. More posts tomorrow. Thanks, and have fun!
+
+### Version details
+
+```
+go version go1.10.2 linux/amd64 vgo:2018-02-20.1
+vgo commit: b39cea3cb5353f4fc7f08919d32a0006ea3ed62a
+```
 
 <!-- END -->
