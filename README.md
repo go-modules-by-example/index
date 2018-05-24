@@ -1,20 +1,18 @@
+### `**This is a work-in-progress and pending review. Please do not link to this for now.**`
+
 ### vgo by example
 
-vgo by example is a series of work-along guides that look to help explain:
+vgo by example is a series of work-along guides that look to help explain how vgo works and how to get things done with vgo.
 
-* how vgo works
-* how to get things done with vgo
-
-They are:
-
-* work-in-progress
-* pending review
-* likely to move somewhere else
+* [The vgo tour](https://github.com/myitcv/vgo-by-example/blob/master/vgo_tour/README.md) (rewritten as a vgo-by-example)
+* [Using vgo with gopkg.in](https://github.com/myitcv/vgo-by-example/blob/master/using_gopkg_in/README.md)
+* ...
 
 ### Structure
 
-A guide simply comprises a README.md and an accompanying bash script. For example, the vgo tour has been rewritten as a
-vgo by example guide:
+A guide simply comprises a README.md and an accompanying bash script. The README is the human readable bit and the
+script acts as a reproducible set of steps (that can be tested) for the guide. For example, the vgo tour has been
+rewritten as a vgo by example guide:
 
 ```
 $ ls vgo_tour
@@ -40,16 +38,17 @@ go get -u golang.org/x/vgo
 assert "$? -eq 0" $LINENO
 ```
 
-The corresponding README.md acts as a template for the guide itself, but crucially it can reference these blocks in
-order to include the commands themselves and/or the output, e.g.:
+Assertions can be made within the script to ensure that everything is still "on track".
 
-  ```
-  {{PrintBlock "go get vgo" -}}
-  ```
+The corresponding README.md acts as a template for the guide itself, but crucially it can reference these blocks to
+include the commands themselves and/or their output, e.g.:
+
+    ```
+    {{PrintBlock "go get vgo" -}}
+    ```
 
 Look at the raw [vgo tour README.md](https://raw.githubusercontent.com/myitcv/vgo-by-example/master/vgo_tour/README.md)
-for more example of the guide template referencing the script.
-
+and [corresponding script](https://github.com/myitcv/vgo-by-example/blob/master/vgo_tour/script.sh) for more examples.
 
 ### Testing scripts
 
@@ -95,7 +94,16 @@ Then re-run `mdreplace` on a guide template, e.g. for the vgo tour:
 mdreplace -w ./vgo_tour/README.md
 ```
 
-### TODO
+### Caveats and TODO
 
+This project is:
+
+* work-in-progress
+* pending review
+* likely to move somewhere else
+
+TODO:
+
+* Automate the building of a table of contents in this README
 * Make this a `vgo` project
 * Move away from vendor of `mvdan.cc/sh` - currently vendoring to work around an issue with single statement printing.
