@@ -4,8 +4,8 @@
 
 vgo by example is a series of work-along guides that look to help explain how vgo works and how to get things done with vgo.
 
-* [The vgo tour](https://github.com/myitcv/vgo-by-example/blob/master/vgo_tour/README.md) (rewritten as a vgo-by-example)
-* [Using vgo with gopkg.in](https://github.com/myitcv/vgo-by-example/blob/master/using_gopkg_in/README.md)
+* [The vgo tour](https://github.com/myitcv/vgo-by-example/blob/master/001_vgo_tour/README.md) (rewritten as a vgo-by-example)
+* [Using vgo with gopkg.in](https://github.com/myitcv/vgo-by-example/blob/master/002_using_gopkg_in/README.md)
 * ...
 
 ### Structure
@@ -47,8 +47,8 @@ include the commands themselves and/or their output, e.g.:
     {{PrintBlock "go get vgo" -}}
     ```
 
-Look at the raw [vgo tour README.md](https://raw.githubusercontent.com/myitcv/vgo-by-example/master/vgo_tour/README.md)
-and [corresponding script](https://github.com/myitcv/vgo-by-example/blob/master/vgo_tour/script.sh) for more examples.
+Look at the raw [vgo tour README.md](https://raw.githubusercontent.com/myitcv/vgo-by-example/master/001_vgo_tour/README.md)
+and [corresponding script](https://github.com/myitcv/vgo-by-example/blob/master/001_vgo_tour/script.sh) for more examples.
 
 ### Testing scripts
 
@@ -77,7 +77,7 @@ go install myitcv.io/vgo-by-example/cmd/egrunner
 Now run in debug mode to see real-time output:
 
 ```
-egrunner -debug vgo_tour/script.sh
+egrunner -debug ./001_vgo_tour/script.sh
 ```
 
 ### Regenerating a guide
@@ -91,7 +91,7 @@ go install myitcv.io/vgo-by-example/cmd/mdreplace myitcv.io/vgo-by-example/cmd/e
 Then re-run `mdreplace` on a guide template, e.g. for the vgo tour:
 
 ```
-mdreplace -w ./vgo_tour/README.md
+mdreplace -w ./001_vgo_tour/README.md
 ```
 
 ### Caveats and TODO
