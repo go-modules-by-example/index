@@ -14,11 +14,17 @@ A guide simply comprises a README.md and an accompanying bash script. The README
 script acts as a reproducible set of steps (that can be tested) for the guide. For example, the vgo tour has been
 rewritten as a vgo by example guide:
 
+<!-- __TEMPLATE: sh -c "cmd=\"ls 001_vgo_tour\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd"
 ```
-$ ls vgo_tour
+$ {{. -}}
+```
+-->
+```
+$ ls 001_vgo_tour
 README.md
 script.sh
 ```
+<!-- END -->
 
 script.sh contains, as its name suggests, the overall script for the guide. It includes a pre-amble that defines a
 number of helper functions for testing the script, followed by the header:
@@ -55,9 +61,15 @@ and [corresponding script](https://github.com/myitcv/vgo-by-example/blob/master/
 To ensure reproducibility and isolation, scripts are run in a Docker container; the
 [`golang`](https://hub.docker.com/_/golang/) container is used:
 
+<!-- __TEMPLATE: sh -c "cmd=\"docker pull golang\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null" # LONG ONLINE
+```
+{{. -}}
+```
+-->
 ```
 docker pull golang
 ```
+<!-- END -->
 
 The following two environment variables must be set:
 
@@ -70,29 +82,53 @@ _[Create a new personal access token](https://github.com/settings/tokens/new)._
 
 Ensure `egrunner` is installed (and on your PATH):
 
+<!-- __TEMPLATE: sh -c "cmd=\"go install myitcv.io/vgo-by-example/cmd/egrunner\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null"
+```
+{{. -}}
+```
+-->
 ```
 go install myitcv.io/vgo-by-example/cmd/egrunner
 ```
+<!-- END -->
 
 Now run in debug mode to see real-time output:
 
+<!-- __TEMPLATE: sh -c "cmd=\"egrunner -debug ./001_vgo_tour/script.sh\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null 2>&1" # LONG ONLINE
+```
+{{. -}}
+```
+-->
 ```
 egrunner -debug ./001_vgo_tour/script.sh
 ```
+<!-- END -->
 
 ### Regenerating a guide
 
 First ensure `mdreplace` and `egrunner` are installed (and on your PATH):
 
+<!-- __TEMPLATE: sh -c "cmd=\"go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null"
 ```
-go install myitcv.io/vgo-by-example/cmd/mdreplace myitcv.io/vgo-by-example/cmd/egrunner
+{{. -}}
 ```
+-->
+```
+go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
+```
+<!-- END -->
 
 Then re-run `mdreplace` on a guide template, e.g. for the vgo tour:
 
+<!-- __TEMPLATE: sh -c "cmd=\"mdreplace -w ./001_vgo_tour/README.md\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null 2>&1" # LONG ONLINE
+```
+{{. -}}
+```
+-->
 ```
 mdreplace -w ./001_vgo_tour/README.md
 ```
+<!-- END -->
 
 ### Caveats and TODO
 
@@ -105,5 +141,5 @@ This project is:
 TODO:
 
 * Automate the building of a table of contents in this README
-* Make this a `vgo` project
-* Move away from vendor of `mvdan.cc/sh` - currently vendoring to work around an issue with single statement printing.
+* Make this a vgo project
+* Move away from vendor of mvdan.cc/sh - currently vendoring to work around an issue with single statement printing.

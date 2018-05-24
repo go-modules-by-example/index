@@ -199,7 +199,7 @@ vgo test all
 assert "$? -eq 0" $LINENO
 
 # block: prepare local quote
-git clone https://github.com/rsc/quote ../quote
+git clone -q https://github.com/rsc/quote ../quote
 
 # block: update quote.go
 cd ../quote
@@ -226,7 +226,7 @@ assert "$? -eq 0" $LINENO
 ensure_github_repo "vgo-by-example-quote-fork"
 assert "$? -eq 0" $LINENO
 pushd ../quote > /dev/null
-git push -f https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork :v0.0.0-myfork
+git push -q -f https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork :v0.0.0-myfork
 popd > /dev/null
 
 # block: setup our quote
@@ -235,7 +235,7 @@ git commit -a -m 'my fork'
 assert "$? -eq 0" $LINENO
 git tag v0.0.0-myfork
 assert "$? -eq 0" $LINENO
-git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+git push -q https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
 assert "$? -eq 0" $LINENO
 
 # block: use our quote
@@ -263,3 +263,8 @@ go tool nm hello | grep sampler.hello
 assert "$? -eq 0" $LINENO
 go tool nm vhello | grep sampler.hello
 assert "$? -eq 0" $LINENO
+
+# block: version details
+vgo version
+echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+

@@ -130,3 +130,7 @@ assert "$? -eq 0" $LINENO
 
 # block: cat go.mod v2
 cat go.mod
+
+# block: version details
+vgo version
+echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"

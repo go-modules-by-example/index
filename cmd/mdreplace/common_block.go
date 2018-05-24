@@ -205,6 +205,24 @@ Args:
 			return ""
 		}
 
+		tmplFuncMap["PrintBlockOut"] = func(k string) string {
+			m := i.(map[string]interface{})
+			if bs, ok := m["Blocks"]; ok {
+				bsm := bs.(map[string]interface{})
+				if v, ok := bsm[k]; ok {
+					vs := v.([]interface{})
+					res := new(strings.Builder)
+					for _, j := range vs {
+						jj := j.(map[string]interface{})
+						fmt.Fprintf(res, "%v", jj["Out"])
+					}
+					return res.String()
+				}
+			}
+
+			return ""
+		}
+
 		t, err := template.New("").Funcs(tmplFuncMap).Parse(tmpl.String())
 		if err != nil {
 			p.errorf("failed to parse template %q: %e", tmpl, err)
