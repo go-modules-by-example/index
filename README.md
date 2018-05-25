@@ -6,7 +6,11 @@ vgo by example is a series of work-along guides that look to help explain how vg
 
 * [The vgo tour](https://github.com/myitcv/vgo-by-example/blob/master/001_vgo_tour/README.md) (rewritten as a vgo-by-example)
 * [Using vgo with gopkg.in](https://github.com/myitcv/vgo-by-example/blob/master/002_using_gopkg_in/README.md)
+* [Migrating Buffalo from dep to vgo](https://github.com/myitcv/vgo-by-example/blob/master/003_migrate_buffalo/README.md)
 * ...
+
+See the [Feedback and TODO wiki](https://github.com/myitcv/vgo-by-example/wiki/Feedback-TODO) for more up-to-date
+commentary.
 
 ### Structure
 

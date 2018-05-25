@@ -182,6 +182,9 @@ EOD
 				fmt.Fprintf(toRun, "echo \"%v\"\n", outputSeparator)
 			}
 			stmts = append(stmts, co)
+			if debug || *fDebug {
+				fmt.Fprintf(toRun, "cat <<THISWILLNEVERMATCH\n%v\nTHISWILLNEVERMATCH\n", stmtString(s))
+			}
 			fmt.Fprintf(toRun, "%v\n", stmtString(s))
 			pendingSep = true
 
