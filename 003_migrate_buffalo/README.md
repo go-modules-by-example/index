@@ -18,9 +18,6 @@ As ever, start by ensuring vgo is installed and up to date:
 For this guide we will work known commits of Buffalo and dep so the guide remains reproducible. We
 will be using:
 
-* Buffalo as of ({{PrintOut "buffalo commit"}})[https://github.com/gobuffalo/buffalo/commit/{{PrintOut "buffalo commit"}}]
-* dep as of ({{PrintOut "dep commit"}})[https://github.com/gobuffalo/buffalo/commit/{{PrintOut "dep commit"}}]
-
 ```
 {{PrintBlock "pinned commits" -}}
 ```
@@ -85,13 +82,6 @@ $ go get -u golang.org/x/vgo
 
 For this guide we will work known commits of Buffalo and dep so the guide remains reproducible. We
 will be using:
-
-* Buffalo as of (354657dfd81584bb82b8b6dff9bb9f6ab22712a8
-)[https://github.com/gobuffalo/buffalo/commit/354657dfd81584bb82b8b6dff9bb9f6ab22712a8
-]
-* dep as of (3e697f6afb332b6e12b8b399365e724e2e8dea7e
-)[https://github.com/gobuffalo/buffalo/commit/3e697f6afb332b6e12b8b399365e724e2e8dea7e
-]
 
 ```
 $ buffaloCommit=354657dfd81584bb82b8b6dff9bb9f6ab22712a8
