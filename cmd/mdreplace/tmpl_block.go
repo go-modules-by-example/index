@@ -77,8 +77,16 @@ var tmplFuncMap = template.FuncMap{
 	},
 }
 
+type cmdOut struct {
+	Cmd string
+	Out interface{}
+}
+
 func (p *processor) processTmplBlock() procFn {
-	return p.processCommonBlock(tmplBlock, func(out []byte) interface{} {
-		return string(out)
+	return p.processCommonBlock(tmplBlock, func(cmd string, out []byte) cmdOut {
+		return cmdOut{
+			Cmd: cmd,
+			Out: string(out),
+		}
 	})
 }
