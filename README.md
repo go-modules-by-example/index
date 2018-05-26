@@ -18,9 +18,10 @@ A guide simply comprises a README.md and an accompanying bash script. The README
 script acts as a reproducible set of steps (that can be tested) for the guide. For example, the vgo tour has been
 rewritten as a vgo by example guide:
 
-<!-- __TEMPLATE: sh -c "cmd=\"ls 001_vgo_tour\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd"
+<!-- __TEMPLATE: ls 001_vgo_tour
 ```
-$ {{. -}}
+$ {{.Cmd}}
+{{.Out -}}
 ```
 -->
 ```
@@ -65,9 +66,9 @@ and [corresponding script](https://github.com/myitcv/vgo-by-example/blob/master/
 To ensure reproducibility and isolation, scripts are run in a Docker container; the
 [`golang`](https://hub.docker.com/_/golang/) container is used:
 
-<!-- __TEMPLATE: sh -c "cmd=\"docker pull golang\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null" # LONG ONLINE
+<!-- __TEMPLATE: docker pull golang # LONG ONLINE
 ```
-{{. -}}
+{{.Cmd}}
 ```
 -->
 ```
@@ -86,9 +87,9 @@ _[Create a new personal access token](https://github.com/settings/tokens/new)._
 
 Ensure `egrunner` is installed (and on your PATH):
 
-<!-- __TEMPLATE: sh -c "cmd=\"go install myitcv.io/vgo-by-example/cmd/egrunner\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null"
+<!-- __TEMPLATE: go install myitcv.io/vgo-by-example/cmd/egrunner
 ```
-{{. -}}
+{{.Cmd}}
 ```
 -->
 ```
@@ -98,9 +99,9 @@ go install myitcv.io/vgo-by-example/cmd/egrunner
 
 Now run in debug mode to see real-time output:
 
-<!-- __TEMPLATE: sh -c "cmd=\"egrunner -debug ./001_vgo_tour/script.sh\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null 2>&1" # LONG ONLINE
+<!-- __TEMPLATE: egrunner -debug ./001_vgo_tour/script.sh # LONG ONLINE
 ```
-{{. -}}
+{{.Cmd}}
 ```
 -->
 ```
@@ -112,9 +113,9 @@ egrunner -debug ./001_vgo_tour/script.sh
 
 First ensure `mdreplace` and `egrunner` are installed (and on your PATH):
 
-<!-- __TEMPLATE: sh -c "cmd=\"go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null"
+<!-- __TEMPLATE: go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
 ```
-{{. -}}
+{{.Cmd}}
 ```
 -->
 ```
@@ -124,9 +125,9 @@ go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/md
 
 Then re-run `mdreplace` on a guide template, e.g. for the vgo tour:
 
-<!-- __TEMPLATE: sh -c "cmd=\"mdreplace -w ./001_vgo_tour/README.md\"; echo \"${DOLLAR}cmd\"; ${DOLLAR}cmd > /dev/null 2>&1" # LONG ONLINE
+<!-- __TEMPLATE: mdreplace -w ./001_vgo_tour/README.md # LONG ONLINE
 ```
-{{. -}}
+{{.Cmd}}
 ```
 -->
 ```

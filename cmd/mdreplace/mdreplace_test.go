@@ -31,7 +31,7 @@ Something`,
 		name: "__TEMPLATE block simple",
 		in: `This is a test
 <!-- __TEMPLATE: echo -n hello world
-{{.}}
+{{.Out}}
 -->
 hello world
 <!-- END -->
@@ -41,7 +41,7 @@ Something`,
 		name: "__TEMPLATE block that references $DOLLAR",
 		in: `This is a test
 <!-- __TEMPLATE: echo -n hello world $DOLLAR
-{{.}}
+{{.Out}}
 -->
 hello world $
 <!-- END -->
@@ -52,7 +52,7 @@ Something`,
 		in: `This is a test
 <!-- __TEMPLATE: echo -n hello world
 ` + "```" + `
-{{.}}
+{{.Out}}
 ` + "```" + `
 -->
 ` + "```" + `
@@ -65,7 +65,7 @@ Something`,
 		name: "__TEMPLATE block quoted args",
 		in: `This is a test
 <!-- __TEMPLATE: echo -en "hello world"
-{{.}}
+{{.Out}}
 -->
 hello world
 <!-- END -->
@@ -75,7 +75,7 @@ Something`,
 		name: "__TEMPLATE block using lines func",
 		in: `This is a test
 <!-- __TEMPLATE: echo -en "hello\nworld"
-{{ range (lines .) -}}
+{{ range (lines .Out) -}}
 {{.}}
 {{end -}}
 -->
@@ -87,34 +87,34 @@ Something`,
 	{
 		name: "__JSON block simple",
 		in: `This is a test
-<!-- __JSON: vgo list -json .
-{{.ImportPath}}
+<!-- __JSON: go list -json .
+{{.Out.ImportPath}}
 -->
-myitcv.io/cmd/mdreplace
+myitcv.io/vgo-by-example/cmd/mdreplace
 <!-- END -->
 Something`,
 	},
 	{
 		name: "__JSON block with bad original contents",
 		in: `This is a test
-<!-- __JSON: vgo list -json .
-{{.ImportPath}}
+<!-- __JSON: go list -json .
+{{.Out.ImportPath}}
 -->
 rubbish
 <!-- END -->
 Something`,
 		ot: strVal(`This is a test
-<!-- __JSON: vgo list -json .
-{{.ImportPath}}
+<!-- __JSON: go list -json .
+{{.Out.ImportPath}}
 -->
-myitcv.io/cmd/mdreplace
+myitcv.io/vgo-by-example/cmd/mdreplace
 <!-- END -->
 Something`),
 	},
 	{
 		name: "__TEMPLATE nested quoted string",
 		in: `<!-- __TEMPLATE: sh -c "BANANA=fruit; echo -n \"${DOLLAR}BANANA\""
-{{.}}
+{{.Out}}
 -->
 fruit
 <!-- END -->

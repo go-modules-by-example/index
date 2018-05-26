@@ -491,13 +491,13 @@ created:
 $ vgo test all
 ?   	github.com/you/hello	[no test files]
 ?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.004s
+ok  	golang.org/x/text/internal/tag	0.029s
 ?   	golang.org/x/text/internal/testtext	[no test files]
 ok  	golang.org/x/text/internal/ucd	0.002s
-ok  	golang.org/x/text/language	0.044s
-ok  	golang.org/x/text/unicode/cldr	0.055s
-ok  	rsc.io/quote	0.009s
-ok  	rsc.io/sampler	0.017s
+ok  	golang.org/x/text/language	0.038s
+ok  	golang.org/x/text/unicode/cldr	0.099s
+ok  	rsc.io/quote	0.003s
+ok  	rsc.io/sampler	0.026s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -512,7 +512,7 @@ ok  	rsc.io/quote	(cached)
 --- FAIL: Test (0.00s)
 	buggy_test.go:10: buggy!
 FAIL
-FAIL	rsc.io/quote/buggy	0.002s
+FAIL	rsc.io/quote/buggy	0.001s
 ```
 
 Until something in our module imports buggy, however, it's irrelevant to us, so
@@ -556,12 +556,12 @@ ok  	golang.org/x/text/unicode/cldr	(cached)
 --- FAIL: TestHello (0.00s)
 	quote_test.go:19: Hello() = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 FAIL
-FAIL	rsc.io/quote	0.003s
+FAIL	rsc.io/quote	0.001s
 --- FAIL: TestHello (0.00s)
 	hello_test.go:31: Hello([en-US fr]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 	hello_test.go:31: Hello([fr en-US]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Bonjour le monde."
 FAIL
-FAIL	rsc.io/sampler	0.002s
+FAIL	rsc.io/sampler	0.001s
 ```
 
 It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
@@ -637,8 +637,8 @@ ok  	golang.org/x/text/internal/tag	(cached)
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.003s
-ok  	rsc.io/sampler	0.003s
+ok  	rsc.io/quote	0.004s
+ok  	rsc.io/sampler	0.002s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -694,7 +694,7 @@ require (
 $ vgo test all
 vgo: downloading rsc.io/quote v1.3.0
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.003s
+ok  	rsc.io/quote	0.001s
 ```
 
 Let's go back to the state where everything is the latest version, including
@@ -836,7 +836,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 ```
 $ cd ../quote
 $ git commit -a -m 'my fork'
-[master 323d605] my fork
+[master 9b31a6c] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git tag v0.0.0-myfork
 $ git push -q https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
@@ -902,7 +902,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: b39cea3cb5353f4fc7f08919d32a0006ea3ed62a
+vgo commit: 7c0cf33f39ccf5d8e4c59d34a150425ddac7df6a
 ```
 
 <!-- END -->

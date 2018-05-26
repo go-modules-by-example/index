@@ -13,7 +13,7 @@ import (
 	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
 )
 
-func (p *processor) processCommonBlock(prefix string, conv func([]byte) interface{}) procFn {
+func (p *processor) processCommonBlock(prefix string, conv func(string, []byte) cmdOut) procFn {
 	// consume the (quoted) arguments
 
 	var orig []string
@@ -148,11 +148,11 @@ Args:
 			p.errorf("failed to run command %q: %v\n%v", origCmdStr, err, string(out))
 		}
 
-		i := conv(out)
+		i := conv(strings.Join(cmd.Args, " "), out)
 
 		// TODO gross hack for now
 		tmplFuncMap["PrintCmd"] = func(k string) interface{} {
-			m := i.(map[string]interface{})
+			m := i.Out.(map[string]interface{})
 			if bs, ok := m["Blocks"]; ok {
 				bsm := bs.(map[string]interface{})
 				if v, ok := bsm[k]; ok {
@@ -168,7 +168,7 @@ Args:
 		}
 
 		tmplFuncMap["PrintOut"] = func(k string) interface{} {
-			m := i.(map[string]interface{})
+			m := i.Out.(map[string]interface{})
 			if bs, ok := m["Blocks"]; ok {
 				bsm := bs.(map[string]interface{})
 				if v, ok := bsm[k]; ok {
@@ -184,7 +184,7 @@ Args:
 		}
 
 		tmplFuncMap["PrintBlock"] = func(k string) string {
-			m := i.(map[string]interface{})
+			m := i.Out.(map[string]interface{})
 			if bs, ok := m["Blocks"]; ok {
 				bsm := bs.(map[string]interface{})
 				if v, ok := bsm[k]; ok {
@@ -206,7 +206,7 @@ Args:
 		}
 
 		tmplFuncMap["PrintBlockOut"] = func(k string) string {
-			m := i.(map[string]interface{})
+			m := i.Out.(map[string]interface{})
 			if bs, ok := m["Blocks"]; ok {
 				bsm := bs.(map[string]interface{})
 				if v, ok := bsm[k]; ok {
