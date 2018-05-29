@@ -104,9 +104,13 @@ EOD
 
 	p := syntax.NewPrinter()
 
-	stmtString := func(s syntax.Node) string {
+	stmtString := func(s *syntax.Stmt) string {
+		// temporarily "blank" the comments associated with the stmt
+		cs := s.Comments
+		s.Comments = nil
 		var b bytes.Buffer
 		p.Print(&b, s)
+		s.Comments = cs
 		return b.String()
 	}
 

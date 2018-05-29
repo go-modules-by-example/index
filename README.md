@@ -87,13 +87,13 @@ _[Create a new personal access token](https://github.com/settings/tokens/new)._
 
 Ensure `egrunner` is installed (and on your PATH):
 
-<!-- __TEMPLATE: go install myitcv.io/vgo-by-example/cmd/egrunner
+<!-- __TEMPLATE: vgo install myitcv.io/vgo-by-example/cmd/egrunner
 ```
 {{.Cmd}}
 ```
 -->
 ```
-go install myitcv.io/vgo-by-example/cmd/egrunner
+vgo install myitcv.io/vgo-by-example/cmd/egrunner
 ```
 <!-- END -->
 
@@ -113,13 +113,13 @@ egrunner -debug ./001_vgo_tour/script.sh
 
 First ensure `mdreplace` and `egrunner` are installed (and on your PATH):
 
-<!-- __TEMPLATE: go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
+<!-- __TEMPLATE: vgo install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
 ```
 {{.Cmd}}
 ```
 -->
 ```
-go install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
+vgo install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/mdreplace
 ```
 <!-- END -->
 
@@ -135,16 +135,10 @@ mdreplace -w ./001_vgo_tour/README.md
 ```
 <!-- END -->
 
-### Caveats and TODO
+### Caveats
 
 This project is:
 
 * work-in-progress
 * pending review
 * likely to move somewhere else
-
-TODO:
-
-* Automate the building of a table of contents in this README
-* Make this a vgo project
-* Move away from vendor of mvdan.cc/sh - currently vendoring to work around an issue with single statement printing.
