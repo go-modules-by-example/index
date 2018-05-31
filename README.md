@@ -8,6 +8,7 @@ vgo by example is a series of work-along guides that look to help explain how vg
 * [Using vgo with gopkg.in](https://github.com/myitcv/vgo-by-example/blob/master/002_using_gopkg_in/README.md)
 * [Migrating Buffalo from dep to vgo](https://github.com/myitcv/vgo-by-example/blob/master/003_migrate_buffalo/README.md)
 * [Using a package that has not been converted to be a vgo module](https://github.com/myitcv/vgo-by-example/blob/master/004_echo_example/README.md)
+* [Example of backwards compatability in Go 1.10 with vgo import paths](https://github.com/myitcv/vgo-by-example/blob/master/005_old_go/README.md)
 * ...
 
 See the [Feedback and TODO wiki](https://github.com/myitcv/vgo-by-example/wiki/Feedback-TODO) for more up-to-date
