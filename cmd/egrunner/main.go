@@ -238,7 +238,7 @@ EOD
 	user := os.Getenv("GITHUB_USERNAME")
 	pat := os.Getenv("GITHUB_PAT")
 
-	cmd := exec.Command("docker", "run", "--rm", "-t", "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
+	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
 	debugf("now running %v via %v\n", tfn, strings.Join(cmd.Args, " "))
 
 	if debug || *fDebug {

@@ -50,51 +50,61 @@ git config --global advice.detachedHead false
 go get -u golang.org/x/vgo
 assert "$? -eq 0" $LINENO
 
-# block: step 0
+# block: setup
 mkdir hello
 cd hello
-
-# block: step 1
-cat <<EOD > main.go
+cat <<EOD > hello.go
 package main // import "example.com/hello"
 
 import (
-	"net/http"
+        "fmt"
 
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+        "rsc.io/pdf"
 )
 
 func main() {
-	// Echo instance
-	e := echo.New()
-
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	// Routes
-	e.GET("/", hello)
-
-	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
-}
-
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+        fmt.Println(pdf.Point{})
 }
 EOD
 echo > go.mod
 
-# block: step 2
-vgo get github.com/labstack/echo@v3.2.1
-assert "$? -eq 0" $LINENO
+# block: vgo get pdf
+vgo get rsc.io/pdf@v0.1.1
+cat go.mod
 
-# block: step 3
+# block: vgo build
 vgo build
 assert "$? -eq 0" $LINENO
+./hello
+assert "$? -eq 0" $LINENO
+
+# block: replace pdf
+git clone https://github.com/rsc/pdf pdf
+cd pdf
+git checkout v0.1.1
+cd ..
+cat <<EOD >> go.mod
+replace rsc.io/pdf v0.1.1 => ./pdf
+EOD
 cat go.mod
+
+# block: vgo build fails
+vgo build
+assert "$? -eq 1" $LINENO
+
+# block: create pdf module
+cd pdf
+cat <<EOD > go.mod
+module rsc.io/pdf
+EOD
+cd ..
+
+# block: vgo build check
+vgo build
+assert "$? -eq 0" $LINENO
+./hello
+assert "$? -eq 0" $LINENO
+
 
 # block: version details
 vgo version

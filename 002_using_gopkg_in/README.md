@@ -207,7 +207,7 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 7c0cf33f39ccf5d8e4c59d34a150425ddac7df6a
+vgo commit: 416f375193bdc882469e470452be5d856646df76
 ```
 
 <!-- END -->
