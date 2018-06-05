@@ -144,7 +144,7 @@ require github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 416f375193bdc882469e470452be5d856646df76
+vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
 ```
 
 <!-- END -->

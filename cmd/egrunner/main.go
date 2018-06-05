@@ -24,6 +24,8 @@ const (
 	blockPrefix     = "block:"
 	outputSeparator = "============================================="
 	commentStart    = "**START**"
+
+	commgithubcli = "githubcli"
 )
 
 type block string
@@ -63,19 +65,12 @@ assert()
   fi
 }
 
-ensure_github_repo()
-{
-	# TODO improve this
-	cat <<EOD | curl -s -H "Content-Type: application/json" -u $GITHUB_USERNAME:$GITHUB_PAT --request POST -d @- https://api.github.com/user/repos > /dev/null
-{
-  "name": "$1"
-}
-EOD
-
-	curl -s -H "Content-Type: application/json" -u $GITHUB_USERNAME:$GITHUB_PAT https://api.github.com/repos/$GITHUB_USERNAME/$1 | grep -q '"id"'
-}
-
 `)
+
+	ghcli, err := exec.LookPath(commgithubcli)
+	if err != nil {
+		errorf("failed to find %v in PATH", commgithubcli)
+	}
 
 	if len(flag.Args()) != 1 {
 		errorf("expected a single argument script file to run")
@@ -238,7 +233,7 @@ EOD
 	user := os.Getenv("GITHUB_USERNAME")
 	pat := os.Getenv("GITHUB_PAT")
 
-	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
+	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
 	debugf("now running %v via %v\n", tfn, strings.Join(cmd.Args, " "))
 
 	if debug || *fDebug {

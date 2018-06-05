@@ -23,18 +23,6 @@ assert()
   fi
 }
 
-ensure_github_repo()
-{
-	# TODO improve this
-	cat <<EOD | curl -s -H "Content-Type: application/json" --request POST -d @- https://api.github.com/user/repos > /dev/null
-{
-  "name": "$1"
-}
-EOD
-
-	curl -s -H "Content-Type: application/json" https://api.github.com/repos/$GITHUB_USERNAME/$1 | grep -q '"id"'
-}
-
 # **START**
 
 export GOPATH=$HOME

@@ -18,50 +18,31 @@ Start by getting `vgo` in the usual way:
 {{PrintBlock "go get vgo" -}}
 ```
 
-Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pdf` at `v0.1.1` is
-"old", non-module code):
+Create ourselves a simple module that depends on an on a module:
 
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Now we get that specific version of `rsc.io/pdf` that is known to be "old" Go code:
+Now add a tool dependency:
 
 
 ```
-{{PrintBlock "vgo get pdf" -}}
+{{PrintBlock "add tools dep" -}}
 ```
 
-Now check our code builds and runs:
-
-```
-{{PrintBlock "vgo build" -}}
-```
-
-Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
-
-```
-{{PrintBlock "replace pdf" -}}
-```
-
-Now check our code still builds:
-
-```
-{{PrintBlock "vgo build fails" -}}
-```
-
-It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
+Now check our `go.mod` and that everything builds:
 
 
 ```
-{{PrintBlock "create pdf module" -}}
+{{PrintBlock "check" -}}
 ```
 
-Now check our code builds and runs:
+Now vendor and check the contents of our `vendor` directory:
 
 ```
-{{PrintBlock "vgo build check" -}}
+{{PrintBlock "vendor" -}}
 ```
 
 
@@ -91,8 +72,7 @@ Start by getting `vgo` in the usual way:
 $ go get -u golang.org/x/vgo
 ```
 
-Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pdf` at `v0.1.1` is
-"old", non-module code):
+Create ourselves a simple module that depends on an on a module:
 
 
 ```
@@ -102,82 +82,88 @@ $ cat <<EOD >hello.go
 package main // import "example.com/hello"
 
 import (
-        "fmt"
-
-        "rsc.io/pdf"
+	"fmt"
+	"rsc.io/quote"
 )
 
 func main() {
-        fmt.Println(pdf.Point{})
+   fmt.Println(quote.Hello())
 }
 EOD
 $ echo >go.mod
-```
-
-Now we get that specific version of `rsc.io/pdf` that is known to be "old" Go code:
-
-
-```
-$ vgo get rsc.io/pdf@v0.1.1
-vgo: finding rsc.io/pdf v0.1.1
-vgo: downloading rsc.io/pdf v0.1.1
+$ vgo build
+vgo: resolving import "rsc.io/quote"
+vgo: finding rsc.io/quote (latest)
+vgo: adding rsc.io/quote v1.5.2
+vgo: finding rsc.io/quote v1.5.2
+vgo: finding rsc.io/sampler v1.3.0
+vgo: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+vgo: downloading rsc.io/quote v1.5.2
+vgo: downloading rsc.io/sampler v1.3.0
+vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+$ ./hello
+Hello, world.
 $ cat go.mod
 module example.com/hello
 
-require rsc.io/pdf v0.1.1
+require rsc.io/quote v1.5.2
 ```
 
-Now check our code builds and runs:
+Now add a tool dependency:
+
 
 ```
-$ vgo build
-$ ./hello
-{0 0}
-```
-
-Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
-
-```
-$ git clone https://github.com/rsc/pdf pdf
-Cloning into 'pdf'...
-$ cd pdf
-$ git checkout v0.1.1
-HEAD is now at 48d0402... pdf: add a Go import comment
-$ cd ..
 $ cat <<EOD >>go.mod
-replace rsc.io/pdf v0.1.1 => ./pdf
+
+require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 EOD
+$ vgo install golang.org/x/tools/cmd/stringer
+vgo: finding golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+vgo: downloading golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+```
+
+Now check our `go.mod` and that everything builds:
+
+
+```
 $ cat go.mod
 module example.com/hello
 
-require rsc.io/pdf v0.1.1
-replace rsc.io/pdf v0.1.1 => ./pdf
-```
-
-Now check our code still builds:
-
-```
+require (
+	golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+	rsc.io/quote v1.5.2
+)
 $ vgo build
-vgo: open /go/hello/pdf/go.mod: no such file or directory
 ```
 
-It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
-
-
-```
-$ cd pdf
-$ cat <<EOD >go.mod
-module rsc.io/pdf
-EOD
-$ cd ..
-```
-
-Now check our code builds and runs:
+Now vendor and check the contents of our `vendor` directory:
 
 ```
-$ vgo build
-$ ./hello
-{0 0}
+$ vgo vendor
+$ cat vendor/vgo.list
+MODULE              VERSION
+example.com/hello   -
+golang.org/x/text   v0.0.0-20170915032832-14c0d48ead0c
+golang.org/x/tools  v0.0.0-20180525024113-a5b4c53f6e8b
+rsc.io/quote        v1.5.2
+rsc.io/sampler      v1.3.0
+$ find vendor -type d
+vendor
+vendor/golang.org
+vendor/golang.org/x
+vendor/golang.org/x/text
+vendor/golang.org/x/text/unicode
+vendor/golang.org/x/text/unicode/cldr
+vendor/golang.org/x/text/internal
+vendor/golang.org/x/text/internal/tag
+vendor/golang.org/x/text/internal/ucd
+vendor/golang.org/x/text/internal/gen
+vendor/golang.org/x/text/internal/testtext
+vendor/golang.org/x/text/language
+vendor/golang.org/x/text/language/testdata
+vendor/rsc.io
+vendor/rsc.io/sampler
+vendor/rsc.io/quote
 ```
 
 
@@ -185,7 +171,7 @@ $ ./hello
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 416f375193bdc882469e470452be5d856646df76
+vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
 ```
 
 <!-- END -->
