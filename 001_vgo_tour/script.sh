@@ -44,6 +44,7 @@ echo "" >> $HOME/.netrc
 echo "machine api.github.com login $GITHUB_USERNAME password $GITHUB_PAT" >> $HOME/.netrc
 git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
+git config --global advice.detachedHead false
 
 # block: go get vgo
 go get -u golang.org/x/vgo
@@ -199,7 +200,7 @@ vgo test all
 assert "$? -eq 0" $LINENO
 
 # block: prepare local quote
-git clone -q https://github.com/rsc/quote ../quote
+git clone https://github.com/rsc/quote ../quote
 
 # block: update quote.go
 cd ../quote
@@ -226,7 +227,7 @@ assert "$? -eq 0" $LINENO
 ensure_github_repo "vgo-by-example-quote-fork"
 assert "$? -eq 0" $LINENO
 pushd ../quote > /dev/null
-git push -q -f https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork :v0.0.0-myfork
+git push -f https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork :v0.0.0-myfork
 popd > /dev/null
 
 # block: setup our quote
@@ -235,7 +236,7 @@ git commit -a -m 'my fork'
 assert "$? -eq 0" $LINENO
 git tag v0.0.0-myfork
 assert "$? -eq 0" $LINENO
-git push -q https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
 assert "$? -eq 0" $LINENO
 
 # block: use our quote

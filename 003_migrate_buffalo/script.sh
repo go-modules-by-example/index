@@ -52,6 +52,7 @@ echo "" >> $HOME/.netrc
 echo "machine api.github.com login $GITHUB_USERNAME password $GITHUB_PAT" >> $HOME/.netrc
 git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
+git config --global advice.detachedHead false
 
 # block: setup
 mkdir /tmp/gopath
@@ -70,7 +71,7 @@ assert "$? -eq 0" $LINENO
 go get -u github.com/golang/dep/cmd/dep
 assert "$? -eq 0" $LINENO
 cd src/github.com/golang/dep/cmd/dep
-git checkout -q $depCommit
+git checkout $depCommit
 assert "$? -eq 0" $LINENO
 go install
 assert "$? -eq 0" $LINENO
@@ -80,7 +81,7 @@ cd /tmp/gopath
 go get -tags sqlite github.com/gobuffalo/buffalo
 assert "$? -eq 0" $LINENO
 cd src/github.com/gobuffalo/buffalo
-git checkout -q $buffaloCommit
+git checkout $buffaloCommit
 assert "$? -eq 0" $LINENO
 go install -tags sqlite
 assert "$? -eq 0" $LINENO

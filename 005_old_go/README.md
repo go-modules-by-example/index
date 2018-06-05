@@ -79,9 +79,11 @@ Use the Go 1.10 backport branch, specifically:
 
 ```
 $ cd /tmp
-$ git clone -q https://github.com/golang/go
+$ git clone https://github.com/golang/go
+Cloning into 'go'...
 $ cd go/src
-$ git checkout -q 28ae82663a1c57c185312b60a2eae8cf06cc24b4
+$ git checkout 28ae82663a1c57c185312b60a2eae8cf06cc24b4
+HEAD is now at 28ae82663a... [release-branch.go1.10] cmd/go: add minimal module-awareness for legacy operation
 $ ./make.bash
 Building Go cmd/dist using /usr/local/go.
 Building Go toolchain1 using /usr/local/go.

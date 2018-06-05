@@ -44,12 +44,13 @@ echo "" >> $HOME/.netrc
 echo "machine api.github.com login $GITHUB_USERNAME password $GITHUB_PAT" >> $HOME/.netrc
 git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
+git config --global advice.detachedHead false
 
 # block: use backport
 cd /tmp
-git clone -q https://github.com/golang/go
+git clone https://github.com/golang/go
 cd go/src
-git checkout -q 28ae82663a1c57c185312b60a2eae8cf06cc24b4
+git checkout 28ae82663a1c57c185312b60a2eae8cf06cc24b4
 ./make.bash
 assert "$? -eq 0" $LINENO
 export PATH=/tmp/go/bin:$PATH
