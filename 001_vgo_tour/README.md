@@ -491,13 +491,13 @@ created:
 $ vgo test all
 ?   	github.com/you/hello	[no test files]
 ?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.005s
+ok  	golang.org/x/text/internal/tag	0.002s
 ?   	golang.org/x/text/internal/testtext	[no test files]
-ok  	golang.org/x/text/internal/ucd	0.028s
-ok  	golang.org/x/text/language	0.064s
-ok  	golang.org/x/text/unicode/cldr	0.081s
-ok  	rsc.io/quote	0.020s
-ok  	rsc.io/sampler	0.003s
+ok  	golang.org/x/text/internal/ucd	0.002s
+ok  	golang.org/x/text/language	0.045s
+ok  	golang.org/x/text/unicode/cldr	0.067s
+ok  	rsc.io/quote	0.004s
+ok  	rsc.io/sampler	0.002s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -512,7 +512,7 @@ ok  	rsc.io/quote	(cached)
 --- FAIL: Test (0.00s)
 	buggy_test.go:10: buggy!
 FAIL
-FAIL	rsc.io/quote/buggy	0.003s
+FAIL	rsc.io/quote/buggy	0.002s
 ```
 
 Until something in our module imports buggy, however, it's irrelevant to us, so
@@ -792,7 +792,8 @@ check out the quote module, using an ordinary git command:
 
 
 ```
-$ git clone -q https://github.com/rsc/quote ../quote
+$ git clone https://github.com/rsc/quote ../quote
+Cloning into '../quote'...
 ```
 
 Then edit ../quote/quote.go to change something about func Hello. For example,
@@ -836,10 +837,12 @@ fork github.com/rsc/quote and then push your change to your fork.
 ```
 $ cd ../quote
 $ git commit -a -m 'my fork'
-[master b1ad90f] my fork
+[master 95e48fd] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git tag v0.0.0-myfork
-$ git push -q https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+$ git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+To https://github.com/myitcv/vgo-by-example-quote-fork
+ * [new tag]         v0.0.0-myfork -> v0.0.0-myfork
 ```
 
 Then you can use that as the replacement:
@@ -902,7 +905,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 7c0cf33f39ccf5d8e4c59d34a150425ddac7df6a
+vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
 ```
 
 <!-- END -->

@@ -23,18 +23,6 @@ assert()
   fi
 }
 
-ensure_github_repo()
-{
-	# TODO improve this
-	cat <<EOD | curl -s -H "Content-Type: application/json" --request POST -d @- https://api.github.com/user/repos > /dev/null
-{
-  "name": "$1"
-}
-EOD
-
-	curl -s -H "Content-Type: application/json" https://api.github.com/repos/$GITHUB_USERNAME/$1 | grep -q '"id"'
-}
-
 # **START**
 
 export GOPATH=$HOME
@@ -224,11 +212,11 @@ assert "$? -eq 0" $LINENO
 assert "$? -eq 0" $LINENO
 
 # ensure repo exists and clean up any existing tag
-ensure_github_repo "vgo-by-example-quote-fork"
+now=$(date +'%Y%m%d%H%M%S_%N')
+githubcli repo renameIfExists vgo-by-example-quote-fork vgo-by-example-quote-fork_$now
 assert "$? -eq 0" $LINENO
-pushd ../quote > /dev/null
-git push -f https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork :v0.0.0-myfork
-popd > /dev/null
+githubcli repo create vgo-by-example-quote-fork
+assert "$? -eq 0" $LINENO
 
 # block: setup our quote
 cd ../quote

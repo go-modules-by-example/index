@@ -120,38 +120,38 @@ HEAD is now at 354657d... Updated SHOULDERS.md
 $ go install -tags sqlite
 $ dep ensure
 $ go test -tags sqlite ./...
-ok  	github.com/gobuffalo/buffalo	0.255s
-ok  	github.com/gobuffalo/buffalo/binding	0.078s
+ok  	github.com/gobuffalo/buffalo	0.224s
+ok  	github.com/gobuffalo/buffalo/binding	0.127s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.028s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.082s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.047s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.068s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.121s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.060s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.025s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.015s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.037s
+ok  	github.com/gobuffalo/buffalo/mail	0.084s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.268s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.060s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.033s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.042s
+ok  	github.com/gobuffalo/buffalo/middleware	0.190s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.063s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.048s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.034s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.066s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.069s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.040s
-ok  	github.com/gobuffalo/buffalo/worker	0.015s
+ok  	github.com/gobuffalo/buffalo/render	0.043s
+ok  	github.com/gobuffalo/buffalo/worker	0.016s
 ```
 
 Now use vgo build (or any other vgo command) to turn dep's Gopkg.lock into a populated go.mod file:
@@ -192,41 +192,41 @@ vgo: downloading github.com/spf13/pflag v1.0.1
 vgo: downloading github.com/markbates/deplist v0.0.0-20170926152145-5ae023fef618
 vgo: downloading gopkg.in/mail.v2 v2.0.0-20180301192024-63235f23494b
 vgo: downloading github.com/nicksnyder/go-i18n v1.10.0
-vgo: downloading github.com/pelletier/go-toml v1.1.0
+vgo: downloading github.com/pelletier/go-toml v1.2.0
 vgo: downloading github.com/unrolled/secure v0.0.0-20180416205222-a1cf62cc2159
 vgo: downloading github.com/dgrijalva/jwt-go v0.0.0-20180308231308-06ea1031745c
-ok  	github.com/gobuffalo/buffalo	0.219s
-ok  	github.com/gobuffalo/buffalo/binding	0.059s
+ok  	github.com/gobuffalo/buffalo	0.238s
+ok  	github.com/gobuffalo/buffalo/binding	0.115s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.126s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.096s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.051s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.077s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.030s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.051s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.047s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.042s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.057s
+ok  	github.com/gobuffalo/buffalo/mail	0.083s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.350s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.055s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.081s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.050s
+ok  	github.com/gobuffalo/buffalo/middleware	0.289s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.103s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.072s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.043s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.066s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.091s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
 ok  	github.com/gobuffalo/buffalo/render	0.044s
-ok  	github.com/gobuffalo/buffalo/worker	0.014s
+ok  	github.com/gobuffalo/buffalo/worker	0.036s
 ```
 
 At this point we would now git add go.mod and git commit.
@@ -235,7 +235,7 @@ At this point we would now git add go.mod and git commit.
 
 ```
 go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 416f375193bdc882469e470452be5d856646df76
+vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
 ```
 
 <!-- END -->
