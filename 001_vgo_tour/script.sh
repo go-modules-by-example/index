@@ -220,11 +220,15 @@ assert "$? -eq 0" $LINENO
 
 # block: setup our quote
 cd ../quote
+git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
+assert "$? -eq 0" $LINENO
 git commit -a -m 'my fork'
+assert "$? -eq 0" $LINENO
+git push $GITHUB_USERNAME
 assert "$? -eq 0" $LINENO
 git tag v0.0.0-myfork
 assert "$? -eq 0" $LINENO
-git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+git push $GITHUB_USERNAME v0.0.0-myfork
 assert "$? -eq 0" $LINENO
 
 # block: use our quote

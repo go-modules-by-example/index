@@ -491,13 +491,13 @@ created:
 $ vgo test all
 ?   	github.com/you/hello	[no test files]
 ?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.002s
+ok  	golang.org/x/text/internal/tag	0.001s
 ?   	golang.org/x/text/internal/testtext	[no test files]
 ok  	golang.org/x/text/internal/ucd	0.002s
-ok  	golang.org/x/text/language	0.045s
-ok  	golang.org/x/text/unicode/cldr	0.067s
-ok  	rsc.io/quote	0.004s
-ok  	rsc.io/sampler	0.002s
+ok  	golang.org/x/text/language	0.046s
+ok  	golang.org/x/text/unicode/cldr	0.065s
+ok  	rsc.io/quote	0.006s
+ok  	rsc.io/sampler	0.008s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -637,7 +637,7 @@ ok  	golang.org/x/text/internal/tag	(cached)
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.003s
+ok  	rsc.io/quote	0.004s
 ok  	rsc.io/sampler	0.003s
 ```
 
@@ -836,11 +836,15 @@ fork github.com/rsc/quote and then push your change to your fork.
 
 ```
 $ cd ../quote
+$ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[master 95e48fd] my fork
+[master 8f6a000] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
+$ git push $GITHUB_USERNAME
+To https://github.com/myitcv/vgo-by-example-quote-fork
+ * [new branch]      master -> master
 $ git tag v0.0.0-myfork
-$ git push https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork v0.0.0-myfork
+$ git push $GITHUB_USERNAME v0.0.0-myfork
 To https://github.com/myitcv/vgo-by-example-quote-fork
  * [new tag]         v0.0.0-myfork -> v0.0.0-myfork
 ```
