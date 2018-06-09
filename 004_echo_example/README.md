@@ -175,8 +175,8 @@ Et voila.
 ### Version details
 
 ```
-go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
 ```
 
 <!-- END -->

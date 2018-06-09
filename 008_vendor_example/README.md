@@ -149,29 +149,29 @@ rsc.io/quote        v1.5.2
 rsc.io/sampler      v1.3.0
 $ find vendor -type d
 vendor
-vendor/golang.org
-vendor/golang.org/x
-vendor/golang.org/x/text
-vendor/golang.org/x/text/unicode
-vendor/golang.org/x/text/unicode/cldr
-vendor/golang.org/x/text/internal
-vendor/golang.org/x/text/internal/tag
-vendor/golang.org/x/text/internal/ucd
-vendor/golang.org/x/text/internal/gen
-vendor/golang.org/x/text/internal/testtext
-vendor/golang.org/x/text/language
-vendor/golang.org/x/text/language/testdata
 vendor/rsc.io
 vendor/rsc.io/sampler
 vendor/rsc.io/quote
+vendor/golang.org
+vendor/golang.org/x
+vendor/golang.org/x/text
+vendor/golang.org/x/text/internal
+vendor/golang.org/x/text/internal/testtext
+vendor/golang.org/x/text/internal/ucd
+vendor/golang.org/x/text/internal/gen
+vendor/golang.org/x/text/internal/tag
+vendor/golang.org/x/text/language
+vendor/golang.org/x/text/language/testdata
+vendor/golang.org/x/text/unicode
+vendor/golang.org/x/text/unicode/cldr
 ```
 
 
 ### Version details
 
 ```
-go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
 ```
 
 <!-- END -->
