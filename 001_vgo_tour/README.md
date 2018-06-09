@@ -491,13 +491,13 @@ created:
 $ vgo test all
 ?   	github.com/you/hello	[no test files]
 ?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.001s
+ok  	golang.org/x/text/internal/tag	0.004s
 ?   	golang.org/x/text/internal/testtext	[no test files]
-ok  	golang.org/x/text/internal/ucd	0.002s
-ok  	golang.org/x/text/language	0.046s
-ok  	golang.org/x/text/unicode/cldr	0.065s
-ok  	rsc.io/quote	0.006s
-ok  	rsc.io/sampler	0.008s
+ok  	golang.org/x/text/internal/ucd	0.029s
+ok  	golang.org/x/text/language	0.057s
+ok  	golang.org/x/text/unicode/cldr	0.101s
+ok  	rsc.io/quote	0.017s
+ok  	rsc.io/sampler	0.005s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -637,8 +637,8 @@ ok  	golang.org/x/text/internal/tag	(cached)
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.004s
-ok  	rsc.io/sampler	0.003s
+ok  	rsc.io/quote	0.003s
+ok  	rsc.io/sampler	0.005s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -838,7 +838,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[master 8f6a000] my fork
+[master 1ddd2f1] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/vgo-by-example-quote-fork
@@ -908,8 +908,8 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 ### Version details
 
 ```
-go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
 ```
 
 <!-- END -->
