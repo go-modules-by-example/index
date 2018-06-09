@@ -128,13 +128,13 @@ vgo install myitcv.io/vgo-by-example/cmd/egrunner myitcv.io/vgo-by-example/cmd/m
 
 Then re-run `mdreplace` on a guide template, e.g. for the vgo tour:
 
-<!-- __TEMPLATE: mdreplace -w ./001_vgo_tour/README.md # LONG ONLINE
+<!-- __TEMPLATE: mdreplace -w -long -online ./001_vgo_tour/README.md # LONG ONLINE
 ```
 {{.Cmd}}
 ```
 -->
 ```
-mdreplace -w ./001_vgo_tour/README.md
+mdreplace -w -long -online ./001_vgo_tour/README.md
 ```
 <!-- END -->
 

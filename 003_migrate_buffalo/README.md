@@ -120,37 +120,37 @@ HEAD is now at 354657d... Updated SHOULDERS.md
 $ go install -tags sqlite
 $ dep ensure
 $ go test -tags sqlite ./...
-ok  	github.com/gobuffalo/buffalo	0.245s
-ok  	github.com/gobuffalo/buffalo/binding	0.076s
+ok  	github.com/gobuffalo/buffalo	0.221s
+ok  	github.com/gobuffalo/buffalo/binding	0.104s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.021s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.026s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.028s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.023s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.027s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.057s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
 ok  	github.com/gobuffalo/buffalo/generators/resource	0.022s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.026s
+ok  	github.com/gobuffalo/buffalo/mail	0.032s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.198s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.051s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.044s
+ok  	github.com/gobuffalo/buffalo/middleware	0.279s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.052s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.061s
 ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.040s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.063s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.077s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.033s
+ok  	github.com/gobuffalo/buffalo/render	0.049s
 ok  	github.com/gobuffalo/buffalo/worker	0.014s
 ```
 
@@ -195,38 +195,38 @@ vgo: downloading github.com/nicksnyder/go-i18n v1.10.0
 vgo: downloading github.com/pelletier/go-toml v1.2.0
 vgo: downloading github.com/unrolled/secure v0.0.0-20180416205222-a1cf62cc2159
 vgo: downloading github.com/dgrijalva/jwt-go v0.0.0-20180308231308-06ea1031745c
-ok  	github.com/gobuffalo/buffalo	0.278s
-ok  	github.com/gobuffalo/buffalo/binding	0.062s
+ok  	github.com/gobuffalo/buffalo	0.215s
+ok  	github.com/gobuffalo/buffalo/binding	0.095s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.041s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.063s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.063s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.046s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.035s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.031s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.063s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.097s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.074s
+ok  	github.com/gobuffalo/buffalo/mail	0.066s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.244s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.065s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.036s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.043s
+ok  	github.com/gobuffalo/buffalo/middleware	0.633s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.093s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.053s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.046s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.077s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.075s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.041s
-ok  	github.com/gobuffalo/buffalo/worker	0.029s
+ok  	github.com/gobuffalo/buffalo/render	0.042s
+ok  	github.com/gobuffalo/buffalo/worker	0.017s
 ```
 
 At this point we would now git add go.mod and git commit.
