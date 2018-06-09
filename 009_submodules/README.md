@@ -103,7 +103,7 @@ module github.com/$GITHUB_USERNAME/vgo-by-example-submodules
 EOD
 $ git add go.mod
 $ git commit -am 'Initial commit'
-[master (root-commit) 86bc648] Initial commit
+[master (root-commit) effe56c] Initial commit
  1 file changed, 1 insertion(+)
  create mode 100644 go.mod
 $ git push
@@ -132,13 +132,13 @@ Now commit, tag and push our new package:
 $ cd ..
 $ git add b
 $ git commit -am 'Add package b'
-[master a63b23f] Add package b
+[master f9badfe] Add package b
  2 files changed, 4 insertions(+)
  create mode 100644 b/b.go
  create mode 100644 b/go.mod
 $ git push
 To https://github.com/myitcv/vgo-by-example-submodules
-   86bc648..a63b23f  master -> master
+   effe56c..f9badfe  master -> master
 $ git tag b/v0.1.1
 $ git push origin b/v0.1.1
 To https://github.com/myitcv/vgo-by-example-submodules
@@ -195,14 +195,14 @@ Finally we commit, tag and push our `main` package:
 $ cd ..
 $ git add a
 $ git commit -am 'Add package a'
-[master a69a475] Add package a
+[master 0f61325] Add package a
  3 files changed, 15 insertions(+)
  create mode 100755 a/a
  create mode 100644 a/a.go
  create mode 100644 a/go.mod
 $ git push
 To https://github.com/myitcv/vgo-by-example-submodules
-   a63b23f..a69a475  master -> master
+   f9badfe..0f61325  master -> master
 $ git tag a/v1.0.0
 $ git push origin a/v1.0.0
 To https://github.com/myitcv/vgo-by-example-submodules
@@ -212,8 +212,8 @@ To https://github.com/myitcv/vgo-by-example-submodules
 ### Version details
 
 ```
-go version go1.10.2 linux/amd64 vgo:2018-02-20.1
-vgo commit: 6a94eb3b5ccc04453d2fb45c23641e5993118068
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
 ```
 
 <!-- END -->
