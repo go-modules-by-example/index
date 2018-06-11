@@ -1,9 +1,10 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-Use the Go 1.10 backport branch, specifically:
+Use Go 1.10.3 which includes [minimal module support for vgo
+transition](https://github.com/golang/go/issues/25139):
 
 ```
-{{PrintBlock "use backport" -}}
+{{PrintBlock "use Go 1.10.3" -}}
 ```
 
 Get vgo:
@@ -13,92 +14,46 @@ Get vgo:
 {{PrintBlock "go get vgo" -}}
 ```
 
-Create a simple module that depends on v2 of a package, and build:
+Create a simple module that is a major version v2:
 
 
 ```
-{{PrintBlock "setup" -}}
+{{PrintBlock "create vgo module v2" -}}
 ```
 
-Now try to go get v2:
-
-
-```
-{{PrintBlock "failed go get v2" -}}
-```
-
-Note that this works (unsuprisingly):
+Now create a `main` vgo module to use our v2 module:
 
 
 ```
-{{PrintBlock "successful go get" -}}
+{{PrintBlock "vgo use v2 module" -}}
 ```
 
-Now try and build:
-
-```
-{{PrintBlock "successful go build" -}}
-```
-
-Now try and list v2 of the package on which we depend:
-
-```
-{{PrintBlock "failed go list v2" -}}
-```
-
-Note that this works:
+Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 module:
 
 
 ```
-{{PrintBlock "successful go list" -}}
+{{PrintBlock "go use v2 module" -}}
 ```
 
-Now verify how go/build behaves with these imports paths:
-
-
-```
-{{PrintBlock "setup go/build test" -}}
-```
-
-Run for the v2 import path:
-
+### Version details
 
 ```
-{{PrintBlock "failed go run v2" -}}
-```
-
-Note that this works:
-
-```
-{{PrintBlock "successful go run" -}}
+{{PrintBlockOut "version details" -}}
 ```
 
 -->
 
-Use the Go 1.10 backport branch, specifically:
+Use Go 1.10.3 which includes [minimal module support for vgo
+transition](https://github.com/golang/go/issues/25139):
 
 ```
 $ cd /tmp
-$ git clone https://github.com/golang/go
-Cloning into 'go'...
-$ cd go/src
-$ git checkout 28ae82663a1c57c185312b60a2eae8cf06cc24b4
-HEAD is now at 28ae82663a... [release-branch.go1.10] cmd/go: add minimal module-awareness for legacy operation
-$ ./make.bash
-Building Go cmd/dist using /usr/local/go.
-Building Go toolchain1 using /usr/local/go.
-Building Go bootstrap cmd/go (go_bootstrap) using Go toolchain1.
-Building Go toolchain2 using go_bootstrap and Go toolchain1.
-Building Go toolchain3 using go_bootstrap and Go toolchain2.
-Building packages and commands for linux/amd64.
----
-Installed Go for linux/amd64 in /tmp/go
-Installed commands in /tmp/go/bin
+$ curl -s https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz | tar -zx
 $ export PATH=/tmp/go/bin:$PATH
 $ which go
 /tmp/go/bin/go
 $ go version
-go version go1.10.2 linux/amd64
+go version go1.10.3 linux/amd64
 ```
 
 Get vgo:
@@ -108,126 +63,107 @@ Get vgo:
 $ go get -u golang.org/x/vgo
 ```
 
-Create a simple module that depends on v2 of a package, and build:
+Create a simple module that is a major version v2:
 
 
 ```
-$ mkdir /tmp/old-go-compat
-$ cd /tmp/old-go-compat
-$ export GOPATH=$PWD
-$ mkdir -p src/example.com/hello
-$ cd src/example.com/hello
+$ cd $HOME
+$ mkdir hello
+$ cd hello
 $ cat <<EOD >hello.go
-package main // import "example.com/hello"
+package example
 
-import (
-	"fmt"
-	"github.com/myitcv/vgo_example_compat/v2"
-	"github.com/myitcv/vgo_example_compat/v2/sub"
-)
+import "github.com/myitcv/vgo-by-example-v2-module/v2/goodbye"
+
+const Name = goodbye.Name
+EOD
+$ cat <<EOD >go.mod
+module github.com/myitcv/vgo-by-example-v2-module/v2
+EOD
+$ mkdir goodbye
+$ cat <<EOD >goodbye/goodbye.go
+package goodbye
+
+const Name = "Goodbye"
+EOD
+$ vgo test ./...
+?   	github.com/myitcv/vgo-by-example-v2-module/v2	[no test files]
+?   	github.com/myitcv/vgo-by-example-v2-module/v2/goodbye	[no test files]
+$ git init
+Initialized empty Git repository in /root/hello/.git/
+$ git add -A
+$ git commit -m 'Initial commit'
+[master (root-commit) db4cf1a] Initial commit
+ 3 files changed, 9 insertions(+)
+ create mode 100644 go.mod
+ create mode 100644 goodbye/goodbye.go
+ create mode 100644 hello.go
+$ git remote add origin https://github.com/myitcv/vgo-by-example-v2-module
+$ git push origin master
+To https://github.com/myitcv/vgo-by-example-v2-module
+ * [new branch]      master -> master
+$ git tag v2.0.0
+$ git push origin v2.0.0
+To https://github.com/myitcv/vgo-by-example-v2-module
+ * [new tag]         v2.0.0 -> v2.0.0
+```
+
+Now create a `main` vgo module to use our v2 module:
+
+
+```
+$ cd $HOME
+$ mkdir usehello
+$ cd usehello
+$ cat <<EOD >main.go
+package main // import "example.com/usehello"
+
+import "fmt"
+import "github.com/myitcv/vgo-by-example-v2-module/v2"
 
 func main() {
-	fmt.Println(vgo_example_compat.X, sub.Y)
+	fmt.Println(example.Name)
 }
 EOD
 $ echo >go.mod
 $ vgo build
-vgo: resolving import "github.com/myitcv/vgo_example_compat/v2"
-vgo: finding github.com/myitcv/vgo_example_compat/v2 (latest)
-vgo: adding github.com/myitcv/vgo_example_compat/v2 v2.0.0
-vgo: finding github.com/myitcv/vgo_example_compat/v2 v2.0.0
-vgo: downloading github.com/myitcv/vgo_example_compat/v2 v2.0.0
-$ ./hello
-2 2
+vgo: resolving import "github.com/myitcv/vgo-by-example-v2-module/v2"
+vgo: finding github.com/myitcv/vgo-by-example-v2-module/v2 (latest)
+vgo: adding github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
+vgo: finding github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
+vgo: downloading github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
+$ ./usehello
+Goodbye
 ```
 
-Now try to go get v2:
-
-
-```
-$ go get github.com/myitcv/vgo_example_compat/v2
-package github.com/myitcv/vgo_example_compat/v2: cannot find package "github.com/myitcv/vgo_example_compat/v2" in any of:
-	/tmp/go/src/github.com/myitcv/vgo_example_compat/v2 (from $GOROOT)
-	/tmp/old-go-compat/src/github.com/myitcv/vgo_example_compat/v2 (from $GOPATH)
-```
-
-Note that this works (unsuprisingly):
+Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 module:
 
 
 ```
-$ go get github.com/myitcv/vgo_example_compat
-```
+$ cd $GOPATH
+$ mkdir -p src/example.com/hello
+$ cd src/example.com/hello
+$ cat <<EOD >main.go
+package main // import "example.com/hello"
 
-Now try and build:
-
-```
-$ go build
-$ ./hello
-2 2
-```
-
-Now try and list v2 of the package on which we depend:
-
-```
-$ go list github.com/myitcv/vgo_example_compat/v2
-can't load package: package github.com/myitcv/vgo_example_compat/v2: cannot find package "github.com/myitcv/vgo_example_compat/v2" in any of:
-	/tmp/go/src/github.com/myitcv/vgo_example_compat/v2 (from $GOROOT)
-	/tmp/old-go-compat/src/github.com/myitcv/vgo_example_compat/v2 (from $GOPATH)
-```
-
-Note that this works:
-
-
-```
-$ go list github.com/myitcv/vgo_example_compat
-github.com/myitcv/vgo_example_compat
-```
-
-Now verify how go/build behaves with these imports paths:
-
-
-```
-$ cat <<EOD >run.go
-// +build ignore
-
-package main
-
-import (
-	"fmt"
-	"os"
-	"go/build"
-)
+import "fmt"
+import "github.com/myitcv/vgo-by-example-v2-module"
 
 func main() {
-	bpkg, err := build.Import(os.Args[1], ".", 0)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%v\n", bpkg.Dir)
+	fmt.Println(example.Name)
 }
 EOD
+$ go get github.com/myitcv/vgo-by-example-v2-module
+$ go build
+$ ./hello
+Goodbye
 ```
 
-Run for the v2 import path:
-
-
-```
-$ go run run.go github.com/myitcv/vgo_example_compat/v2
-panic: cannot find package "github.com/myitcv/vgo_example_compat/v2" in any of:
-	/tmp/go/src/github.com/myitcv/vgo_example_compat/v2 (from $GOROOT)
-	/tmp/old-go-compat/src/github.com/myitcv/vgo_example_compat/v2 (from $GOPATH)
-
-goroutine 1 [running]:
-main.main()
-	/tmp/old-go-compat/src/example.com/hello/run.go:14 +0x10a
-exit status 2
-```
-
-Note that this works:
+### Version details
 
 ```
-$ go run run.go github.com/myitcv/vgo_example_compat
-/tmp/old-go-compat/src/github.com/myitcv/vgo_example_compat
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: 60ddb204021d12321162c6031060afbbccba09bc
 ```
 
 <!-- END -->
