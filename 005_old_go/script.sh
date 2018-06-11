@@ -34,13 +34,9 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
-# block: use backport
+# block: use Go 1.10.3
 cd /tmp
-git clone https://github.com/golang/go
-cd go/src
-git checkout 28ae82663a1c57c185312b60a2eae8cf06cc24b4
-./make.bash
-assert "$? -eq 0" $LINENO
+curl -s https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz | tar -zx
 export PATH=/tmp/go/bin:$PATH
 which go
 go version
@@ -49,79 +45,97 @@ go version
 go get -u golang.org/x/vgo
 assert "$? -eq 0" $LINENO
 
-# block: setup
-mkdir /tmp/old-go-compat
-cd /tmp/old-go-compat
-export GOPATH=$PWD
-mkdir -p src/example.com/hello
-cd src/example.com/hello
-cat <<EOD > hello.go
-package main // import "example.com/hello"
+# ensure repo exists and clean up any existing tag
+now=$(date +'%Y%m%d%H%M%S_%N')
+githubcli repo renameIfExists vgo-by-example-v2-module vgo-by-example-v2-module_$now
+assert "$? -eq 0" $LINENO
+githubcli repo create vgo-by-example-v2-module
+assert "$? -eq 0" $LINENO
 
-import (
-	"fmt"
-	"github.com/myitcv/vgo_example_compat/v2"
-	"github.com/myitcv/vgo_example_compat/v2/sub"
-)
+# block: create vgo module v2
+cd $HOME
+mkdir hello
+cd hello
+cat <<EOD > hello.go
+package example
+
+import "github.com/myitcv/vgo-by-example-v2-module/v2/goodbye"
+
+const Name = goodbye.Name
+EOD
+cat <<EOD > go.mod
+module github.com/myitcv/vgo-by-example-v2-module/v2
+EOD
+mkdir goodbye
+cat <<EOD > goodbye/goodbye.go
+package goodbye
+
+const Name = "Goodbye"
+EOD
+vgo test ./...
+assert "$? -eq 0" $LINENO
+git init
+assert "$? -eq 0" $LINENO
+git add -A
+assert "$? -eq 0" $LINENO
+git commit -m 'Initial commit'
+assert "$? -eq 0" $LINENO
+git remote add origin https://github.com/myitcv/vgo-by-example-v2-module
+assert "$? -eq 0" $LINENO
+git push origin master
+assert "$? -eq 0" $LINENO
+git tag v2.0.0
+assert "$? -eq 0" $LINENO
+git push origin v2.0.0
+assert "$? -eq 0" $LINENO
+
+# block: vgo use v2 module
+cd $HOME
+assert "$? -eq 0" $LINENO
+mkdir usehello
+assert "$? -eq 0" $LINENO
+cd usehello
+assert "$? -eq 0" $LINENO
+cat <<EOD > main.go
+package main // import "example.com/usehello"
+
+import "fmt"
+import "github.com/myitcv/vgo-by-example-v2-module/v2"
 
 func main() {
-	fmt.Println(vgo_example_compat.X, sub.Y)
+	fmt.Println(example.Name)
 }
 EOD
 echo > go.mod
 vgo build
 assert "$? -eq 0" $LINENO
-./hello
+./usehello
 assert "$? -eq 0" $LINENO
 
-# block: failed go get v2
-go get github.com/myitcv/vgo_example_compat/v2
-assert "$? -eq 1" $LINENO
-
-# block: successful go get
-go get github.com/myitcv/vgo_example_compat
+# block: go use v2 module
+cd $GOPATH
 assert "$? -eq 0" $LINENO
+mkdir -p src/example.com/hello
+assert "$? -eq 0" $LINENO
+cd src/example.com/hello
+assert "$? -eq 0" $LINENO
+cat <<EOD > main.go
+package main // import "example.com/hello"
 
-# block: successful go build
+import "fmt"
+import "github.com/myitcv/vgo-by-example-v2-module"
+
+func main() {
+	fmt.Println(example.Name)
+}
+EOD
+go get github.com/myitcv/vgo-by-example-v2-module
+assert "$? -eq 0" $LINENO
 go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
 
-# block: failed go list v2
-go list github.com/myitcv/vgo_example_compat/v2
-assert "$? -eq 1" $LINENO
-
-# block: successful go list
-go list github.com/myitcv/vgo_example_compat
-assert "$? -eq 0" $LINENO
-
-# block: setup go/build test
-cat <<EOD > run.go
-// +build ignore
-
-package main
-
-import (
-	"fmt"
-	"os"
-	"go/build"
-)
-
-func main() {
-	bpkg, err := build.Import(os.Args[1], ".", 0)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%v\n", bpkg.Dir)
-}
-EOD
-
-# block: failed go run v2
-go run run.go github.com/myitcv/vgo_example_compat/v2
-assert "$? -eq 1" $LINENO
-
-# block: successful go run
-go run run.go github.com/myitcv/vgo_example_compat
-assert "$? -eq 0" $LINENO
-
+# block: version details
+vgo version
+echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
