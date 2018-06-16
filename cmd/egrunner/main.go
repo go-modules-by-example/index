@@ -15,8 +15,10 @@ import (
 )
 
 var (
-	debug  = false
-	fDebug = flag.Bool("debug", false, "print debugging information")
+	debugOut = false
+	stdOut   = false
+
+	fOut = flag.String("out", "json", "output format; json(default)|debug|std")
 )
 
 const (
@@ -26,6 +28,10 @@ const (
 	commentStart    = "**START**"
 
 	commgithubcli = "githubcli"
+
+	outJson  = "json"
+	outStd   = "std"
+	outDebug = "debug"
 )
 
 type block string
@@ -40,6 +46,19 @@ func (b *block) String() string {
 
 func main() {
 	flag.Parse()
+
+	switch *fOut {
+	case outJson:
+	case outStd:
+	case outDebug:
+	default:
+		errorf("unknown option to -out: %v", *fOut)
+	}
+
+	debugOut = *fOut == outDebug
+	if !debugOut {
+		stdOut = *fOut == outStd
+	}
 
 	toRun := new(bytes.Buffer)
 	toRun.WriteString(`#!/usr/bin/env bash
@@ -177,12 +196,12 @@ assert()
 				Cmd: stmtString(s),
 			}
 
-			if pendingSep {
+			if pendingSep && !stdOut {
 				fmt.Fprintf(toRun, "echo \"%v\"\n", outputSeparator)
 			}
 			stmts = append(stmts, co)
-			if debug || *fDebug {
-				fmt.Fprintf(toRun, "cat <<THISWILLNEVERMATCH\n%v\nTHISWILLNEVERMATCH\n", stmtString(s))
+			if debugOut || (stdOut && b != nil) {
+				fmt.Fprintf(toRun, "cat <<THISWILLNEVERMATCH\n$ %v\nTHISWILLNEVERMATCH\n", stmtString(s))
 			}
 			fmt.Fprintf(toRun, "%v\n", stmtString(s))
 			pendingSep = true
@@ -236,7 +255,7 @@ assert()
 	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
 	debugf("now running %v via %v\n", tfn, strings.Join(cmd.Args, " "))
 
-	if debug || *fDebug {
+	if debugOut || stdOut {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Run(); err != nil {
@@ -291,7 +310,7 @@ assert()
 }
 
 func errorf(format string, args ...interface{}) {
-	if debug || *fDebug {
+	if debugOut {
 		panic(fmt.Errorf(format, args...))
 	}
 	fmt.Fprintf(os.Stderr, format+"\n", args...)
@@ -299,7 +318,7 @@ func errorf(format string, args ...interface{}) {
 }
 
 func debugf(format string, args ...interface{}) {
-	if debug || *fDebug {
+	if debugOut {
 		fmt.Printf(format, args...)
 	}
 }
