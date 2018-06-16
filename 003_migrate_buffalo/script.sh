@@ -71,6 +71,8 @@ assert "$? -eq 0" $LINENO
 cd src/github.com/gobuffalo/buffalo
 git checkout $buffaloCommit
 assert "$? -eq 0" $LINENO
+go get .
+assert "$? -eq 0" $LINENO
 go install -tags sqlite
 assert "$? -eq 0" $LINENO
 dep ensure

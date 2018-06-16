@@ -241,8 +241,8 @@ assert "$? -eq 0" $LINENO
 LANG=fr ./hello
 assert "$? -eq 0" $LINENO
 
-# block: vgo vendor
-vgo vendor
+# block: vendor
+vgo mod -vendor
 assert "$? -eq 0" $LINENO
 mkdir -p $GOPATH/src/github.com/you
 cp -a . $GOPATH/src/github.com/you/hello
