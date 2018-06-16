@@ -93,6 +93,9 @@ assert "$? -eq 0" $LINENO
 # block: create package a
 mkdir a
 cd a
+cat <<EOD > .gitignore
+/a
+EOD
 cat <<EOD > a.go
 package main // import "github.com/$GITHUB_USERNAME/vgo-by-example-submodules/a"
 
