@@ -76,7 +76,7 @@ assert "$? -eq 0" $LINENO
 
 
 # block: vendor
-vgo vendor
+vgo mod -vendor
 assert "$? -eq 0" $LINENO
 cat vendor/vgo.list
 assert "$? -eq 0" $LINENO

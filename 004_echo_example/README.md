@@ -130,24 +130,24 @@ Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
 ```
 $ vgo get github.com/labstack/echo@v3.2.1
 vgo: finding github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
-vgo: finding golang.org/x/sys v0.0.0-20170529185110-b90f89a1e7a9
-vgo: finding golang.org/x/crypto v0.0.0-20170601173114-e1a4589e7d3e
+vgo: finding github.com/labstack/gommon v0.2.1
 vgo: finding github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
 vgo: finding github.com/valyala/bytebufferpool v0.0.0-20160817181652-e746df99fe4a
+vgo: finding github.com/mattn/go-isatty v0.0.2
+vgo: finding golang.org/x/crypto v0.0.0-20170601173114-e1a4589e7d3e
+vgo: finding github.com/davecgh/go-spew v1.1.0
+vgo: finding github.com/mattn/go-colorable v0.0.7
 vgo: finding github.com/stretchr/testify v1.1.4
+vgo: finding github.com/pmezard/go-difflib v1.0.0
+vgo: finding github.com/dgrijalva/jwt-go v0.0.0-20160616191556-d2709f9f1f31
+vgo: finding golang.org/x/sys v0.0.0-20170529185110-b90f89a1e7a9
+vgo: finding github.com/valyala/fasttemplate v0.0.0-20160315193134-3b874956e03f
+vgo: finding github.com/mattn/go-colorable v0.0.0-20160731235417-ed8eb9e318d7
+vgo: finding github.com/mattn/go-isatty v0.0.0-20160806122752-66b8e73f3f5c
+vgo: finding golang.org/x/sys v0.0.0-20160916181909-8f0908ab3b24
 vgo: finding github.com/stretchr/objx v0.0.0-20140526180921-cbeaeb16a013
 vgo: finding github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0
 vgo: finding github.com/davecgh/go-spew v0.0.0-20160907170601-6d212800a42e
-vgo: finding github.com/pmezard/go-difflib v1.0.0
-vgo: finding github.com/mattn/go-isatty v0.0.2
-vgo: finding github.com/mattn/go-colorable v0.0.7
-vgo: finding github.com/labstack/gommon v0.2.1
-vgo: finding golang.org/x/sys v0.0.0-20160916181909-8f0908ab3b24
-vgo: finding github.com/valyala/fasttemplate v0.0.0-20160315193134-3b874956e03f
-vgo: finding github.com/mattn/go-isatty v0.0.0-20160806122752-66b8e73f3f5c
-vgo: finding github.com/mattn/go-colorable v0.0.0-20160731235417-ed8eb9e318d7
-vgo: finding github.com/dgrijalva/jwt-go v0.0.0-20160616191556-d2709f9f1f31
-vgo: finding github.com/davecgh/go-spew v1.1.0
 vgo: downloading github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
 vgo: downloading github.com/labstack/gommon v0.2.1
 vgo: downloading github.com/mattn/go-colorable v0.0.7
@@ -176,7 +176,7 @@ Et voila.
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
+vgo commit: 22e23900224f03be49670113d5781e4d89090f45
 ```
 
 <!-- END -->

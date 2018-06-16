@@ -87,13 +87,13 @@ package goodbye
 const Name = "Goodbye"
 EOD
 $ vgo test ./...
-?   	github.com/myitcv/vgo-by-example-v2-module/v2	[no test files]
-?   	github.com/myitcv/vgo-by-example-v2-module/v2/goodbye	[no test files]
+?   	github.com/myitcv/vgo-by-example-v2-module/v2	0.004s [no test files]
+?   	github.com/myitcv/vgo-by-example-v2-module/v2/goodbye	0.004s [no test files]
 $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) db4cf1a] Initial commit
+[master (root-commit) d0d577f] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
@@ -162,8 +162,8 @@ Goodbye
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 60ddb204021d12321162c6031060afbbccba09bc
+cannot determine module root; please create a go.mod file there
+vgo commit: 22e23900224f03be49670113d5781e4d89090f45
 ```
 
 <!-- END -->

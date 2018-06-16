@@ -289,7 +289,7 @@ that allows go command users to produce nearly the same builds (building inside
 GOPATH, of course):
 
 ```
-{{PrintBlock "vgo vendor" -}}
+{{PrintBlock "vendor" -}}
 ```
 
 I said the builds are “nearly the same,” because the import paths seen by the
@@ -489,15 +489,15 @@ created:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	[no test files]
-?   	golang.org/x/text/internal/gen	[no test files]
-ok  	golang.org/x/text/internal/tag	0.004s
-?   	golang.org/x/text/internal/testtext	[no test files]
-ok  	golang.org/x/text/internal/ucd	0.029s
-ok  	golang.org/x/text/language	0.057s
-ok  	golang.org/x/text/unicode/cldr	0.101s
-ok  	rsc.io/quote	0.017s
-ok  	rsc.io/sampler	0.005s
+?   	github.com/you/hello	0.031s [no test files]
+?   	golang.org/x/text/internal/gen	0.018s [no test files]
+ok  	golang.org/x/text/internal/tag	0.009s
+?   	golang.org/x/text/internal/testtext	0.004s [no test files]
+ok  	golang.org/x/text/internal/ucd	0.008s
+ok  	golang.org/x/text/language	0.047s
+ok  	golang.org/x/text/unicode/cldr	0.052s
+ok  	rsc.io/quote	0.002s
+ok  	rsc.io/sampler	0.004s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -523,11 +523,10 @@ Another option is to upgrade all modules needed by the build, using vgo get -u:
 
 ```
 $ vgo get -u
-vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/quote latest
+vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/sampler latest
 vgo: finding rsc.io/sampler v1.99.99
-vgo: finding golang.org/x/text latest
 vgo: downloading rsc.io/sampler v1.99.99
 $ cat go.mod
 module github.com/you/hello
@@ -546,17 +545,17 @@ Let's run our tests:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	[no test files]
-?   	golang.org/x/text/internal/gen	[no test files]
+?   	github.com/you/hello	0.006s [no test files]
+?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	[no test files]
+?   	golang.org/x/text/internal/testtext	0.005s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
 --- FAIL: TestHello (0.00s)
 	quote_test.go:19: Hello() = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 FAIL
-FAIL	rsc.io/quote	0.002s
+FAIL	rsc.io/quote	0.009s
 --- FAIL: TestHello (0.00s)
 	hello_test.go:31: Hello([en-US fr]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 	hello_test.go:31: Hello([fr en-US]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Bonjour le monde."
@@ -630,15 +629,15 @@ require (
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	[no test files]
-?   	golang.org/x/text/internal/gen	[no test files]
+?   	github.com/you/hello	0.002s [no test files]
+?   	golang.org/x/text/internal/gen	0.007s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	[no test files]
+?   	golang.org/x/text/internal/testtext	0.004s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.003s
-ok  	rsc.io/sampler	0.005s
+ok  	rsc.io/quote	0.002s
+ok  	rsc.io/sampler	0.003s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -693,7 +692,7 @@ require (
 )
 $ vgo test all
 vgo: downloading rsc.io/quote v1.3.0
-?   	github.com/you/hello	[no test files]
+?   	github.com/you/hello	0.002s [no test files]
 ok  	rsc.io/quote	0.002s
 ```
 
@@ -702,10 +701,9 @@ rsc.io/sampler v1.99.99:
 
 ```
 $ vgo get -u
-vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/quote latest
-vgo: finding rsc.io/sampler latest
 vgo: finding golang.org/x/text latest
+vgo: finding rsc.io/sampler latest
 $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
@@ -738,9 +736,7 @@ rsc.io/sampler
 	v1.3.1
 	v1.99.99 # excluded
 $ vgo get -u
-vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/quote latest
-vgo: finding rsc.io/sampler latest
 vgo: finding rsc.io/sampler latest
 vgo: finding golang.org/x/text latest
 $ vgo list -m
@@ -760,10 +756,10 @@ require (
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	[no test files]
-?   	golang.org/x/text/internal/gen	[no test files]
+?   	github.com/you/hello	0.003s [no test files]
+?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	[no test files]
+?   	golang.org/x/text/internal/testtext	0.016s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
@@ -838,7 +834,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[master 1ddd2f1] my fork
+[master 2e998d9] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/vgo-by-example-quote-fork
@@ -876,7 +872,7 @@ that allows go command users to produce nearly the same builds (building inside
 GOPATH, of course):
 
 ```
-$ vgo vendor
+$ vgo mod -vendor
 $ mkdir -p $GOPATH/src/github.com/you
 $ cp -a . $GOPATH/src/github.com/you/hello
 $ go build -o vhello github.com/you/hello
@@ -909,7 +905,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
+vgo commit: 22e23900224f03be49670113d5781e4d89090f45
 ```
 
 <!-- END -->

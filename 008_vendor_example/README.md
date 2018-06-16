@@ -139,14 +139,19 @@ $ vgo build
 Now vendor and check the contents of our `vendor` directory:
 
 ```
-$ vgo vendor
+$ vgo mod -vendor
 $ cat vendor/vgo.list
-MODULE              VERSION
-example.com/hello   -
-golang.org/x/text   v0.0.0-20170915032832-14c0d48ead0c
-golang.org/x/tools  v0.0.0-20180525024113-a5b4c53f6e8b
-rsc.io/quote        v1.5.2
-rsc.io/sampler      v1.3.0
+# golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+golang.org/x/text/internal/gen
+golang.org/x/text/internal/tag
+golang.org/x/text/internal/testtext
+golang.org/x/text/internal/ucd
+golang.org/x/text/language
+golang.org/x/text/unicode/cldr
+# rsc.io/quote v1.5.2
+rsc.io/quote
+# rsc.io/sampler v1.3.0
+rsc.io/sampler
 $ find vendor -type d
 vendor
 vendor/rsc.io
@@ -171,7 +176,7 @@ vendor/golang.org/x/text/unicode/cldr
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 203abfb0741bf96c7c5e8dab019f6fe9c89bded3
+vgo commit: 22e23900224f03be49670113d5781e4d89090f45
 ```
 
 <!-- END -->
