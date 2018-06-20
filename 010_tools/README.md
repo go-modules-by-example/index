@@ -96,10 +96,10 @@ import (
 EOD
 $ vgo install golang.org/x/tools/cmd/stringer
 vgo: resolving import "golang.org/x/tools/cmd/stringer"
+vgo: finding golang.org/x/tools latest
 vgo: finding golang.org/x/tools (latest)
-vgo: adding golang.org/x/tools v0.0.0-20180615195736-465e6f399236
-vgo: finding golang.org/x/tools v0.0.0-20180615195736-465e6f399236
-vgo: downloading golang.org/x/tools v0.0.0-20180615195736-465e6f399236
+vgo: adding golang.org/x/tools v0.0.0-20180620030955-fcb3cb6c24ed
+vgo: downloading golang.org/x/tools v0.0.0-20180620030955-fcb3cb6c24ed
 ```
 
 Check our `go.mod` now reflects the new module requirement:
@@ -109,7 +109,7 @@ Check our `go.mod` now reflects the new module requirement:
 $ cat go.mod
 module github.com/myitcv/vgo-by-example-tools
 
-require golang.org/x/tools v0.0.0-20180615195736-465e6f399236
+require golang.org/x/tools v0.0.0-20180620030955-fcb3cb6c24ed
 $ vgo list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
 /go/vgo-by-example-tools/bin/stringer
 $ vgo mod -json
@@ -121,7 +121,7 @@ $ vgo mod -json
 	"Require": [
 		{
 			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180615195736-465e6f399236"
+			"Version": "v0.0.0-20180620030955-fcb3cb6c24ed"
 		}
 	],
 	"Exclude": null,
@@ -145,7 +145,7 @@ $ vgo mod -json
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

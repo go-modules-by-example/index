@@ -41,8 +41,9 @@ assert "$? -eq 0" $LINENO
 # block: setup
 mkdir hello
 cd hello
+vgo mod -init -module example.com/hello
 cat <<EOD > hello.go
-package main // import "example.com/hello"
+package main
 
 import (
         "net/http"
@@ -57,9 +58,6 @@ func main() {
         http.ListenAndServe(":3000", r)
 }
 EOD
-
-# block: mark as go module
-echo > go.mod
 
 # block: vgo get specific version
 vgo get github.com/go-chi/chi@v3.3.2

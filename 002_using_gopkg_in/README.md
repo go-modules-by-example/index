@@ -128,9 +128,9 @@ run your new program:
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "gopkg.in/yaml.v1"
+vgo: finding gopkg.in/yaml.v1 latest
 vgo: finding gopkg.in/yaml.v1 (latest)
 vgo: adding gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
-vgo: finding gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
 vgo: downloading gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
 $ ./hello
 we got "a: 1\nb: 0\n"
@@ -179,10 +179,9 @@ Now we vgo build again; notice the resolution to v2 of the yaml package this tim
 ```
 $ vgo build
 vgo: resolving import "gopkg.in/yaml.v2"
+vgo: finding gopkg.in/yaml.v2 v2.2.1
 vgo: finding gopkg.in/yaml.v2 (latest)
 vgo: adding gopkg.in/yaml.v2 v2.2.1
-vgo: finding gopkg.in/yaml.v2 v2.2.1
-vgo: finding gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405
 vgo: downloading gopkg.in/yaml.v2 v2.2.1
 $ ./hello
 we got "a: 1\nb: 0\n"
@@ -207,7 +206,7 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

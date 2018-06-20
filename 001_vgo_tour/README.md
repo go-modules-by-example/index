@@ -366,11 +366,9 @@ run your new program:
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "rsc.io/quote"
+vgo: finding rsc.io/quote v1.5.2
 vgo: finding rsc.io/quote (latest)
 vgo: adding rsc.io/quote v1.5.2
-vgo: finding rsc.io/quote v1.5.2
-vgo: finding rsc.io/sampler v1.3.0
-vgo: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 vgo: downloading rsc.io/quote v1.5.2
 vgo: downloading rsc.io/sampler v1.3.0
 vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
@@ -458,7 +456,6 @@ Let's upgrade golang.org/x/text first:
 
 ```
 $ vgo get golang.org/x/text
-vgo: finding golang.org/x/text v0.3.0
 vgo: downloading golang.org/x/text v0.3.0
 $ cat go.mod
 module github.com/you/hello
@@ -489,15 +486,15 @@ created:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	0.031s [no test files]
-?   	golang.org/x/text/internal/gen	0.018s [no test files]
-ok  	golang.org/x/text/internal/tag	0.009s
+?   	github.com/you/hello	0.011s [no test files]
+?   	golang.org/x/text/internal/gen	0.004s [no test files]
+ok  	golang.org/x/text/internal/tag	0.004s
 ?   	golang.org/x/text/internal/testtext	0.004s [no test files]
-ok  	golang.org/x/text/internal/ucd	0.008s
-ok  	golang.org/x/text/language	0.047s
-ok  	golang.org/x/text/unicode/cldr	0.052s
-ok  	rsc.io/quote	0.002s
-ok  	rsc.io/sampler	0.004s
+ok  	golang.org/x/text/internal/ucd	0.015s
+ok  	golang.org/x/text/language	0.044s
+ok  	golang.org/x/text/unicode/cldr	0.075s
+ok  	rsc.io/quote	0.021s
+ok  	rsc.io/sampler	0.002s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -526,7 +523,6 @@ $ vgo get -u
 vgo: finding rsc.io/quote latest
 vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/sampler latest
-vgo: finding rsc.io/sampler v1.99.99
 vgo: downloading rsc.io/sampler v1.99.99
 $ cat go.mod
 module github.com/you/hello
@@ -545,17 +541,17 @@ Let's run our tests:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	0.006s [no test files]
+?   	github.com/you/hello	0.004s [no test files]
 ?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	0.005s [no test files]
+?   	golang.org/x/text/internal/testtext	0.004s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
 --- FAIL: TestHello (0.00s)
 	quote_test.go:19: Hello() = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 FAIL
-FAIL	rsc.io/quote	0.009s
+FAIL	rsc.io/quote	0.002s
 --- FAIL: TestHello (0.00s)
 	hello_test.go:31: Hello([en-US fr]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 	hello_test.go:31: Hello([fr en-US]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Bonjour le monde."
@@ -629,15 +625,15 @@ require (
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	0.002s [no test files]
-?   	golang.org/x/text/internal/gen	0.007s [no test files]
+?   	github.com/you/hello	0.006s [no test files]
+?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
 ?   	golang.org/x/text/internal/testtext	0.004s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.002s
-ok  	rsc.io/sampler	0.003s
+ok  	rsc.io/quote	0.003s
+ok  	rsc.io/sampler	0.015s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -645,10 +641,6 @@ Downgrading one package may require downgrading others. For example:
 ```
 $ vgo get rsc.io/sampler@v1.2.0
 vgo: finding rsc.io/sampler v1.2.0
-vgo: finding rsc.io/quote v1.5.1
-vgo: finding rsc.io/quote v1.5.0
-vgo: finding rsc.io/quote v1.4.0
-vgo: finding rsc.io/sampler v1.0.0
 vgo: downloading rsc.io/sampler v1.2.0
 $ vgo list -m
 MODULE                VERSION
@@ -677,7 +669,6 @@ downgrade, by specifying none as the version.
 ```
 $ vgo get rsc.io/sampler@none
 vgo: downloading rsc.io/quote v1.4.0
-vgo: finding rsc.io/quote v1.3.0
 $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
@@ -693,7 +684,7 @@ require (
 $ vgo test all
 vgo: downloading rsc.io/quote v1.3.0
 ?   	github.com/you/hello	0.002s [no test files]
-ok  	rsc.io/quote	0.002s
+ok  	rsc.io/quote	0.001s
 ```
 
 Let's go back to the state where everything is the latest version, including
@@ -736,9 +727,9 @@ rsc.io/sampler
 	v1.3.1
 	v1.99.99 # excluded
 $ vgo get -u
+vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/quote latest
 vgo: finding rsc.io/sampler latest
-vgo: finding golang.org/x/text latest
 $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
@@ -756,10 +747,10 @@ require (
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	0.003s [no test files]
-?   	golang.org/x/text/internal/gen	0.004s [no test files]
+?   	github.com/you/hello	0.014s [no test files]
+?   	golang.org/x/text/internal/gen	0.005s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	0.016s [no test files]
+?   	golang.org/x/text/internal/testtext	0.005s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
@@ -834,7 +825,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[master 2e998d9] my fork
+[master 2f1a436] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/vgo-by-example-quote-fork
@@ -851,7 +842,6 @@ Then you can use that as the replacement:
 $ cd ../hello
 $ echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
 $ vgo list -m
-vgo: finding github.com/myitcv/vgo-by-example-quote-fork v0.0.0-myfork
 MODULE                                           VERSION
 github.com/you/hello                             -
 golang.org/x/text                                v0.3.0
@@ -905,7 +895,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

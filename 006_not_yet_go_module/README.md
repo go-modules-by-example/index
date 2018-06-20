@@ -22,13 +22,6 @@ Create a module using the `github.com/go-chi/chi` [example](https://github.com/g
 {{PrintBlock "setup" -}}
 ```
 
-Mark this as a module by creating a `go.mod`:
-
-
-```
-{{PrintBlock "mark as go module" -}}
-```
-
 Now because, at the time of writing, `github.com/go-chi/chi`:
 
 * has a major version `>= 2`
@@ -84,8 +77,10 @@ Create a module using the `github.com/go-chi/chi` [example](https://github.com/g
 ```
 $ mkdir hello
 $ cd hello
+$ vgo mod -init -module example.com/hello
+vgo: creating new go.mod: module example.com/hello
 $ cat <<EOD >hello.go
-package main // import "example.com/hello"
+package main
 
 import (
         "net/http"
@@ -102,13 +97,6 @@ func main() {
 EOD
 ```
 
-Mark this as a module by creating a `go.mod`:
-
-
-```
-$ echo >go.mod
-```
-
 Now because, at the time of writing, `github.com/go-chi/chi`:
 
 * has a major version `>= 2`
@@ -120,7 +108,7 @@ we need to `vgo get` that specific version, which will be retrieved as a v0.0.0 
 
 ```
 $ vgo get github.com/go-chi/chi@v3.3.2
-vgo: finding github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
+vgo: finding github.com/go-chi/chi v3.3.2
 vgo: downloading github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
 ```
 
@@ -144,7 +132,7 @@ require github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

@@ -93,11 +93,9 @@ EOD
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "rsc.io/quote"
+vgo: finding rsc.io/quote v1.5.2
 vgo: finding rsc.io/quote (latest)
 vgo: adding rsc.io/quote v1.5.2
-vgo: finding rsc.io/quote v1.5.2
-vgo: finding rsc.io/sampler v1.3.0
-vgo: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 vgo: downloading rsc.io/quote v1.5.2
 vgo: downloading rsc.io/sampler v1.3.0
 vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
@@ -118,7 +116,6 @@ $ cat <<EOD >>go.mod
 require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 EOD
 $ vgo install golang.org/x/tools/cmd/stringer
-vgo: finding golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 vgo: downloading golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 ```
 
@@ -176,7 +173,7 @@ vendor/golang.org/x/text/unicode/cldr
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

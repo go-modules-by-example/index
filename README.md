@@ -102,13 +102,13 @@ vgo install myitcv.io/vgo-by-example/cmd/egrunner
 
 Now run in debug mode to see real-time output:
 
-<!-- __TEMPLATE: egrunner -debug ./001_vgo_tour/script.sh # LONG ONLINE
+<!-- __TEMPLATE: egrunner -out debug ./001_vgo_tour/script.sh # LONG ONLINE
 ```
 {{.Cmd}}
 ```
 -->
 ```
-egrunner -debug ./001_vgo_tour/script.sh
+egrunner -out debug ./001_vgo_tour/script.sh
 ```
 <!-- END -->
 
