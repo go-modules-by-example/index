@@ -129,25 +129,25 @@ Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
 
 ```
 $ vgo get github.com/labstack/echo@v3.2.1
-vgo: finding github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
-vgo: finding github.com/labstack/gommon v0.2.1
-vgo: finding github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
-vgo: finding github.com/valyala/bytebufferpool v0.0.0-20160817181652-e746df99fe4a
-vgo: finding github.com/mattn/go-isatty v0.0.2
-vgo: finding golang.org/x/crypto v0.0.0-20170601173114-e1a4589e7d3e
-vgo: finding github.com/davecgh/go-spew v1.1.0
-vgo: finding github.com/mattn/go-colorable v0.0.7
+vgo: finding github.com/labstack/echo v3.2.1
 vgo: finding github.com/stretchr/testify v1.1.4
+vgo: finding github.com/dgrijalva/jwt-go v3.0.0
+vgo: finding github.com/mattn/go-isatty v0.0.2
+vgo: finding github.com/valyala/bytebufferpool e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
+vgo: finding github.com/davecgh/go-spew v1.1.0
+vgo: finding github.com/labstack/gommon v0.2.1
+vgo: finding github.com/valyala/fasttemplate dcecefd839c4193db0d35b88ec65b4c12d360ab0
 vgo: finding github.com/pmezard/go-difflib v1.0.0
-vgo: finding github.com/dgrijalva/jwt-go v0.0.0-20160616191556-d2709f9f1f31
-vgo: finding golang.org/x/sys v0.0.0-20170529185110-b90f89a1e7a9
-vgo: finding github.com/valyala/fasttemplate v0.0.0-20160315193134-3b874956e03f
-vgo: finding github.com/mattn/go-colorable v0.0.0-20160731235417-ed8eb9e318d7
-vgo: finding github.com/mattn/go-isatty v0.0.0-20160806122752-66b8e73f3f5c
-vgo: finding golang.org/x/sys v0.0.0-20160916181909-8f0908ab3b24
-vgo: finding github.com/stretchr/objx v0.0.0-20140526180921-cbeaeb16a013
-vgo: finding github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0
-vgo: finding github.com/davecgh/go-spew v0.0.0-20160907170601-6d212800a42e
+vgo: finding golang.org/x/sys b90f89a1e7a9c1f6b918820b3daa7f08488c8594
+vgo: finding golang.org/x/crypto e1a4589e7d3ea14a3352255d04b6f1a418845e5e
+vgo: finding github.com/mattn/go-colorable v0.0.7
+vgo: finding github.com/pmezard/go-difflib d8ed2627bdf02c080bf22230dbb337003b7aba2d
+vgo: finding github.com/davecgh/go-spew 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+vgo: finding github.com/stretchr/objx cbeaeb16a013161a98496fad62933b1d21786672
+vgo: finding github.com/valyala/fasttemplate 3b874956e03f1636d171bda64b130f9135f42cff
+vgo: finding golang.org/x/sys 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
+vgo: finding github.com/mattn/go-isatty 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
+vgo: finding github.com/mattn/go-colorable ed8eb9e318d7a84ce5915b495b7d35e0cfe7b5a8
 vgo: downloading github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
 vgo: downloading github.com/labstack/gommon v0.2.1
 vgo: downloading github.com/mattn/go-colorable v0.0.7
@@ -176,7 +176,7 @@ Et voila.
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->

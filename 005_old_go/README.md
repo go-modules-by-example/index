@@ -87,13 +87,13 @@ package goodbye
 const Name = "Goodbye"
 EOD
 $ vgo test ./...
-?   	github.com/myitcv/vgo-by-example-v2-module/v2	0.004s [no test files]
-?   	github.com/myitcv/vgo-by-example-v2-module/v2/goodbye	0.004s [no test files]
+?   	github.com/myitcv/vgo-by-example-v2-module/v2	0.003s [no test files]
+?   	github.com/myitcv/vgo-by-example-v2-module/v2/goodbye	0.005s [no test files]
 $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) d0d577f] Initial commit
+[master (root-commit) 313215e] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
@@ -128,9 +128,9 @@ EOD
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "github.com/myitcv/vgo-by-example-v2-module/v2"
+vgo: finding github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
 vgo: finding github.com/myitcv/vgo-by-example-v2-module/v2 (latest)
 vgo: adding github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
-vgo: finding github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
 vgo: downloading github.com/myitcv/vgo-by-example-v2-module/v2 v2.0.0
 $ ./usehello
 Goodbye
@@ -162,8 +162,8 @@ Goodbye
 ### Version details
 
 ```
-cannot determine module root; please create a go.mod file there
-vgo commit: 22e23900224f03be49670113d5781e4d89090f45
+go version go1.10.3 linux/amd64 vgo:2018-02-20.1
+vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
 ```
 
 <!-- END -->
