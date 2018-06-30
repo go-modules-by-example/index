@@ -251,8 +251,9 @@ assert()
 
 	user := os.Getenv("GITHUB_USERNAME")
 	pat := os.Getenv("GITHUB_PAT")
+	vgoversion := os.Getenv("VGO_VERSION")
 
-	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
+	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "-e", "VGO_VERSION="+vgoversion, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
 	debugf("now running %v via %v\n", tfn, strings.Join(cmd.Args, " "))
 
 	if debugOut || stdOut {

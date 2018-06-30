@@ -45,6 +45,19 @@ go version
 go get -u golang.org/x/vgo
 assert "$? -eq 0" $LINENO
 
+# switch to custom vgo commit
+if [ "$VGO_VERSION" != "" ]
+then
+	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
+	assert "$? -eq 0" $LINENO
+	git checkout -q -f $VGO_VERSION
+	assert "$? -eq 0" $LINENO
+	go install
+	assert "$? -eq 0" $LINENO
+	popd > /dev/null
+	assert "$? -eq 0" $LINENO
+fi
+
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists vgo-by-example-v2-module vgo-by-example-v2-module_$now
