@@ -366,10 +366,10 @@ run your new program:
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "rsc.io/quote"
-vgo: finding rsc.io/quote v1.5.2
+vgo: finding rsc.io/quote v1.5.3-pre1
 vgo: finding rsc.io/quote (latest)
-vgo: adding rsc.io/quote v1.5.2
-vgo: downloading rsc.io/quote v1.5.2
+vgo: adding rsc.io/quote v1.5.3-pre1
+vgo: downloading rsc.io/quote v1.5.3-pre1
 vgo: downloading rsc.io/sampler v1.3.0
 vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 $ ./hello
@@ -388,7 +388,7 @@ this case, the vgo build wrote a new go.mod:
 $ cat go.mod
 module github.com/you/hello
 
-require rsc.io/quote v1.5.2
+require rsc.io/quote v1.5.3-pre1
 ```
 
 Because the go.mod was written, the next vgo build will not resolve the import
@@ -417,7 +417,7 @@ $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.0.0-20170915032832-14c0d48ead0c
-rsc.io/quote          v1.5.2
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.3.0
 ```
 
@@ -445,7 +445,7 @@ $ vgo list -m -u
 MODULE                VERSION                             LATEST
 github.com/you/hello  -                                   -
 golang.org/x/text     v0.0.0-20170915032832-14c0d48ead0c  v0.3.0 (2017-12-14 13:08)
-rsc.io/quote          v1.5.2 (2018-02-14 15:44)           -
+rsc.io/quote          v1.5.3-pre1 (2018-06-28 00:32)      -
 rsc.io/sampler        v1.3.0 (2018-02-13 19:05)           v1.99.99 (2018-02-13 22:20)
 ```
 
@@ -462,7 +462,7 @@ module github.com/you/hello
 
 require (
 	golang.org/x/text v0.3.0
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 )
 ```
 
@@ -475,7 +475,7 @@ $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.3.0
-rsc.io/quote          v1.5.2
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.3.0
 ```
 
@@ -486,15 +486,15 @@ created:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	0.011s [no test files]
-?   	golang.org/x/text/internal/gen	0.004s [no test files]
-ok  	golang.org/x/text/internal/tag	0.004s
+?   	github.com/you/hello	0.013s [no test files]
+?   	golang.org/x/text/internal/gen	0.007s [no test files]
+ok  	golang.org/x/text/internal/tag	0.012s
 ?   	golang.org/x/text/internal/testtext	0.004s [no test files]
-ok  	golang.org/x/text/internal/ucd	0.015s
-ok  	golang.org/x/text/language	0.044s
-ok  	golang.org/x/text/unicode/cldr	0.075s
-ok  	rsc.io/quote	0.021s
-ok  	rsc.io/sampler	0.002s
+ok  	golang.org/x/text/internal/ucd	0.013s
+ok  	golang.org/x/text/language	0.042s
+ok  	golang.org/x/text/unicode/cldr	0.053s
+ok  	rsc.io/quote	0.003s
+ok  	rsc.io/sampler	0.003s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -522,6 +522,9 @@ Another option is to upgrade all modules needed by the build, using vgo get -u:
 $ vgo get -u
 vgo: finding rsc.io/quote latest
 vgo: finding golang.org/x/text latest
+vgo: finding golang.org/x/text latest
+vgo: finding rsc.io/quote latest
+vgo: finding rsc.io/sampler latest
 vgo: finding rsc.io/sampler latest
 vgo: downloading rsc.io/sampler v1.99.99
 $ cat go.mod
@@ -529,7 +532,7 @@ module github.com/you/hello
 
 require (
 	golang.org/x/text v0.3.0
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 	rsc.io/sampler v1.99.99
 )
 ```
@@ -541,7 +544,7 @@ Let's run our tests:
 
 ```
 $ vgo test all
-?   	github.com/you/hello	0.004s [no test files]
+?   	github.com/you/hello	0.002s [no test files]
 ?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
 ?   	golang.org/x/text/internal/testtext	0.004s [no test files]
@@ -556,7 +559,7 @@ FAIL	rsc.io/quote	0.002s
 	hello_test.go:31: Hello([en-US fr]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Hello, world."
 	hello_test.go:31: Hello([fr en-US]) = "99 bottles of beer on the wall, 99 bottles of beer, ...", want "Bonjour le monde."
 FAIL
-FAIL	rsc.io/sampler	0.002s
+FAIL	rsc.io/sampler	0.004s
 ```
 
 It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
@@ -604,7 +607,7 @@ module github.com/you/hello
 
 require (
 	golang.org/x/text v0.3.0
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 	rsc.io/sampler v1.99.99
 )
 $ vgo get rsc.io/sampler@v1.3.1
@@ -614,26 +617,26 @@ $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.3.0
-rsc.io/quote          v1.5.2
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.3.1
 $ cat go.mod
 module github.com/you/hello
 
 require (
 	golang.org/x/text v0.3.0
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	0.006s [no test files]
+?   	github.com/you/hello	0.003s [no test files]
 ?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
 ?   	golang.org/x/text/internal/testtext	0.004s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
-ok  	rsc.io/quote	0.003s
-ok  	rsc.io/sampler	0.015s
+ok  	rsc.io/quote	0.005s
+ok  	rsc.io/sampler	0.003s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -684,7 +687,7 @@ require (
 $ vgo test all
 vgo: downloading rsc.io/quote v1.3.0
 ?   	github.com/you/hello	0.002s [no test files]
-ok  	rsc.io/quote	0.001s
+ok  	rsc.io/quote	0.002s
 ```
 
 Let's go back to the state where everything is the latest version, including
@@ -694,12 +697,15 @@ rsc.io/sampler v1.99.99:
 $ vgo get -u
 vgo: finding rsc.io/quote latest
 vgo: finding golang.org/x/text latest
+vgo: finding golang.org/x/text latest
+vgo: finding rsc.io/quote latest
+vgo: finding rsc.io/sampler latest
 vgo: finding rsc.io/sampler latest
 $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.3.0
-rsc.io/quote          v1.5.2
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.99.99
 ```
 
@@ -728,13 +734,16 @@ rsc.io/sampler
 	v1.99.99 # excluded
 $ vgo get -u
 vgo: finding golang.org/x/text latest
+vgo: finding rsc.io/sampler latest
+vgo: finding rsc.io/quote latest
+vgo: finding golang.org/x/text latest
 vgo: finding rsc.io/quote latest
 vgo: finding rsc.io/sampler latest
 $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.3.0
-rsc.io/quote          v1.5.2
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.3.1
 $ cat go.mod
 module github.com/you/hello
@@ -743,14 +752,14 @@ exclude rsc.io/sampler v1.99.99
 
 require (
 	golang.org/x/text v0.3.0
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 	rsc.io/sampler v1.3.1
 )
 $ vgo test all
-?   	github.com/you/hello	0.014s [no test files]
-?   	golang.org/x/text/internal/gen	0.005s [no test files]
+?   	github.com/you/hello	0.003s [no test files]
+?   	golang.org/x/text/internal/gen	0.004s [no test files]
 ok  	golang.org/x/text/internal/tag	(cached)
-?   	golang.org/x/text/internal/testtext	0.005s [no test files]
+?   	golang.org/x/text/internal/testtext	0.004s [no test files]
 ok  	golang.org/x/text/internal/ucd	(cached)
 ok  	golang.org/x/text/language	(cached)
 ok  	golang.org/x/text/unicode/cldr	(cached)
@@ -810,12 +819,11 @@ $ vgo list -m
 MODULE                VERSION
 github.com/you/hello  -
 golang.org/x/text     v0.3.0
-rsc.io/quote          v1.5.2
- => ../quote
+rsc.io/quote          v1.5.3-pre1
 rsc.io/sampler        v1.3.1
 $ vgo build
 $ ./hello
-I can eat glass and it doesn't hurt me.
+Hello, world.
 ```
 
 You can also name a different module as a replacement. For example, you can
@@ -825,7 +833,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[master 2f1a436] my fork
+[master bfaf253] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/vgo-by-example-quote-fork
@@ -842,16 +850,14 @@ Then you can use that as the replacement:
 $ cd ../hello
 $ echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
 $ vgo list -m
-MODULE                                           VERSION
-github.com/you/hello                             -
-golang.org/x/text                                v0.3.0
-rsc.io/quote                                     v1.5.2
- => github.com/myitcv/vgo-by-example-quote-fork  v0.0.0-myfork
-rsc.io/sampler                                   v1.3.1
+MODULE                VERSION
+github.com/you/hello  -
+golang.org/x/text     v0.3.0
+rsc.io/quote          v1.5.3-pre1
+rsc.io/sampler        v1.3.1
 $ vgo build
-vgo: downloading github.com/myitcv/vgo-by-example-quote-fork v0.0.0-myfork
 $ LANG=fr ./hello
-Je peux manger du verre, ça ne me fait pas mal.
+Bonjour le monde.
 ```
 
 ### Backwards Compatibility
@@ -867,7 +873,7 @@ $ mkdir -p $GOPATH/src/github.com/you
 $ cp -a . $GOPATH/src/github.com/you/hello
 $ go build -o vhello github.com/you/hello
 $ LANG=es ./vhello
-Puedo comer vidrio, no me hace daño.
+Hola Mundo.
 ```
 
 I said the builds are “nearly the same,” because the import paths seen by the
@@ -895,7 +901,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
+vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
 ```
 
 <!-- END -->

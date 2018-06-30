@@ -93,10 +93,10 @@ EOD
 $ echo >go.mod
 $ vgo build
 vgo: resolving import "rsc.io/quote"
-vgo: finding rsc.io/quote v1.5.2
+vgo: finding rsc.io/quote v1.5.3-pre1
 vgo: finding rsc.io/quote (latest)
-vgo: adding rsc.io/quote v1.5.2
-vgo: downloading rsc.io/quote v1.5.2
+vgo: adding rsc.io/quote v1.5.3-pre1
+vgo: downloading rsc.io/quote v1.5.3-pre1
 vgo: downloading rsc.io/sampler v1.3.0
 vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 $ ./hello
@@ -104,7 +104,7 @@ Hello, world.
 $ cat go.mod
 module example.com/hello
 
-require rsc.io/quote v1.5.2
+require rsc.io/quote v1.5.3-pre1
 ```
 
 Now add a tool dependency:
@@ -128,7 +128,7 @@ module example.com/hello
 
 require (
 	golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-	rsc.io/quote v1.5.2
+	rsc.io/quote v1.5.3-pre1
 )
 $ vgo build
 ```
@@ -145,7 +145,7 @@ golang.org/x/text/internal/testtext
 golang.org/x/text/internal/ucd
 golang.org/x/text/language
 golang.org/x/text/unicode/cldr
-# rsc.io/quote v1.5.2
+# rsc.io/quote v1.5.3-pre1
 rsc.io/quote
 # rsc.io/sampler v1.3.0
 rsc.io/sampler
@@ -173,7 +173,7 @@ vendor/golang.org/x/text/unicode/cldr
 
 ```
 go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: f574d316627652354b92fbdf885a2b2f7ea7dac9
+vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
 ```
 
 <!-- END -->
