@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
+	"myitcv.io/go-modules-by-example/cmd/mdreplace/internal/itemtype"
 )
 
 type procFn func() procFn

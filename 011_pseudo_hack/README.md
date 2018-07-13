@@ -76,88 +76,48 @@ Initialise a directory as a git repo, and add an appropriate remote:
 
 
 ```
-$ mkdir go-modules-by-example-submodules
-$ cd go-modules-by-example-submodules
+$ mkdir $repoName
+$ cd $repoName
 $ git init -q
-$ git remote add origin https://github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
+$ git remote add origin https://github.com/$GITHUB_USERNAME/$repoName
 ```
 
 Now define our root module, at the root of the repo, commit and push:
 
 ```
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules
-$ git add go.mod
-$ git commit -q -am 'Initial commit'
+$ go mod init github.com/$GITHUB_USERNAME/$repoName
+go: creating new go.mod: module github.com/myitcv/go-modules-by-example-pseudo-hack
+$ mkdir pkg
+$ cat <<EOD >pkg/pkg.go
+package pkg
+
+const Name = "v1"
+EOD
+$ git add *
+$ git commit -q -am 'v1 commit'
+$ firstcommit="v0.0.0-$(git log -1 --pretty=format:%ad --date=format:%Y%m%d%H%M%S)-$(git log -1 --pretty=format:%H | cut -c1-12)"
 $ git push -q
 ```
 
 Now create a `package b` and test that it builds:
 
 ```
-$ mkdir b
-$ cd b
-$ cat <<EOD >b.go
-package b
-
-const Name = "Gopher"
-EOD
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
-$ go test
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/b
-?   	github.com/myitcv/go-modules-by-example-submodules/b	[no test files]
 ```
 
 Now commit, tag and push our new package:
 
 ```
-$ cd ..
-$ git add b
-$ git commit -q -am 'Add package b'
-$ git push -q
-$ git tag b/v0.1.1
-$ git push -q origin b/v0.1.1
 ```
 
 Now create a `main` package that will use `b`:
 
 ```
-$ mkdir a
-$ cd a
-$ cat <<EOD >.gitignore
-/a
-EOD
-$ cat <<EOD >a.go
-package main
-
-import (
-	"github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b"
-	"fmt"
-)
-
-const Name = b.Name
-
-func main() {
-	fmt.Println(Name)
-}
-EOD
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/a
 ```
 
 Now let's build and run our package:
 
 
 ```
-$ go build
-go: finding github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
-go: downloading github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
-$ ./a
-Gopher
-$ cat go.mod
-module github.com/myitcv/go-modules-by-example-submodules/a
-
-require github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
 ```
 
 See how we resolve to the tagged version of `package b`.
@@ -167,12 +127,6 @@ Finally we commit, tag and push our `main` package:
 
 
 ```
-$ cd ..
-$ git add a
-$ git commit -q -am 'Add package a'
-$ git push -q
-$ git tag a/v1.0.0
-$ git push -q origin a/v1.0.0
 ```
 
 ### Version details

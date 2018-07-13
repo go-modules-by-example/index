@@ -18,7 +18,8 @@ var (
 	debugOut = false
 	stdOut   = false
 
-	fOut = flag.String("out", "json", "output format; json(default)|debug|std")
+	fOut    = flag.String("out", "json", "output format; json(default)|debug|std")
+	fGoRoot = flag.String("goroot", "", "path to GOROOT to use")
 )
 
 const (
@@ -46,6 +47,10 @@ func (b *block) String() string {
 
 func main() {
 	flag.Parse()
+
+	if *fGoRoot == "" {
+		*fGoRoot = os.Getenv("EGRUNNER_GOROOT")
+	}
 
 	switch *fOut {
 	case outJson:
@@ -253,7 +258,15 @@ assert()
 	pat := os.Getenv("GITHUB_PAT")
 	vgoversion := os.Getenv("VGO_VERSION")
 
-	cmd := exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName), "-e", "GITHUB_PAT="+pat, "-e", "GITHUB_USERNAME="+user, "-e", "VGO_VERSION="+vgoversion, "--entrypoint", "bash", "golang", fmt.Sprintf("/%v", scriptName))
+	args := []string{"docker", "run", "--rm", "-w", "/root", "-e", "GITHUB_PAT=" + pat, "-e", "GITHUB_USERNAME=" + user, "-e", "VGO_VERSION=" + vgoversion, "--entrypoint", "bash", "-v", "/home/myitcv/.gostuff/1.11/pkg/mod/cache/download/:/cache/", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName)}
+
+	if *fGoRoot != "" {
+		args = append(args, "-v", fmt.Sprintf("%v:/go", *fGoRoot))
+	}
+
+	args = append(args, "golang", fmt.Sprintf("/%v", scriptName))
+
+	cmd := exec.Command(args[0], args[1:]...)
 	debugf("now running %v via %v\n", tfn, strings.Join(cmd.Args, " "))
 
 	if debugOut || stdOut {

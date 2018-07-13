@@ -2,20 +2,13 @@
 
 ### Introduction
 
-vgo supports tools as dependencies. This example shows you how.
+Go supports tools as dependencies of modules. This example shows you how.
 
 _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 Create ourselves a directory:
-
 
 ```
 {{PrintBlock "setup" -}}
@@ -52,26 +45,22 @@ Check our `go.mod` now reflects the new module requirement:
 
 ### Introduction
 
-vgo supports tools as dependencies. This example shows you how.
+Go supports tools as dependencies of modules. This example shows you how.
 
 _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-$ go get -u golang.org/x/vgo
-```
-
 Create ourselves a directory:
 
-
 ```
-$ mkdir vgo-by-example-tools
-$ cd vgo-by-example-tools
-$ vgo mod -init -module github.com/$GITHUB_USERNAME/vgo-by-example-tools
-vgo: creating new go.mod: module github.com/myitcv/vgo-by-example-tools
+$ pwd
+/root
+$ ls
+$ mkdir go-modules-by-example-tools
+$ cd go-modules-by-example-tools
+$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-tools
+go: creating new go.mod: module github.com/myitcv/go-modules-by-example-tools
 ```
 
 Define where we want our tool dependencies to be installed:
@@ -94,14 +83,11 @@ import (
         _ "golang.org/x/tools/cmd/stringer"
 )
 EOD
-$ vgo install golang.org/x/tools/cmd/stringer
-vgo: resolving import "golang.org/x/tools/cmd/stringer"
-vgo: finding golang.org/x/tools/cmd/stringer latest
-vgo: finding golang.org/x/tools/cmd latest
-vgo: finding golang.org/x/tools latest
-vgo: finding golang.org/x/tools (latest)
-vgo: adding golang.org/x/tools v0.0.0-20180628163957-1c99e1239a0c
-vgo: downloading golang.org/x/tools v0.0.0-20180628163957-1c99e1239a0c
+$ go install golang.org/x/tools/cmd/stringer
+go: finding golang.org/x/tools/cmd/stringer latest
+go: finding golang.org/x/tools/cmd latest
+go: finding golang.org/x/tools latest
+go: downloading golang.org/x/tools v0.0.0-20180904205237-0aa4b8830f48
 ```
 
 Check our `go.mod` now reflects the new module requirement:
@@ -109,35 +95,38 @@ Check our `go.mod` now reflects the new module requirement:
 
 ```
 $ cat go.mod
-module github.com/myitcv/vgo-by-example-tools
+module github.com/myitcv/go-modules-by-example-tools
 
-require golang.org/x/tools v0.0.0-20180628163957-1c99e1239a0c
-$ vgo list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
-/go/vgo-by-example-tools/bin/stringer
-$ vgo mod -json
+require golang.org/x/tools v0.0.0-20180904205237-0aa4b8830f48 // indirect
+$ go list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
+/root/go-modules-by-example-tools/bin/stringer
+$ go mod edit -json
 {
 	"Module": {
-		"Path": "github.com/myitcv/vgo-by-example-tools",
-		"Version": ""
+		"Path": "github.com/myitcv/go-modules-by-example-tools"
 	},
 	"Require": [
 		{
 			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180628163957-1c99e1239a0c"
+			"Version": "v0.0.0-20180904205237-0aa4b8830f48",
+			"Indirect": true
 		}
 	],
 	"Exclude": null,
 	"Replace": null
 }
-$ vgo mod -sync
-warning: "ALL" matched no packages
-$ vgo mod -json
+$ go mod tidy
+$ go mod edit -json
 {
 	"Module": {
-		"Path": "github.com/myitcv/vgo-by-example-tools",
-		"Version": ""
+		"Path": "github.com/myitcv/go-modules-by-example-tools"
 	},
-	"Require": null,
+	"Require": [
+		{
+			"Path": "golang.org/x/tools",
+			"Version": "v0.0.0-20180904205237-0aa4b8830f48"
+		}
+	],
 	"Exclude": null,
 	"Replace": null
 }
@@ -146,8 +135,7 @@ $ vgo mod -json
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

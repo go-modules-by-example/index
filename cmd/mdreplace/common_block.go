@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
+	"myitcv.io/go-modules-by-example/cmd/mdreplace/internal/itemtype"
 )
 
 func (p *processor) processCommonBlock(prefix string, conv func(string, []byte) cmdOut) procFn {
@@ -221,6 +221,14 @@ Args:
 			}
 
 			return ""
+		}
+
+		tmplFuncMap["indent"] = func(k string) string {
+			lines := strings.Split(k, "\n")
+			for i := range lines {
+				lines[i] = "    " + lines[i]
+			}
+			return strings.Join(lines, "\n")
 		}
 
 		t, err := template.New("").Funcs(tmplFuncMap).Parse(tmpl.String())

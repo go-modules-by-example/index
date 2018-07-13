@@ -10,10 +10,47 @@ import (
 
 var tmplFuncMap = template.FuncMap{
 	"filepathBase": filepath.Base,
+	"between": func(start, end, text string) string {
+		sb := new(strings.Builder)
+		lines := strings.Split(text, "\n")
+		print := false
+		for _, line := range lines {
+			if print {
+				if line == end {
+					print = false
+					continue
+				}
+				sb.WriteString(line + "\n")
+				continue
+			}
+
+			if line == start {
+				print = true
+			}
+		}
+		return sb.String()
+	},
+	"fromHere": func(h string, s string) string {
+		lines := strings.Split(s, "\n")
+		i := len(lines) - 1
+		for ; i >= 0; i-- {
+			if lines[i] == h {
+				i++
+				break
+			}
+		}
+		if i < 0 {
+			i = 0
+		}
+		return strings.Join(lines[i:], "\n")
+	},
+	"tail": func(i int, s string) string {
+		return strings.Join(strings.Split(s, "\n")[i:], "\n")
+	},
 	"lines": func(s string) []string {
 		return strings.Split(s, "\n")
 	},
-	"lineEllipsis": func(s string, i int) string {
+	"lineEllipsis": func(i int, s string) string {
 		if i <= 0 {
 			panic(fmt.Errorf("must provide positive integer to lineEllipsis"))
 		}

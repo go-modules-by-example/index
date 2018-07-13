@@ -34,30 +34,14 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: setup
-cd $HOME
+cd $(mktemp -d)
 mkdir hello
 cd hello
+go mod init github.com/you/hello
 
 cat <<EOD > hello.go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -85,9 +69,8 @@ assert "$? -eq 0" $LINENO
 # block: cat hello.go
 cat hello.go
 
-# block: initial vgo build
-echo >go.mod
-vgo build
+# block: initial go build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
@@ -96,7 +79,7 @@ assert "$? -eq 0" $LINENO
 cat go.mod
 
 cat <<EOD > hello.go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -124,8 +107,8 @@ assert "$? -eq 0" $LINENO
 # block: cat hello.go v2
 cat hello.go
 
-# block: vgo build v2
-vgo build
+# block: go build v2
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
@@ -134,5 +117,4 @@ assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+go version

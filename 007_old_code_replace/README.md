@@ -88,7 +88,6 @@ _Add more detail/intro here_
 Start by getting `vgo` in the usual way:
 
 ```
-$ go get -u golang.org/x/vgo
 ```
 
 Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pdf` at `v0.1.1` is
@@ -118,21 +117,11 @@ Now we get that specific version of `rsc.io/pdf` that is known to be "old" Go co
 
 
 ```
-$ vgo get rsc.io/pdf@v0.1.1
-vgo: finding rsc.io/pdf v0.1.1
-vgo: downloading rsc.io/pdf v0.1.1
-$ cat go.mod
-module example.com/hello
-
-require rsc.io/pdf v0.1.1
 ```
 
 Now check our code builds and runs:
 
 ```
-$ vgo build
-$ ./hello
-{0 0}
 ```
 
 Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
@@ -157,8 +146,6 @@ replace rsc.io/pdf v0.1.1 => ./pdf
 Now check our code still builds:
 
 ```
-$ vgo build
-vgo: open /go/hello/pdf/go.mod: no such file or directory
 ```
 
 It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
@@ -175,17 +162,13 @@ $ cd ..
 Now check our code builds and runs:
 
 ```
-$ vgo build
-$ ./hello
-{0 0}
 ```
 
 
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

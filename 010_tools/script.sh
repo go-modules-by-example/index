@@ -35,28 +35,14 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 git config --global push.default current
 
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: setup
-mkdir vgo-by-example-tools
-cd vgo-by-example-tools
+pwd
+ls
+mkdir go-modules-by-example-tools
 assert "$? -eq 0" $LINENO
-vgo mod -init -module github.com/$GITHUB_USERNAME/vgo-by-example-tools
+cd go-modules-by-example-tools
+assert "$? -eq 0" $LINENO
+go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-tools
 assert "$? -eq 0" $LINENO
 
 # block: set bin target
@@ -72,21 +58,20 @@ import (
         _ "golang.org/x/tools/cmd/stringer"
 )
 EOD
-vgo install golang.org/x/tools/cmd/stringer
+go install golang.org/x/tools/cmd/stringer
 assert "$? -eq 0" $LINENO
 
 # block: check go.mod
 cat go.mod
 assert "$? -eq 0" $LINENO
-vgo list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
+go list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
 assert "$? -eq 0" $LINENO
-vgo mod -json
+go mod edit -json
 assert "$? -eq 0" $LINENO
-vgo mod -sync
+go mod tidy
 assert "$? -eq 0" $LINENO
-vgo mod -json
+go mod edit -json
 assert "$? -eq 0" $LINENO
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+go version

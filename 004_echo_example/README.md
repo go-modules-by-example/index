@@ -75,7 +75,6 @@ and this new pattern was used for all releases up to and including (at the time 
 As ever, start by ensuring vgo is installed and up to date:
 
 ```
-$ go get -u golang.org/x/vgo
 ```
 
 ### A simple example
@@ -128,16 +127,25 @@ $ echo >go.mod
 Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
 
 ```
-$ vgo get github.com/labstack/echo@v3.2.1
-vgo: finding github.com/labstack/echo v3.2.1
-vgo: downloading github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
-vgo: downloading github.com/labstack/gommon v0.2.1
-vgo: downloading github.com/mattn/go-colorable v0.0.7
-vgo: downloading github.com/mattn/go-isatty v0.0.2
-vgo: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
-vgo: downloading github.com/valyala/bytebufferpool v0.0.0-20160817181652-e746df99fe4a
-vgo: downloading golang.org/x/crypto v0.0.0-20170601173114-e1a4589e7d3e
-vgo: downloading github.com/dgrijalva/jwt-go v0.0.0-20160616191556-d2709f9f1f31
+$ go get github.com/labstack/echo@v3.2.1
+go: finding github.com/labstack/echo v3.2.1
+go: downloading github.com/labstack/echo v3.2.1+incompatible
+go: finding github.com/labstack/gommon/log latest
+go: finding github.com/labstack/gommon/color latest
+go: finding golang.org/x/crypto/acme/autocert latest
+go: finding golang.org/x/crypto/acme latest
+go: finding golang.org/x/crypto latest
+go: downloading golang.org/x/crypto v0.0.0-20180904163835-0709b304e793
+go: finding github.com/labstack/gommon v0.2.1
+go: downloading github.com/labstack/gommon v0.2.1
+go: finding github.com/valyala/fasttemplate latest
+go: finding github.com/mattn/go-colorable v0.0.9
+go: finding github.com/mattn/go-isatty v0.0.4
+go: downloading github.com/mattn/go-isatty v0.0.4
+go: downloading github.com/mattn/go-colorable v0.0.9
+go: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
+go: finding github.com/valyala/bytebufferpool v1.0.0
+go: downloading github.com/valyala/bytebufferpool v1.0.0
 ```
 
 Notice how this actually resolves to a v0.0.0 pseudo-version.
@@ -145,11 +153,23 @@ Notice how this actually resolves to a v0.0.0 pseudo-version.
 Now as a final step we build to confirm everything works:
 
 ```
-$ vgo build
+$ go build
+go: finding github.com/dgrijalva/jwt-go v3.2.0+incompatible
+go: downloading github.com/dgrijalva/jwt-go v3.2.0+incompatible
+go: finding github.com/labstack/echo v3.2.1+incompatible
 $ cat go.mod
 module example.com/hello
 
-require github.com/labstack/echo v0.0.0-20170621150743-935a60782cbb
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/labstack/echo v3.2.1+incompatible
+	github.com/labstack/gommon v0.2.1 // indirect
+	github.com/mattn/go-colorable v0.0.9 // indirect
+	github.com/mattn/go-isatty v0.0.4 // indirect
+	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4 // indirect
+	golang.org/x/crypto v0.0.0-20180904163835-0709b304e793 // indirect
+)
 ```
 
 Et voila.
@@ -157,8 +177,7 @@ Et voila.
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

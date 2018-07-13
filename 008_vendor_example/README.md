@@ -69,7 +69,6 @@ _Add more detail/intro here_
 Start by getting `vgo` in the usual way:
 
 ```
-$ go get -u golang.org/x/vgo
 ```
 
 Create ourselves a simple module that depends on an on a module:
@@ -91,20 +90,19 @@ func main() {
 }
 EOD
 $ echo >go.mod
-$ vgo build
-vgo: resolving import "rsc.io/quote"
-vgo: finding rsc.io/quote v1.5.3-pre1
-vgo: finding rsc.io/quote (latest)
-vgo: adding rsc.io/quote v1.5.3-pre1
-vgo: downloading rsc.io/quote v1.5.3-pre1
-vgo: downloading rsc.io/sampler v1.3.0
-vgo: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+$ go build
+go: finding rsc.io/quote v1.5.2
+go: downloading rsc.io/quote v1.5.2
+go: finding rsc.io/sampler v1.3.0
+go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: downloading rsc.io/sampler v1.3.0
+go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 $ ./hello
 Hello, world.
 $ cat go.mod
 module example.com/hello
 
-require rsc.io/quote v1.5.3-pre1
+require rsc.io/quote v1.5.2
 ```
 
 Now add a tool dependency:
@@ -115,8 +113,9 @@ $ cat <<EOD >>go.mod
 
 require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 EOD
-$ vgo install golang.org/x/tools/cmd/stringer
-vgo: downloading golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+$ go install golang.org/x/tools/cmd/stringer
+go: finding golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+go: downloading golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 ```
 
 Now check our `go.mod` and that everything builds:
@@ -126,26 +125,21 @@ Now check our `go.mod` and that everything builds:
 $ cat go.mod
 module example.com/hello
 
-require (
-	golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-	rsc.io/quote v1.5.3-pre1
-)
-$ vgo build
+require rsc.io/quote v1.5.2
+
+require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+$ go build
 ```
 
 Now vendor and check the contents of our `vendor` directory:
 
 ```
-$ vgo mod -vendor
-$ cat vendor/vgo.list
+$ go mod vendor
+$ cat vendor/modules.txt
 # golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
-golang.org/x/text/internal/gen
-golang.org/x/text/internal/tag
-golang.org/x/text/internal/testtext
-golang.org/x/text/internal/ucd
 golang.org/x/text/language
-golang.org/x/text/unicode/cldr
-# rsc.io/quote v1.5.3-pre1
+golang.org/x/text/internal/tag
+# rsc.io/quote v1.5.2
 rsc.io/quote
 # rsc.io/sampler v1.3.0
 rsc.io/sampler
@@ -158,22 +152,15 @@ vendor/golang.org
 vendor/golang.org/x
 vendor/golang.org/x/text
 vendor/golang.org/x/text/internal
-vendor/golang.org/x/text/internal/testtext
-vendor/golang.org/x/text/internal/ucd
-vendor/golang.org/x/text/internal/gen
 vendor/golang.org/x/text/internal/tag
 vendor/golang.org/x/text/language
-vendor/golang.org/x/text/language/testdata
-vendor/golang.org/x/text/unicode
-vendor/golang.org/x/text/unicode/cldr
 ```
 
 
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

@@ -10,7 +10,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
+	"myitcv.io/go-modules-by-example/cmd/mdreplace/internal/itemtype"
 )
 
 const (

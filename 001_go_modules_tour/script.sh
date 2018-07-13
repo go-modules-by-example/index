@@ -34,23 +34,6 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: setup
 cd $HOME
 mkdir hello
@@ -72,9 +55,9 @@ EOD
 # block: cat hello.go
 cat hello.go
 
-# block: initial vgo build
+# block: initial go build
 echo >go.mod
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
@@ -83,13 +66,13 @@ assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: no rebuild required
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
 
-# block: vgo list -m demo
-vgo list -m
+# block: go list -m demo
+go list -m
 assert "$? -eq 0" $LINENO
 
 # block: french hello
@@ -97,37 +80,41 @@ LANG=fr ./hello
 assert "$? -eq 0" $LINENO
 
 # block: upgrade
-vgo list -m -u
+go list -m -u
 assert "$? -eq 0" $LINENO
 
 # block: upgrade text
-vgo get golang.org/x/text
+go get golang.org/x/text
 assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: check go.mod
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 
-# block: vgo test all
-vgo test all
+# TODO this should be go test all
+
+# block: go test all
+go test github.com/you/hello rsc.io/quote
 assert "$? -eq 0" $LINENO
 
-# block: vgo test quote
-vgo test rsc.io/quote/...
+# block: go test quote
+go test rsc.io/quote/...
 assert "$? -eq 1" $LINENO
 
 # block: upgrade all
-vgo get -u
+go get -u
 assert "$? -eq 0" $LINENO
 cat go.mod
 
+# TODO this should be go test all
+
 # block: test all again
-vgo test all
+go test github.com/you/hello rsc.io/quote
 assert "$? -eq 1" $LINENO
 
 # block: bad output
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
@@ -136,75 +123,87 @@ td=$(mktemp -d)
 pushd $td > /dev/null
 export GOPATH=$PWD
 
-# block: gopath comparison
-go get -d rsc.io/hello
-assert "$? -eq 0" $LINENO
-go build -o badhello rsc.io/hello
-assert "$? -eq 0" $LINENO
-./badhello
-assert "$? -eq 0" $LINENO
+# TODO this should be uncommented
+
+# # block: gopath comparison
+# go get -d rsc.io/hello
+# assert "$? -eq 0" $LINENO
+# go build -o badhello rsc.io/hello
+# assert "$? -eq 0" $LINENO
+# ./badhello
+# assert "$? -eq 0" $LINENO
 
 popd > /dev/null
 export GOPATH=$HOME
 
 # block: list sampler
-vgo list -t rsc.io/sampler
+go list -m -versions rsc.io/sampler
 assert "$? -eq 0" $LINENO
+
+# TODO this should be go test all
 
 # block: specific version
 cat go.mod
-vgo get rsc.io/sampler@v1.3.1
+go get rsc.io/sampler@v1.3.1
 assert "$? -eq 0" $LINENO
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 cat go.mod
-vgo test all
+go test github.com/you/hello rsc.io/quote
 assert "$? -eq 0" $LINENO
 
 # block: downgrade others
-vgo get rsc.io/sampler@v1.2.0
+go get rsc.io/sampler@v1.2.0
 assert "$? -eq 0" $LINENO
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 cat go.mod
 
+# TODO this should be go get rsc.io/sampler@none
+# TODO this should be go test all
+
 # block: remove dependency
-vgo get rsc.io/sampler@none
+go mod edit -droprequire rsc.io/sampler
 assert "$? -eq 0" $LINENO
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 cat go.mod
-vgo test all
+go test github.com/you/hello rsc.io/quote
 assert "$? -eq 0" $LINENO
 
 # block: back to latest
-vgo get -u
+go get -u
 assert "$? -eq 0" $LINENO
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 
-exclude="exclude \"rsc.io/sampler\" v1.99.99"
+# TODO this should be go test all
 
-# block: show exclude
-echo $exclude
+# TODO: should be able to use
+# go get -u
+# below once hack removed
 
 # block: apply exclude
-echo $exclude >>go.mod
-vgo list -t rsc.io/sampler
+go mod edit -exclude=rsc.io/sampler@v1.99.99
+echo "** TODO: REMOVE THIS HACK; see https://github.com/golang/go/issues/26454 **"
+cat go.mod
+go mod edit -require rsc.io/sampler@v1.3.1
 assert "$? -eq 0" $LINENO
-vgo get -u
+go list -m -versions rsc.io/sampler
 assert "$? -eq 0" $LINENO
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
 cat go.mod
-vgo test all
+go test github.com/you/hello rsc.io/quote
 assert "$? -eq 0" $LINENO
+quoteVersion=$(go list -m -f "{{.Version}}" rsc.io/quote)
 
 # block: prepare local quote
 git clone https://github.com/rsc/quote ../quote
 
 # block: update quote.go
 cd ../quote
+git checkout -b my_quote $quoteVersion
 echo "<edit quote.go>"
 
 sed -i 's/return sampler.Hello()/return sampler.Glass()/' quote.go
@@ -217,23 +216,23 @@ echo $replace
 # block: apply replace
 cd ../hello
 echo $replace >>go.mod
-vgo list -m
+go list -m
 assert "$? -eq 0" $LINENO
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
 
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
-githubcli repo renameIfExists vgo-by-example-quote-fork vgo-by-example-quote-fork_$now
+githubcli repo renameIfExists go-modules-by-example-quote-fork go-modules-by-example-quote-fork_$now
 assert "$? -eq 0" $LINENO
-githubcli repo create vgo-by-example-quote-fork
+githubcli repo create go-modules-by-example-quote-fork
 assert "$? -eq 0" $LINENO
 
 # block: setup our quote
 cd ../quote
-git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork
+git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 assert "$? -eq 0" $LINENO
 git commit -a -m 'my fork'
 assert "$? -eq 0" $LINENO
@@ -246,16 +245,16 @@ assert "$? -eq 0" $LINENO
 
 # block: use our quote
 cd ../hello
-echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/vgo-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
-vgo list -m
+echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
+go list -m
 assert "$? -eq 0" $LINENO
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 LANG=fr ./hello
 assert "$? -eq 0" $LINENO
 
 # block: vendor
-vgo mod -vendor
+go mod vendor
 assert "$? -eq 0" $LINENO
 mkdir -p $GOPATH/src/github.com/you
 cp -a . $GOPATH/src/github.com/you/hello
@@ -271,6 +270,4 @@ go tool nm vhello | grep sampler.hello
 assert "$? -eq 0" $LINENO
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
-
+go version
