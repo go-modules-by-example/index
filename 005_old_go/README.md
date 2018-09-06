@@ -18,14 +18,14 @@ Now create a `main` go module to use our v2 module:
 
 
 ```
-{{PrintBlock "go use v2 module" -}}
+{{PrintBlock "Go module use v2 module" -}}
 ```
 
 Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 module:
 
 
 ```
-{{PrintBlock "go use v2 module" -}}
+{{PrintBlock "GOPATH use v2 module" -}}
 ```
 
 ### Version details
@@ -42,10 +42,14 @@ transition](https://github.com/golang/go/issues/25139):
 ```
 $ cd /tmp
 $ curl -s https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz | tar -zx
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
 $ PATH=/tmp/go/bin:$PATH which go
-/tmp/go/bin/go
+/go/bin/go
 $ PATH=/tmp/go/bin:$PATH go version
-go version go1.10.3 linux/amd64
+go version go1.11 linux/amd64
 ```
 
 Create a simple module that is a major version v2:
@@ -78,7 +82,7 @@ $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) 8fc85f5] Initial commit
+[master (root-commit) 3e53aff] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
@@ -97,12 +101,48 @@ Now create a `main` go module to use our v2 module:
 
 
 ```
+$ cd $HOME
+$ mkdir usehello
+$ cd usehello
+$ cat <<EOD >main.go
+package main // import "example.com/usehello"
+
+import "fmt"
+import "github.com/myitcv/go-modules-by-example-v2-module/v2"
+
+func main() {
+	fmt.Println(example.Name)
+}
+EOD
+$ echo >go.mod
+$ go build
+go: finding github.com/myitcv/go-modules-by-example-v2-module/v2 v2.0.0
+go: downloading github.com/myitcv/go-modules-by-example-v2-module/v2 v2.0.0
+$ ./usehello
+Goodbye
 ```
 
 Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 module:
 
 
 ```
+$ cd $GOPATH
+$ mkdir -p src/example.com/hello
+$ cd src/example.com/hello
+$ cat <<EOD >main.go
+package main // import "example.com/hello"
+
+import "fmt"
+import "github.com/myitcv/go-modules-by-example-v2-module"
+
+func main() {
+	fmt.Println(example.Name)
+}
+EOD
+$ PATH=/tmp/go/bin:$PATH go get github.com/myitcv/go-modules-by-example-v2-module
+$ PATH=/tmp/go/bin:$PATH go build
+$ ./hello
+Goodbye
 ```
 
 ### Version details
