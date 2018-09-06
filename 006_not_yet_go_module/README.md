@@ -9,14 +9,7 @@ _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 Create a module using the `github.com/go-chi/chi` [example](https://github.com/go-chi/chi/tree/cca4135d8dddff765463feaf1118047a9e506b4a#examples):
-
 
 ```
 {{PrintBlock "setup" -}}
@@ -25,21 +18,21 @@ Create a module using the `github.com/go-chi/chi` [example](https://github.com/g
 Now because, at the time of writing, `github.com/go-chi/chi`:
 
 * has a major version `>= 2`
-* has not been converted to a Go (vgo) module
+* has not been converted to a Go module
 * we want to use v3.3.2
 
-we need to `vgo get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
+we need to `go get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
 
 
 ```
-{{PrintBlock "vgo get specific version" -}}
+{{PrintBlock "go get specific version" -}}
 ```
 
 Now do a build to check all is good:
 
 
 ```
-{{PrintBlock "vgo build" -}}
+{{PrintBlock "go build" -}}
 ```
 
 And check the contents of `go.mod`:
@@ -65,13 +58,7 @@ _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-```
-
 Create a module using the `github.com/go-chi/chi` [example](https://github.com/go-chi/chi/tree/cca4135d8dddff765463feaf1118047a9e506b4a#examples):
-
 
 ```
 $ mkdir hello
@@ -99,19 +86,24 @@ EOD
 Now because, at the time of writing, `github.com/go-chi/chi`:
 
 * has a major version `>= 2`
-* has not been converted to a Go (vgo) module
+* has not been converted to a Go module
 * we want to use v3.3.2
 
-we need to `vgo get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
+we need to `go get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
 
 
 ```
+$ go get github.com/go-chi/chi@v3.3.2
+go: finding github.com/go-chi/chi v3.3.2
+go: downloading github.com/go-chi/chi v3.3.2+incompatible
 ```
 
 Now do a build to check all is good:
 
 
 ```
+$ go build
+go: finding github.com/go-chi/chi v3.3.2+incompatible
 ```
 
 And check the contents of `go.mod`:

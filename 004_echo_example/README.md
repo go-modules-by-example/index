@@ -11,14 +11,6 @@ differently after v3.2.1. v3.2.1 was tagged as `v3.2.1`, whereas v3.2.2 was tagg
 and this new pattern was used for all releases up to and including (at the time of writing) v3.3.5 which was tagged as
 `3.3.5`. vgo doesn't recognise these tags (e.g. `3.3.5`) as versions, and hence this guide is written against v3.2.1.
 
-### Getting started
-
-As ever, start by ensuring vgo is installed and up to date:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 ### A simple example
 
 We will use a simple example [taken from the package
@@ -69,13 +61,6 @@ A further point to note is that, at the time of writing, https://github.com/labs
 differently after v3.2.1. v3.2.1 was tagged as `v3.2.1`, whereas v3.2.2 was tagged as `3.2.2` (note the missing `v`);
 and this new pattern was used for all releases up to and including (at the time of writing) v3.3.5 which was tagged as
 `3.3.5`. vgo doesn't recognise these tags (e.g. `3.3.5`) as versions, and hence this guide is written against v3.2.1.
-
-### Getting started
-
-As ever, start by ensuring vgo is installed and up to date:
-
-```
-```
 
 ### A simple example
 
@@ -130,17 +115,17 @@ Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
 $ go get github.com/labstack/echo@v3.2.1
 go: finding github.com/labstack/echo v3.2.1
 go: downloading github.com/labstack/echo v3.2.1+incompatible
-go: finding github.com/labstack/gommon/log latest
 go: finding github.com/labstack/gommon/color latest
+go: finding github.com/labstack/gommon/log latest
+go: finding github.com/labstack/gommon v0.2.1
+go: downloading github.com/labstack/gommon v0.2.1
 go: finding golang.org/x/crypto/acme/autocert latest
 go: finding golang.org/x/crypto/acme latest
 go: finding golang.org/x/crypto latest
 go: downloading golang.org/x/crypto v0.0.0-20180904163835-0709b304e793
-go: finding github.com/labstack/gommon v0.2.1
-go: downloading github.com/labstack/gommon v0.2.1
 go: finding github.com/valyala/fasttemplate latest
-go: finding github.com/mattn/go-colorable v0.0.9
 go: finding github.com/mattn/go-isatty v0.0.4
+go: finding github.com/mattn/go-colorable v0.0.9
 go: downloading github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/mattn/go-colorable v0.0.9
 go: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4

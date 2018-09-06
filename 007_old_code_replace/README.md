@@ -12,12 +12,6 @@ _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pdf` at `v0.1.1` is
 "old", non-module code):
 
@@ -30,13 +24,13 @@ Now we get that specific version of `rsc.io/pdf` that is known to be "old" Go co
 
 
 ```
-{{PrintBlock "vgo get pdf" -}}
+{{PrintBlock "go get pdf" -}}
 ```
 
 Now check our code builds and runs:
 
 ```
-{{PrintBlock "vgo build" -}}
+{{PrintBlock "go build" -}}
 ```
 
 Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
@@ -48,7 +42,7 @@ Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
 Now check our code still builds:
 
 ```
-{{PrintBlock "vgo build fails" -}}
+{{PrintBlock "go build fails" -}}
 ```
 
 It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
@@ -61,7 +55,7 @@ It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
 Now check our code builds and runs:
 
 ```
-{{PrintBlock "vgo build check" -}}
+{{PrintBlock "go build check" -}}
 ```
 
 
@@ -85,11 +79,6 @@ _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-```
-
 Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pdf` at `v0.1.1` is
 "old", non-module code):
 
@@ -97,8 +86,10 @@ Create ourselves a simple module that depends on an "old" Go package (`rsc.io/pd
 ```
 $ mkdir hello
 $ cd hello
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 $ cat <<EOD >hello.go
-package main // import "example.com/hello"
+package main
 
 import (
         "fmt"
@@ -110,18 +101,27 @@ func main() {
         fmt.Println(pdf.Point{})
 }
 EOD
-$ echo >go.mod
 ```
 
 Now we get that specific version of `rsc.io/pdf` that is known to be "old" Go code:
 
 
 ```
+$ go get rsc.io/pdf@v0.1.1
+go: finding rsc.io/pdf v0.1.1
+go: downloading rsc.io/pdf v0.1.1
+$ cat go.mod
+module example.com/hello
+
+require rsc.io/pdf v0.1.1 // indirect
 ```
 
 Now check our code builds and runs:
 
 ```
+$ go build
+$ ./hello
+{0 0}
 ```
 
 Create a local copy of `rsc.io/pdf` and add a replace directive to use it:
@@ -146,6 +146,9 @@ replace rsc.io/pdf v0.1.1 => ./pdf
 Now check our code still builds:
 
 ```
+$ go build
+go: parsing pdf/go.mod: open /root/hello/pdf/go.mod: no such file or directory
+go: error loading module requirements
 ```
 
 It doesn't; seems we need to mark that directory as a Go module with a `go.mod`:
@@ -162,6 +165,9 @@ $ cd ..
 Now check our code builds and runs:
 
 ```
+$ go build
+$ ./hello
+{0 0}
 ```
 
 

@@ -12,12 +12,6 @@ _Add more detail/intro here_
 
 ### Walkthrough
 
-Start by getting `vgo` in the usual way:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 Create ourselves a simple module that depends on an on a module:
 
 
@@ -65,11 +59,6 @@ here...
 _Add more detail/intro here_
 
 ### Walkthrough
-
-Start by getting `vgo` in the usual way:
-
-```
-```
 
 Create ourselves a simple module that depends on an on a module:
 

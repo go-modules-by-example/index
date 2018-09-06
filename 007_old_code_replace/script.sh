@@ -37,8 +37,9 @@ git config --global advice.detachedHead false
 # block: setup
 mkdir hello
 cd hello
+go mod init example.com/hello
 cat <<EOD > hello.go
-package main // import "example.com/hello"
+package main
 
 import (
         "fmt"
@@ -50,7 +51,6 @@ func main() {
         fmt.Println(pdf.Point{})
 }
 EOD
-echo > go.mod
 
 # block: go get pdf
 go get rsc.io/pdf@v0.1.1
