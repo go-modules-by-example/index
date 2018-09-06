@@ -35,95 +35,81 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 git config --global push.default current
 
+repoName="go-modules-by-example-pseudo-hack"
+
 # tidy up if we already have the repo
 now=$(date +'%Y%m%d%H%M%S_%N')
-githubcli repo renameIfExists go-modules-by-example-submodules go-modules-by-example-submodules_$now
+githubcli repo renameIfExists $repoName ${repoName}_$now
 assert "$? -eq 0" $LINENO
-githubcli repo create go-modules-by-example-submodules
+githubcli repo create $repoName
 assert "$? -eq 0" $LINENO
 
 # block: setup
-mkdir go-modules-by-example-submodules
-cd go-modules-by-example-submodules
+mkdir $repoName
+cd $repoName
 git init -q
 assert "$? -eq 0" $LINENO
-git remote add origin https://github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
+git remote add origin https://github.com/$GITHUB_USERNAME/$repoName
 assert "$? -eq 0" $LINENO
 
 # block: define repo root module
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
-git add go.mod
+go mod init github.com/$GITHUB_USERNAME/$repoName
 assert "$? -eq 0" $LINENO
-git commit -q -am 'Initial commit'
+mkdir pkg
+cat <<EOD > pkg/pkg.go
+package pkg
+
+const Name = "v1"
+EOD
+git add *
 assert "$? -eq 0" $LINENO
+git commit -q -am 'v1 commit'
+assert "$? -eq 0" $LINENO
+firstcommit="v0.0.0-$(git log -1 --pretty=format:%ad --date=format:%Y%m%d%H%M%S)-$( git log -1 --pretty=format:%H | cut -c1-12)"
 git push -q
 assert "$? -eq 0" $LINENO
 
-# block: create package b
-mkdir b
-cd b
-cat <<EOD > b.go
-package b
+# block: create second commit
+cat <<EOD > pkg/pkg.go
+package pkg
 
-const Name = "Gopher"
+const Name = "v2"
 EOD
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
-go test
 assert "$? -eq 0" $LINENO
-
-# block: commit and tag b
-cd ..
-git add b
+git add *
 assert "$? -eq 0" $LINENO
-git commit -q -am 'Add package b'
+git commit -q -am 'v2 commit'
 assert "$? -eq 0" $LINENO
 git push -q
 assert "$? -eq 0" $LINENO
-git tag b/v0.1.1
+git tag $firstcommit
 assert "$? -eq 0" $LINENO
-git push -q origin b/v0.1.1
+git push origin $firstcommit
 assert "$? -eq 0" $LINENO
 
-# block: create package a
-mkdir a
-cd a
-cat <<EOD > .gitignore
-/a
-EOD
-cat <<EOD > a.go
+cd $(mktemp -d)
+assert "$? -eq 0" $LINENO
+go mod init example.com/blah
+assert "$? -eq 0" $LINENO
+cat <<EOD > main.go
 package main
 
-import (
-	"github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b"
-	"fmt"
-)
+import "fmt"
 
-const Name = b.Name
+import "github.com/$GITHUB_USERNAME/$repoName/pkg"
 
-func main() {
-	fmt.Println(Name)
+func main () {
+	fmt.Println(pkg.Name)
 }
 EOD
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
-
-# block: run package a
+go mod edit -require github.com/$GITHUB_USERNAME/$repoName@$firstcommit
+assert "$? -eq 0" $LINENO
+cat go.mod
 go build
 assert "$? -eq 0" $LINENO
-./a
-cat go.mod
+./blah
+assert "$? -eq 0" $LINENO
 
-# block: commit and tag a
-cd ..
-git add a
-assert "$? -eq 0" $LINENO
-git commit -q -am 'Add package a'
-assert "$? -eq 0" $LINENO
-git push -q
-assert "$? -eq 0" $LINENO
-git tag a/v1.0.0
-assert "$? -eq 0" $LINENO
-git push -q origin a/v1.0.0
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

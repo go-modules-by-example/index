@@ -48,26 +48,6 @@ export GOPATH=/tmp/gopath
 export PATH=$GOPATH/bin:$PATH
 cd /tmp/gopath
 
-# we intentionally have the vgo install step after
-# so vgo is in our temp path
-
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: install dep
 go get -u github.com/golang/dep/cmd/dep
 assert "$? -eq 0" $LINENO
@@ -93,17 +73,21 @@ assert "$? -eq 0" $LINENO
 go test -tags sqlite ./...
 assert "$? -eq 0" $LINENO
 
-# block: vgo build
-vgo build -tags sqlite
+# TODO add README for the following step
+
+# block: set GO111MODULE
+export GO111MODULE=on
+
+# block: go build
+go build -tags sqlite
 assert "$? -eq 0" $LINENO
 
 # block: cat go.mod
 cat go.mod
 
-# block: vgo test
-vgo test -tags sqlite ./...
+# block: go test
+go test -tags sqlite ./...
 assert "$? -eq 0" $LINENO
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+go version

@@ -34,23 +34,6 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: step 0
 mkdir hello
 cd hello
@@ -89,14 +72,13 @@ EOD
 echo > go.mod
 
 # block: step 2
-vgo get github.com/labstack/echo@v3.2.1
+go get github.com/labstack/echo@v3.2.1
 assert "$? -eq 0" $LINENO
 
 # block: step 3
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+go version

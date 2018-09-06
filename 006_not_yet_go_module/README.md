@@ -68,7 +68,6 @@ _Add more detail/intro here_
 Start by getting `vgo` in the usual way:
 
 ```
-$ go get -u golang.org/x/vgo
 ```
 
 Create a module using the `github.com/go-chi/chi` [example](https://github.com/go-chi/chi/tree/cca4135d8dddff765463feaf1118047a9e506b4a#examples):
@@ -77,8 +76,8 @@ Create a module using the `github.com/go-chi/chi` [example](https://github.com/g
 ```
 $ mkdir hello
 $ cd hello
-$ vgo mod -init -module example.com/hello
-vgo: creating new go.mod: module example.com/hello
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 $ cat <<EOD >hello.go
 package main
 
@@ -107,16 +106,12 @@ we need to `vgo get` that specific version, which will be retrieved as a v0.0.0 
 
 
 ```
-$ vgo get github.com/go-chi/chi@v3.3.2
-vgo: finding github.com/go-chi/chi v3.3.2
-vgo: downloading github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
 ```
 
 Now do a build to check all is good:
 
 
 ```
-$ vgo build
 ```
 
 And check the contents of `go.mod`:
@@ -125,14 +120,13 @@ And check the contents of `go.mod`:
 $ cat go.mod
 module example.com/hello
 
-require github.com/go-chi/chi v0.0.0-20171222161133-e83ac2304db3
+require github.com/go-chi/chi v3.3.2+incompatible
 ```
 
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

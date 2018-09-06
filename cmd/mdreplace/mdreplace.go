@@ -15,7 +15,7 @@ import (
 	"strings"
 	"sync"
 
-	"myitcv.io/vgo-by-example/cmd/mdreplace/internal/itemtype"
+	"myitcv.io/go-modules-by-example/cmd/mdreplace/internal/itemtype"
 )
 
 // take input from stdin or files (args)

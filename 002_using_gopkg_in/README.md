@@ -4,14 +4,6 @@
 
 _Some background here on the history of gopkg.in, major version numbers in paths etc._
 
-### Getting started
-
-As ever, start by ensuring vgo is installed and up to date:
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 ### Hello, world
 
 Let's write the YAML equivalent of Hello World. Create a directory outside
@@ -31,10 +23,10 @@ Create an empty go.mod file to mark the root of this module, and then build and
 run your new program:
 
 ```
-{{PrintBlock "initial vgo build" -}}
+{{PrintBlock "initial go build" -}}
 ```
 
-Notice how vgo resolves gopkg.in/yaml.v1, something we can see by inspecting the go.mod
+Notice how go resolves gopkg.in/yaml.v1, something we can see by inspecting the go.mod
 file:
 
 ```
@@ -49,10 +41,10 @@ major version bump, to v2.x.x. We update hello.go:
 {{PrintOut "cat hello.go v2" -}}
 ```
 
-Now we vgo build again; notice the resolution to v2 of the yaml package this time around:
+Now we go build again; notice the resolution to v2 of the yaml package this time around:
 
 ```
-{{PrintBlock "vgo build v2" -}}
+{{PrintBlock "go build v2" -}}
 ```
 
 We can check go.mod for the exact version that was resolved:
@@ -76,29 +68,23 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 
 _Some background here on the history of gopkg.in, major version numbers in paths etc._
 
-### Getting started
-
-As ever, start by ensuring vgo is installed and up to date:
-
-```
-$ go get -u golang.org/x/vgo
-```
-
 ### Hello, world
 
 Let's write the YAML equivalent of Hello World. Create a directory outside
 your GOPATH/src tree and change into it:
 
 ```
-$ cd $HOME
+$ cd $(mktemp -d)
 $ mkdir hello
 $ cd hello
+$ go mod init github.com/you/hello
+go: creating new go.mod: module github.com/you/hello
 ```
 
 Then create a file hello.go which uses the original v1 of the yaml package:
 
 ```go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -125,18 +111,14 @@ Create an empty go.mod file to mark the root of this module, and then build and
 run your new program:
 
 ```
-$ echo >go.mod
-$ vgo build
-vgo: resolving import "gopkg.in/yaml.v1"
-vgo: finding gopkg.in/yaml.v1 latest
-vgo: finding gopkg.in/yaml.v1 (latest)
-vgo: adding gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
-vgo: downloading gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
+$ go build
+go: finding gopkg.in/yaml.v1 latest
+go: downloading gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0
 $ ./hello
 we got "a: 1\nb: 0\n"
 ```
 
-Notice how vgo resolves gopkg.in/yaml.v1, something we can see by inspecting the go.mod
+Notice how go resolves gopkg.in/yaml.v1, something we can see by inspecting the go.mod
 file:
 
 ```
@@ -151,7 +133,7 @@ major version bump, to v2.x.x. We update hello.go:
 
 
 ```go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -174,15 +156,13 @@ func main() {
 }
 ```
 
-Now we vgo build again; notice the resolution to v2 of the yaml package this time around:
+Now we go build again; notice the resolution to v2 of the yaml package this time around:
 
 ```
-$ vgo build
-vgo: resolving import "gopkg.in/yaml.v2"
-vgo: finding gopkg.in/yaml.v2 v2.2.1
-vgo: finding gopkg.in/yaml.v2 (latest)
-vgo: adding gopkg.in/yaml.v2 v2.2.1
-vgo: downloading gopkg.in/yaml.v2 v2.2.1
+$ go build
+go: finding gopkg.in/yaml.v2 v2.2.1
+go: downloading gopkg.in/yaml.v2 v2.2.1
+go: finding gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405
 $ ./hello
 we got "a: 1\nb: 0\n"
 ```
@@ -205,8 +185,7 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 ### Version details
 
 ```
-go version go1.10.3 linux/amd64 vgo:2018-02-20.1
-vgo commit: 97ff4ad34612eed56f1dc6c6aaee19617e45e2be
+go version go1.11 linux/amd64
 ```
 
 <!-- END -->

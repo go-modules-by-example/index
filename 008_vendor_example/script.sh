@@ -34,23 +34,6 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
-# block: go get vgo
-go get -u golang.org/x/vgo
-assert "$? -eq 0" $LINENO
-
-# switch to custom vgo commit
-if [ "$VGO_VERSION" != "" ]
-then
-	pushd $(go list -f "{{.Dir}}" golang.org/x/vgo) > /dev/null
-	assert "$? -eq 0" $LINENO
-	git checkout -q -f $VGO_VERSION
-	assert "$? -eq 0" $LINENO
-	go install
-	assert "$? -eq 0" $LINENO
-	popd > /dev/null
-	assert "$? -eq 0" $LINENO
-fi
-
 # block: setup
 mkdir hello
 cd hello
@@ -67,7 +50,7 @@ func main() {
 }
 EOD
 echo > go.mod
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
@@ -79,23 +62,22 @@ cat <<EOD >> go.mod
 
 require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
 EOD
-vgo install golang.org/x/tools/cmd/stringer
+go install golang.org/x/tools/cmd/stringer
 assert "$? -eq 0" $LINENO
 
 # block: check
 cat go.mod
-vgo build
+go build
 assert "$? -eq 0" $LINENO
 
 
 # block: vendor
-vgo mod -vendor
+go mod vendor
 assert "$? -eq 0" $LINENO
-cat vendor/vgo.list
+cat vendor/modules.txt
 assert "$? -eq 0" $LINENO
 find vendor -type d
 assert "$? -eq 0" $LINENO
 
 # block: version details
-vgo version
-echo "vgo commit: $(command cd $(go list -f "{{.Dir}}" golang.org/x/vgo); git rev-parse HEAD)"
+go version
