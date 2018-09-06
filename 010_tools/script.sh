@@ -64,6 +64,10 @@ cat tools.go
 go install golang.org/x/tools/cmd/stringer
 assert "$? -eq 0" $LINENO
 
+# block: module deps
+go mod edit -json
+assert "$? -eq 0" $LINENO
+
 # block: tool on path
 which stringer
 
@@ -96,6 +100,7 @@ cat painkiller.go
 # block: go generate and run
 go generate
 go run .
+
 
 # block: version details
 go version

@@ -7,24 +7,24 @@ generation, or to lint/vet your code. This example shows you how.
 
 ### Walkthrough
 
-First, ceate ourselves an example module. This example will require
+First, ceate an example module. This example will require
 [`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer) to help with code generation.
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-We set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where we
-want our tool dependencies to be installed:
+Set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where tool
+dependencies will be installed:
 
 
 ```
 {{PrintBlock "set bin target" -}}
 ```
 
-We add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
+Add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
 compiled (nor will not compile, because we are importing a `main` package); it is used simply to record the dependency.
-The file name and the build constraint are not particularly important, but we go with `tools` for the sake of
+The file and the build constraint names are not particularly important, but we choose `tools` for the sake of
 consistency:
 
 
@@ -32,27 +32,33 @@ consistency:
 {{PrintBlockOut "add tool dependency" -}}
 ```
 
-Now we install `stringer`:
+Install `stringer`:
 
 ```
 {{PrintBlock "install tool dependency" -}}
 ```
 
-We can see that `stringer` is now available on our `PATH`:
+The module reflects the dependency:
+
+```
+{{PrintBlock "module deps" -}}
+```
+
+`stringer` is available on our `PATH`:
 
 
 ```
 {{PrintBlock "tool on path" -}}
 ```
 
-Now let's use `stringer` via a `go:generate` directive:
+Let's use `stringer` via a `go:generate` directive:
 
 
 ```
 {{PrintBlockOut "painkiller.go" -}}
 ```
 
-Next run `go generate` and run the result:
+`go generate` and run the result:
 
 ```
 {{PrintBlock "go generate and run" -}}
@@ -73,7 +79,7 @@ generation, or to lint/vet your code. This example shows you how.
 
 ### Walkthrough
 
-First, ceate ourselves an example module. This example will require
+First, ceate an example module. This example will require
 [`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer) to help with code generation.
 
 ```
@@ -83,8 +89,8 @@ $ go mod init example.com/blah/painkiller
 go: creating new go.mod: module example.com/blah/painkiller
 ```
 
-We set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where we
-want our tool dependencies to be installed:
+Set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where tool
+dependencies will be installed:
 
 
 ```
@@ -92,9 +98,9 @@ $ export GOBIN=$PWD/bin
 $ export PATH=$GOBIN:$PATH
 ```
 
-We add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
+Add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
 compiled (nor will not compile, because we are importing a `main` package); it is used simply to record the dependency.
-The file name and the build constraint are not particularly important, but we go with `tools` for the sake of
+The file and the build constraint names are not particularly important, but we choose `tools` for the sake of
 consistency:
 
 
@@ -108,7 +114,7 @@ import (
 )
 ```
 
-Now we install `stringer`:
+Install `stringer`:
 
 ```
 $ go install golang.org/x/tools/cmd/stringer
@@ -118,7 +124,27 @@ go: finding golang.org/x/tools latest
 go: downloading golang.org/x/tools v0.0.0-20180904205237-0aa4b8830f48
 ```
 
-We can see that `stringer` is now available on our `PATH`:
+The module reflects the dependency:
+
+```
+$ go mod edit -json
+{
+	"Module": {
+		"Path": "example.com/blah/painkiller"
+	},
+	"Require": [
+		{
+			"Path": "golang.org/x/tools",
+			"Version": "v0.0.0-20180904205237-0aa4b8830f48",
+			"Indirect": true
+		}
+	],
+	"Exclude": null,
+	"Replace": null
+}
+```
+
+`stringer` is available on our `PATH`:
 
 
 ```
@@ -126,7 +152,7 @@ $ which stringer
 /tmp/go-modules-by-example-tools/bin/stringer
 ```
 
-Now let's use `stringer` via a `go:generate` directive:
+Let's use `stringer` via a `go:generate` directive:
 
 
 ```
@@ -151,7 +177,7 @@ func main() {
 }
 ```
 
-Next run `go generate` and run the result:
+`go generate` and run the result:
 
 ```
 $ go generate
