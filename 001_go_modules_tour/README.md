@@ -152,15 +152,10 @@ It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
 ```
 
 The go get -u behavior of taking the latest of every dependency is exactly
-what go get does when packages being downloaded aren't in GOPATH. On a system
-with nothing in GOPATH:
+what go get does when packages being downloaded aren't in GOPATH.
 
-```
-{{PrintBlock "gopath comparison" -}}
-```
-
-The important difference is that go does not behave this way by default. Also
-you can undo it by downgrading.
+The important difference is that go modules do not behave this way by default.
+Also you can undo it by downgrading.
 
 ### Downgrading
 
@@ -461,7 +456,7 @@ created:
 ```
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.003s
+ok  	rsc.io/quote	0.002s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -519,17 +514,14 @@ It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
 $ go build
 $ ./hello
 99 bottles of beer on the wall, 99 bottles of beer, ...
+/script.sh: line 114: popd: directory stack empty
 ```
 
 The go get -u behavior of taking the latest of every dependency is exactly
-what go get does when packages being downloaded aren't in GOPATH. On a system
-with nothing in GOPATH:
+what go get does when packages being downloaded aren't in GOPATH.
 
-```
-```
-
-The important difference is that go does not behave this way by default. Also
-you can undo it by downgrading.
+The important difference is that go modules do not behave this way by default.
+Also you can undo it by downgrading.
 
 ### Downgrading
 
@@ -732,7 +724,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[my_quote 01c45de] my fork
+[my_quote a734aa2] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/go-modules-by-example-quote-fork

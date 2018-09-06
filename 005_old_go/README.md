@@ -1,31 +1,24 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-Use Go 1.10.3 which includes [minimal module support for vgo
+Use Go 1.10.3 which includes [minimal module support for go modules
 transition](https://github.com/golang/go/issues/25139):
 
 ```
 {{PrintBlock "use Go 1.10.3" -}}
 ```
 
-Get vgo:
-
-
-```
-{{PrintBlock "go get vgo" -}}
-```
-
 Create a simple module that is a major version v2:
 
 
 ```
-{{PrintBlock "create vgo module v2" -}}
+{{PrintBlock "create go module v2" -}}
 ```
 
-Now create a `main` vgo module to use our v2 module:
+Now create a `main` go module to use our v2 module:
 
 
 ```
-{{PrintBlock "vgo use v2 module" -}}
+{{PrintBlock "go use v2 module" -}}
 ```
 
 Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 module:
@@ -43,7 +36,7 @@ Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 mo
 
 -->
 
-Use Go 1.10.3 which includes [minimal module support for vgo
+Use Go 1.10.3 which includes [minimal module support for go modules
 transition](https://github.com/golang/go/issues/25139):
 
 ```
@@ -55,19 +48,52 @@ $ PATH=/tmp/go/bin:$PATH go version
 go version go1.10.3 linux/amd64
 ```
 
-Get vgo:
-
-
-```
-```
-
 Create a simple module that is a major version v2:
 
 
 ```
+$ cd $HOME
+$ mkdir hello
+$ cd hello
+$ cat <<EOD >hello.go
+package example
+
+import "github.com/myitcv/go-modules-by-example-v2-module/v2/goodbye"
+
+const Name = goodbye.Name
+EOD
+$ cat <<EOD >go.mod
+module github.com/myitcv/go-modules-by-example-v2-module/v2
+EOD
+$ mkdir goodbye
+$ cat <<EOD >goodbye/goodbye.go
+package goodbye
+
+const Name = "Goodbye"
+EOD
+$ go test ./...
+?   	github.com/myitcv/go-modules-by-example-v2-module/v2	[no test files]
+?   	github.com/myitcv/go-modules-by-example-v2-module/v2/goodbye	[no test files]
+$ git init
+Initialized empty Git repository in /root/hello/.git/
+$ git add -A
+$ git commit -m 'Initial commit'
+[master (root-commit) 8fc85f5] Initial commit
+ 3 files changed, 9 insertions(+)
+ create mode 100644 go.mod
+ create mode 100644 goodbye/goodbye.go
+ create mode 100644 hello.go
+$ git remote add origin https://github.com/myitcv/go-modules-by-example-v2-module
+$ git push origin master
+To https://github.com/myitcv/go-modules-by-example-v2-module
+ * [new branch]      master -> master
+$ git tag v2.0.0
+$ git push origin v2.0.0
+To https://github.com/myitcv/go-modules-by-example-v2-module
+ * [new tag]         v2.0.0 -> v2.0.0
 ```
 
-Now create a `main` vgo module to use our v2 module:
+Now create a `main` go module to use our v2 module:
 
 
 ```

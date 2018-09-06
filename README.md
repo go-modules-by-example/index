@@ -1,5 +1,3 @@
-### `**This is a work-in-progress and pending review. Please do not link to this for now.**`
-
 ### Go modules by example
 
 _Go modules by example_ is a series of work-along guides that look to help explain how go modules works and how to get things done.
@@ -10,6 +8,10 @@ _Go modules by example_ is a series of work-along guides that look to help expla
 * [Using a package that has not been converted to go modules](https://github.com/myitcv/go-modules-by-example/blob/master/004_echo_example/README.md)
 * [Example of backwards compatability in Go 1.10 with semantic import paths](https://github.com/myitcv/go-modules-by-example/blob/master/005_old_go/README.md)
 * [Another example of package/project that has not yet been converted to a module](https://github.com/myitcv/go-modules-by-example/blob/master/006_not_yet_go_module/README.md)
+* [Forking a project which has not yet been converted to a Go module](https://github.com/myitcv/go-modules-by-example/blob/master/007_old_code_replace/README.md)
+* [Using modules to generate a vendor](https://github.com/myitcv/go-modules-by-example/blob/master/008_vendor_example/README.md)
+* [How to use submodules](https://github.com/myitcv/go-modules-by-example/blob/master/009_submodules/README.md)
+* [Tools as dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/010_tools/README.md)
 * ...
 
 See the [Feedback and TODO wiki](https://github.com/myitcv/go-modules-by-example/wiki/Feedback-TODO) for more up-to-date

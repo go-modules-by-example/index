@@ -119,20 +119,6 @@ assert "$? -eq 0" $LINENO
 ./hello
 assert "$? -eq 0" $LINENO
 
-td=$(mktemp -d)
-pushd $td > /dev/null
-export GOPATH=$PWD
-
-# TODO this should be uncommented
-
-# # block: gopath comparison
-# go get -d rsc.io/hello
-# assert "$? -eq 0" $LINENO
-# go build -o badhello rsc.io/hello
-# assert "$? -eq 0" $LINENO
-# ./badhello
-# assert "$? -eq 0" $LINENO
-
 popd > /dev/null
 export GOPATH=$HOME
 
