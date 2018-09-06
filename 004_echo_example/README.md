@@ -77,7 +77,7 @@ Next we write out the example and create an empty go.mod file to mark this as a 
 
 ```
 $ cat <<EOD >main.go
-package main // import "example.com/hello"
+package main
 
 import (
 	"net/http"
@@ -106,7 +106,8 @@ func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 EOD
-$ echo >go.mod
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 ```
 
 Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
@@ -117,17 +118,17 @@ go: finding github.com/labstack/echo v3.2.1
 go: downloading github.com/labstack/echo v3.2.1+incompatible
 go: finding github.com/labstack/gommon/color latest
 go: finding github.com/labstack/gommon/log latest
+go: finding golang.org/x/crypto/acme/autocert latest
 go: finding github.com/labstack/gommon v0.2.1
 go: downloading github.com/labstack/gommon v0.2.1
-go: finding golang.org/x/crypto/acme/autocert latest
 go: finding golang.org/x/crypto/acme latest
 go: finding golang.org/x/crypto latest
 go: downloading golang.org/x/crypto v0.0.0-20180904163835-0709b304e793
 go: finding github.com/valyala/fasttemplate latest
-go: finding github.com/mattn/go-isatty v0.0.4
 go: finding github.com/mattn/go-colorable v0.0.9
-go: downloading github.com/mattn/go-isatty v0.0.4
+go: finding github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/mattn/go-colorable v0.0.9
+go: downloading github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
 go: finding github.com/valyala/bytebufferpool v1.0.0
 go: downloading github.com/valyala/bytebufferpool v1.0.0

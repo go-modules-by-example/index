@@ -38,7 +38,7 @@ git config --global advice.detachedHead false
 mkdir hello
 cd hello
 cat <<EOD > hello.go
-package main // import "example.com/hello"
+package main
 
 import (
 	"fmt"
@@ -49,7 +49,7 @@ func main() {
    fmt.Println(quote.Hello())
 }
 EOD
-echo > go.mod
+go mod init example.com/hello
 go build
 assert "$? -eq 0" $LINENO
 ./hello

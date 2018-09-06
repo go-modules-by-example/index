@@ -40,7 +40,7 @@ mkdir hello
 cd hello
 
 cat <<EOD > hello.go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -56,7 +56,7 @@ EOD
 cat hello.go
 
 # block: initial go build
-echo >go.mod
+go mod init github.com/you/hello
 go build
 assert "$? -eq 0" $LINENO
 ./hello
@@ -201,7 +201,7 @@ echo $replace
 
 # block: apply replace
 cd ../hello
-echo $replace >>go.mod
+go mod edit -replace=rsc.io/quote=../quote
 go list -m
 assert "$? -eq 0" $LINENO
 go build
@@ -231,7 +231,7 @@ assert "$? -eq 0" $LINENO
 
 # block: use our quote
 cd ../hello
-echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
+go mod edit -replace=rsc.io/quote=github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork@v0.0.0-myfork
 go list -m
 assert "$? -eq 0" $LINENO
 go build
