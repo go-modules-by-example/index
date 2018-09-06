@@ -1,38 +1,61 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-### Introduction
+## Tools as dependencies
 
-Go supports tools as dependencies of modules. This example shows you how.
-
-_Add more detail/intro here_
+Go supports tools as dependencies of modules. For example, you might need to install a tool to help with code
+generation, or to lint/vet your code. This example shows you how.
 
 ### Walkthrough
 
-Create ourselves a directory:
+First, ceate ourselves an example module. This example will require
+[`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer) to help with code generation.
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Define where we want our tool dependencies to be installed:
+We set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where we
+want our tool dependencies to be installed:
 
 
 ```
 {{PrintBlock "set bin target" -}}
 ```
 
-Add our tool dependency and install it:
+We add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
+compiled (nor will not compile, because we are importing a `main` package); it is used simply to record the dependency.
+The file name and the build constraint are not particularly important, but we go with `tools` for the sake of
+consistency:
 
 
 ```
-{{PrintBlock "add tool dependency" -}}
+{{PrintBlockOut "add tool dependency" -}}
 ```
 
-Check our `go.mod` now reflects the new module requirement:
+Now we install `stringer`:
+
+```
+{{PrintBlock "install tool dependency" -}}
+```
+
+We can see that `stringer` is now available on our `PATH`:
 
 
 ```
-{{PrintBlock "check go.mod" -}}
+{{PrintBlock "tool on path" -}}
+```
+
+Now let's use `stringer` via a `go:generate` directive:
+
+
+```
+{{PrintBlockOut "painkiller.go" -}}
+```
+
+Next run `go generate` and run the result:
+
+```
+{{PrintBlock "go generate and run" -}}
 ```
 
 ### Version details
@@ -43,46 +66,51 @@ Check our `go.mod` now reflects the new module requirement:
 
 -->
 
-### Introduction
+## Tools as dependencies
 
-Go supports tools as dependencies of modules. This example shows you how.
-
-_Add more detail/intro here_
+Go supports tools as dependencies of modules. For example, you might need to install a tool to help with code
+generation, or to lint/vet your code. This example shows you how.
 
 ### Walkthrough
 
-Create ourselves a directory:
+First, ceate ourselves an example module. This example will require
+[`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer) to help with code generation.
 
 ```
-$ pwd
-/root
-$ ls
-$ mkdir go-modules-by-example-tools
-$ cd go-modules-by-example-tools
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-tools
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-tools
+$ mkdir /tmp/go-modules-by-example-tools
+$ cd /tmp/go-modules-by-example-tools
+$ go mod init example.com/blah/painkiller
+go: creating new go.mod: module example.com/blah/painkiller
 ```
 
-Define where we want our tool dependencies to be installed:
+We set `GOBIN` (see [`go help environment`](https://golang.org/cmd/go/#hdr-Environment_variables)) to define where we
+want our tool dependencies to be installed:
 
 
 ```
 $ export GOBIN=$PWD/bin
+$ export PATH=$GOBIN:$PATH
 ```
 
-Add our tool dependency and install it:
+We add `stringer` as a dependency by importing the package in a build constraint ignored file. This file will never be
+compiled (nor will not compile, because we are importing a `main` package); it is used simply to record the dependency.
+The file name and the build constraint are not particularly important, but we go with `tools` for the sake of
+consistency:
 
 
 ```
-$ cat <<EOD >tools.go
 // +build tools
 
 package tools
 
 import (
-        _ "golang.org/x/tools/cmd/stringer"
+	_ "golang.org/x/tools/cmd/stringer"
 )
-EOD
+```
+
+Now we install `stringer`:
+
+```
 $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
@@ -90,46 +118,45 @@ go: finding golang.org/x/tools latest
 go: downloading golang.org/x/tools v0.0.0-20180904205237-0aa4b8830f48
 ```
 
-Check our `go.mod` now reflects the new module requirement:
+We can see that `stringer` is now available on our `PATH`:
 
 
 ```
-$ cat go.mod
-module github.com/myitcv/go-modules-by-example-tools
+$ which stringer
+/tmp/go-modules-by-example-tools/bin/stringer
+```
 
-require golang.org/x/tools v0.0.0-20180904205237-0aa4b8830f48 // indirect
-$ go list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
-/root/go-modules-by-example-tools/bin/stringer
-$ go mod edit -json
-{
-	"Module": {
-		"Path": "github.com/myitcv/go-modules-by-example-tools"
-	},
-	"Require": [
-		{
-			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180904205237-0aa4b8830f48",
-			"Indirect": true
-		}
-	],
-	"Exclude": null,
-	"Replace": null
+Now let's use `stringer` via a `go:generate` directive:
+
+
+```
+package main
+
+import "fmt"
+
+//go:generate stringer -type=Pill
+
+type Pill int
+
+const (
+	Placebo Pill = iota
+	Aspirin
+	Ibuprofen
+	Paracetamol
+	Acetaminophen = Paracetamol
+)
+
+func main() {
+	fmt.Printf("For headaches, take %v\n", Ibuprofen)
 }
-$ go mod tidy
-$ go mod edit -json
-{
-	"Module": {
-		"Path": "github.com/myitcv/go-modules-by-example-tools"
-	},
-	"Require": [
-		{
-			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180904205237-0aa4b8830f48"
-		}
-	],
-	"Exclude": null,
-	"Replace": null
-}
+```
+
+Next run `go generate` and run the result:
+
+```
+$ go generate
+$ go run .
+For headaches, take Ibuprofen
 ```
 
 ### Version details

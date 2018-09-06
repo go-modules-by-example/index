@@ -36,19 +36,16 @@ git config --global advice.detachedHead false
 git config --global push.default current
 
 # block: setup
-pwd
-ls
-mkdir go-modules-by-example-tools
+mkdir /tmp/go-modules-by-example-tools
+cd /tmp/go-modules-by-example-tools
 assert "$? -eq 0" $LINENO
-cd go-modules-by-example-tools
-assert "$? -eq 0" $LINENO
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-tools
+go mod init example.com/blah/painkiller
 assert "$? -eq 0" $LINENO
 
 # block: set bin target
 export GOBIN=$PWD/bin
+export PATH=$GOBIN:$PATH
 
-# block: add tool dependency
 cat <<EOD > tools.go
 // +build tools
 
@@ -58,20 +55,47 @@ import (
         _ "golang.org/x/tools/cmd/stringer"
 )
 EOD
+gofmt -w tools.go
+
+# block: add tool dependency
+cat tools.go
+
+# block: install tool dependency
 go install golang.org/x/tools/cmd/stringer
 assert "$? -eq 0" $LINENO
 
-# block: check go.mod
-cat go.mod
-assert "$? -eq 0" $LINENO
-go list -f "{{.Target}}" golang.org/x/tools/cmd/stringer
-assert "$? -eq 0" $LINENO
-go mod edit -json
-assert "$? -eq 0" $LINENO
-go mod tidy
-assert "$? -eq 0" $LINENO
-go mod edit -json
-assert "$? -eq 0" $LINENO
+# block: tool on path
+which stringer
+
+cat <<EOD > painkiller.go
+package main
+
+import "fmt"
+
+//go:generate stringer -type=Pill
+
+type Pill int
+
+const (
+	Placebo Pill = iota
+	Aspirin
+	Ibuprofen
+	Paracetamol
+	Acetaminophen = Paracetamol
+)
+
+func main() {
+	fmt.Printf("For headaches, take %v\n", Ibuprofen)
+}
+EOD
+gofmt -w painkiller.go
+
+# block: painkiller.go
+cat painkiller.go
+
+# block: go generate and run
+go generate
+go run .
 
 # block: version details
 go version
