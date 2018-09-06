@@ -67,7 +67,7 @@ Create ourselves a simple module that depends on an on a module:
 $ mkdir hello
 $ cd hello
 $ cat <<EOD >hello.go
-package main // import "example.com/hello"
+package main
 
 import (
 	"fmt"
@@ -78,7 +78,8 @@ func main() {
    fmt.Println(quote.Hello())
 }
 EOD
-$ echo >go.mod
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 $ go build
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2

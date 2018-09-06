@@ -40,7 +40,7 @@ cd hello
 
 # block: step 1
 cat <<EOD > main.go
-package main // import "example.com/hello"
+package main
 
 import (
 	"net/http"
@@ -69,7 +69,7 @@ func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 EOD
-echo > go.mod
+go mod init example.com/hello
 
 # block: step 2
 go get github.com/labstack/echo@v3.2.1

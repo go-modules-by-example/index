@@ -92,7 +92,7 @@ assert "$? -eq 0" $LINENO
 cd usehello
 assert "$? -eq 0" $LINENO
 cat <<EOD > main.go
-package main // import "example.com/usehello"
+package main
 
 import "fmt"
 import "github.com/myitcv/go-modules-by-example-v2-module/v2"
@@ -101,7 +101,7 @@ func main() {
 	fmt.Println(example.Name)
 }
 EOD
-echo > go.mod
+go mod init example.com/usehello
 go build
 assert "$? -eq 0" $LINENO
 ./usehello
@@ -115,7 +115,7 @@ assert "$? -eq 0" $LINENO
 cd src/example.com/hello
 assert "$? -eq 0" $LINENO
 cat <<EOD > main.go
-package main // import "example.com/hello"
+package main
 
 import "fmt"
 import "github.com/myitcv/go-modules-by-example-v2-module"

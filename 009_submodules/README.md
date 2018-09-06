@@ -103,8 +103,8 @@ package b
 const Name = "Gopher"
 EOD
 $ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
-$ go test
 go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/b
+$ go test
 ?   	github.com/myitcv/go-modules-by-example-submodules/b	[no test files]
 ```
 

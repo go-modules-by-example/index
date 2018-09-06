@@ -328,7 +328,7 @@ $ cd hello
 Then create a file hello.go:
 
 ```go
-package main // import "github.com/you/hello"
+package main
 
 import (
 	"fmt"
@@ -344,7 +344,8 @@ Create an empty go.mod file to mark the root of this module, and then build and
 run your new program:
 
 ```
-$ echo >go.mod
+$ go mod init github.com/you/hello
+go: creating new go.mod: module github.com/you/hello
 $ go build
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2
@@ -709,7 +710,7 @@ Then we can build our program using it:
 
 ```
 $ cd ../hello
-$ echo $replace >>go.mod
+$ go mod edit -replace=rsc.io/quote=../quote
 $ go list -m
 github.com/you/hello
 $ go build
@@ -724,7 +725,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[my_quote a734aa2] my fork
+[my_quote e94fdd2] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push $GITHUB_USERNAME
 To https://github.com/myitcv/go-modules-by-example-quote-fork
@@ -739,7 +740,7 @@ Then you can use that as the replacement:
 
 ```
 $ cd ../hello
-$ echo "replace \"rsc.io/quote\" v1.5.2 => \"github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork\" v0.0.0-myfork" >>go.mod
+$ go mod edit -replace=rsc.io/quote=github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork@v0.0.0-myfork
 $ go list -m
 go: finding github.com/myitcv/go-modules-by-example-quote-fork v0.0.0-myfork
 github.com/you/hello
