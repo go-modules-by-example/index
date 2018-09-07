@@ -1,10 +1,8 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-### Introduction
+## Using submodules
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
-
-_Add more detail/intro here_
 
 ### Walkthrough
 
@@ -15,45 +13,50 @@ Initialise a directory as a git repo, and add an appropriate remote:
 {{PrintBlock "setup" -}}
 ```
 
-Now define our root module, at the root of the repo, commit and push:
+Define a root module, at the root of the repo, commit and push:
 
 ```
 {{PrintBlock "define repo root module" -}}
 ```
 
-Now create a `package b` and test that it builds:
+Create a sub package `b` and test that it builds:
 
 ```
 {{PrintBlock "create package b" -}}
 ```
 
-Now commit, tag and push our new package:
+Commit, tag and push our new package:
 
 ```
 {{PrintBlock "commit and tag b" -}}
 ```
 
-Now create a `main` package that will use `b`:
+Create a `main` package that will use `b`:
 
 ```
 {{PrintBlock "create package a" -}}
 ```
 
-Now let's build and run our package:
-
+Build and run that main package:
 
 ```
 {{PrintBlock "run package a" -}}
 ```
 
-See how we resolve to the tagged version of `package b`.
+Notice how we resolve to the tagged version of `package b`.
 
 
-Finally we commit, tag and push our `main` package:
+Commit, tag and push our `main` package:
 
 
 ```
 {{PrintBlock "commit and tag a" -}}
+```
+
+Create another random module and use our `a` command from there:
+
+```
+{{PrintBlock "use a" -}}
 ```
 
 ### Version details
@@ -64,11 +67,9 @@ Finally we commit, tag and push our `main` package:
 
 -->
 
-### Introduction
+## Using submodules
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
-
-_Add more detail/intro here_
 
 ### Walkthrough
 
@@ -82,7 +83,7 @@ $ git init -q
 $ git remote add origin https://github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
 ```
 
-Now define our root module, at the root of the repo, commit and push:
+Define a root module, at the root of the repo, commit and push:
 
 ```
 $ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
@@ -92,7 +93,7 @@ $ git commit -q -am 'Initial commit'
 $ git push -q
 ```
 
-Now create a `package b` and test that it builds:
+Create a sub package `b` and test that it builds:
 
 ```
 $ mkdir b
@@ -108,7 +109,7 @@ $ go test
 ?   	github.com/myitcv/go-modules-by-example-submodules/b	[no test files]
 ```
 
-Now commit, tag and push our new package:
+Commit, tag and push our new package:
 
 ```
 $ cd ..
@@ -119,7 +120,7 @@ $ git tag b/v0.1.1
 $ git push -q origin b/v0.1.1
 ```
 
-Now create a `main` package that will use `b`:
+Create a `main` package that will use `b`:
 
 ```
 $ mkdir a
@@ -145,25 +146,21 @@ $ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
 go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/a
 ```
 
-Now let's build and run our package:
-
+Build and run that main package:
 
 ```
-$ go build
+$ go run .
 go: finding github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
 go: downloading github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
-$ ./a
 Gopher
-$ cat go.mod
-module github.com/myitcv/go-modules-by-example-submodules/a
-
-require github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
+$ go list -m github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
+github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
 ```
 
-See how we resolve to the tagged version of `package b`.
+Notice how we resolve to the tagged version of `package b`.
 
 
-Finally we commit, tag and push our `main` package:
+Commit, tag and push our `main` package:
 
 
 ```
@@ -173,6 +170,21 @@ $ git commit -q -am 'Add package a'
 $ git push -q
 $ git tag a/v1.0.0
 $ git push -q origin a/v1.0.0
+```
+
+Create another random module and use our `a` command from there:
+
+```
+$ cd $(mktemp -d)
+$ export GOBIN=$PWD/.bin
+$ export PATH=$GOBIN:$PATH
+$ go mod init example.com/blah
+go: creating new go.mod: module example.com/blah
+$ go get github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a@v1.0.0
+go: finding github.com/myitcv/go-modules-by-example-submodules/a v1.0.0
+go: downloading github.com/myitcv/go-modules-by-example-submodules/a v1.0.0
+$ a
+Gopher
 ```
 
 ### Version details
