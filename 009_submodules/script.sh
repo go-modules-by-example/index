@@ -107,10 +107,10 @@ EOD
 go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
 
 # block: run package a
-go build
+go run .
 assert "$? -eq 0" $LINENO
-./a
-cat go.mod
+go list -m github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
+assert "$? -eq 0" $LINENO
 
 # block: commit and tag a
 cd ..
@@ -124,6 +124,14 @@ git tag a/v1.0.0
 assert "$? -eq 0" $LINENO
 git push -q origin a/v1.0.0
 assert "$? -eq 0" $LINENO
+
+# block: use a
+cd $(mktemp -d)
+export GOBIN=$PWD/.bin
+export PATH=$GOBIN:$PATH
+go mod init example.com/blah
+go get github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a@v1.0.0
+a
 
 # block: version details
 go version
