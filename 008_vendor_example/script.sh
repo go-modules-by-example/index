@@ -37,6 +37,8 @@ git config --global advice.detachedHead false
 # block: setup
 mkdir hello
 cd hello
+go mod init example.com/hello
+
 cat <<EOD > hello.go
 package main
 
@@ -49,31 +51,23 @@ func main() {
    fmt.Println(quote.Hello())
 }
 EOD
-go mod init example.com/hello
-go build
-assert "$? -eq 0" $LINENO
-./hello
-assert "$? -eq 0" $LINENO
-cat go.mod
+gofmt -w hello.go
 
+# block: example
+cat hello.go
 
-# block: add tools dep
-cat <<EOD >> go.mod
-
-require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-EOD
-go install golang.org/x/tools/cmd/stringer
+# block: run
+go run .
 assert "$? -eq 0" $LINENO
 
-# block: check
-cat go.mod
-go build
-assert "$? -eq 0" $LINENO
-
+# block: review deps
+go list -m all
 
 # block: vendor
 go mod vendor
 assert "$? -eq 0" $LINENO
+
+# block: review vendor
 cat vendor/modules.txt
 assert "$? -eq 0" $LINENO
 find vendor -type d

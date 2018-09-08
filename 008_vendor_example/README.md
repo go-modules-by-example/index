@@ -1,44 +1,55 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-### Introduction
+## Vendoring support
 
-How do you handle the situation where a package on which you depend has not been converted to be a
-Go module, but you need to "fork" it and depend on the fork?
-
-Whether or not you publish your folk, or maintain it as a local directory, we go into the details
-here...
-
-_Add more detail/intro here_
+Go 1.5 introduced the concept of [`vendor`](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md).
+Go 1.11 (and modules) retains some backwards compatability for `vendor`, which is useful if you are distributing
+code to be built with older, non-module aware versions of Go. This example shows how to use `go mod vendor` to manage
+`vendor`.
 
 ### Walkthrough
 
-Create ourselves a simple module that depends on an on a module:
+Create a `main` module:
 
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Now add a tool dependency:
+Add a simple dependency:
 
 
 ```
-{{PrintBlock "add tools dep" -}}
+{{PrintBlockOut "example" -}}
 ```
 
-Now check our `go.mod` and that everything builds:
+Run as a quick "test":
 
 
 ```
-{{PrintBlock "check" -}}
+{{PrintBlock "run" -}}
 ```
 
-Now vendor and check the contents of our `vendor` directory:
+
+Review our dependencies:
+
+
+```
+{{PrintBlock "review deps" -}}
+```
+
+Vendor our dependencies:
+
 
 ```
 {{PrintBlock "vendor" -}}
 ```
 
+Review the contents of `vendor`:
+
+```
+{{PrintBlock "review vendor" -}}
+```
 
 ### Version details
 
@@ -48,25 +59,29 @@ Now vendor and check the contents of our `vendor` directory:
 
 -->
 
-### Introduction
+## Vendoring support
 
-How do you handle the situation where a package on which you depend has not been converted to be a
-Go module, but you need to "fork" it and depend on the fork?
-
-Whether or not you publish your folk, or maintain it as a local directory, we go into the details
-here...
-
-_Add more detail/intro here_
+Go 1.5 introduced the concept of [`vendor`](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md).
+Go 1.11 (and modules) retains some backwards compatability for `vendor`, which is useful if you are distributing
+code to be built with older, non-module aware versions of Go. This example shows how to use `go mod vendor` to manage
+`vendor`.
 
 ### Walkthrough
 
-Create ourselves a simple module that depends on an on a module:
+Create a `main` module:
 
 
 ```
 $ mkdir hello
 $ cd hello
-$ cat <<EOD >hello.go
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
+```
+
+Add a simple dependency:
+
+
+```
 package main
 
 import (
@@ -75,56 +90,46 @@ import (
 )
 
 func main() {
-   fmt.Println(quote.Hello())
+	fmt.Println(quote.Hello())
 }
-EOD
-$ go mod init example.com/hello
-go: creating new go.mod: module example.com/hello
-$ go build
+```
+
+Run as a quick "test":
+
+
+```
+$ go run .
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
-$ ./hello
 Hello, world.
-$ cat go.mod
-module example.com/hello
-
-require rsc.io/quote v1.5.2
 ```
 
-Now add a tool dependency:
+
+Review our dependencies:
 
 
 ```
-$ cat <<EOD >>go.mod
-
-require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-EOD
-$ go install golang.org/x/tools/cmd/stringer
-go: finding golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-go: downloading golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
+$ go list -m all
+example.com/hello
+golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+rsc.io/quote v1.5.2
+rsc.io/sampler v1.3.0
 ```
 
-Now check our `go.mod` and that everything builds:
+Vendor our dependencies:
 
-
-```
-$ cat go.mod
-module example.com/hello
-
-require rsc.io/quote v1.5.2
-
-require golang.org/x/tools v0.0.0-20180525024113-a5b4c53f6e8b
-$ go build
-```
-
-Now vendor and check the contents of our `vendor` directory:
 
 ```
 $ go mod vendor
+```
+
+Review the contents of `vendor`:
+
+```
 $ cat vendor/modules.txt
 # golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 golang.org/x/text/language
@@ -145,7 +150,6 @@ vendor/golang.org/x/text/internal
 vendor/golang.org/x/text/internal/tag
 vendor/golang.org/x/text/language
 ```
-
 
 ### Version details
 
