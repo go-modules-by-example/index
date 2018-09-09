@@ -59,6 +59,15 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 {{PrintBlock "check modvendor" -}}
 ```
 
+The `modvendor` directory can now be committed alongside the soure code.
+
+### Open questions
+
+* The above steps are currently manual; tooling (the `go` tool?) can fix this
+* Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
+  simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
+some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
+
 ### Version details
 
 ```
@@ -67,13 +76,13 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 -->
 
-## "Vendoring" your module cache
+## "Vendoring" your module download cache
 
 In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was a
 popular way of sharing your code _and it's dependencies_ with others, without requiring network access beyond cloning
 the source code repository.
 
-In a modules world, the module download cache can be used as a higher fidelity source of module dependency.
+In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
 
 This example shows you how to "vendor" your module download cache alongside your source code.
 
@@ -125,7 +134,8 @@ Ensure all depdencies are downloaded:
 $ go mod download
 ```
 
-Create our module download cache "vendor":
+Create our module download cache "vendor" (in the future these commands could become a `go` tool command, perhaps `go
+mod modvendor`):
 
 ```
 $ rm -rf modvendor
@@ -136,6 +146,7 @@ go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 $ cp -rp $GOPATH/pkg/mod/cache/download/ modvendor
 $ GOPATH=$tgp go clean -modcache
+$ rm -rf $tgp
 ```
 
 Review the contents of `modvendor`:
@@ -172,6 +183,15 @@ go: downloading rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
+
+The `modvendor` directory can now be committed alongside the soure code.
+
+### Open questions
+
+* The above steps are currently manual; tooling (the `go` tool?) can fix this
+* Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
+  simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
+some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
 
 ### Version details
 
