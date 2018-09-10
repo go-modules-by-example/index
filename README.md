@@ -13,6 +13,7 @@ _Go modules by example_ is a series of work-along guides that look to help expla
 * [How to use submodules](https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md)
 * [Tools as dependencies](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md)
 * [Creating a module download cache "vendor"](https://github.com/go-modules-by-example/index/blob/master/012_modvendor/README.md)
+* [Cyclic module dependencies](https://github.com/go-modules-by-example/index/blob/master/013_cyclic/README.md)
 * ...
 
 See the [Feedback and TODO wiki](https://github.com/go-modules-by-example/index/wiki/Feedback-TODO) for more up-to-date
