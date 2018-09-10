@@ -1,5 +1,11 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
+
 Use Go 1.10.3 which includes [minimal module support for go modules
 transition](https://github.com/golang/go/issues/25139):
 
@@ -35,6 +41,12 @@ Now create a GOPATH-based `main` old-Go (non-module) package that uses our v2 mo
 ```
 
 -->
+
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
 
 Use Go 1.10.3 which includes [minimal module support for go modules
 transition](https://github.com/golang/go/issues/25139):
@@ -78,13 +90,17 @@ $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) f7b2785] Initial commit
+[master (root-commit) 69d27a9] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
  create mode 100644 hello.go
 $ git remote add origin https://github.com/myitcv/go-modules-by-example-v2-module
 $ git push origin master
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:        
+remote:      https://github.com/myitcv/go-modules-by-example-v2-module/pull/new/master        
+remote: 
 To https://github.com/myitcv/go-modules-by-example-v2-module
  * [new branch]      master -> master
 $ git tag v2.0.0

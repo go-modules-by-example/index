@@ -1,5 +1,11 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
+
 ### Intro
 
 _Some background here on the history of gopkg.in, major version numbers in paths etc._
@@ -63,6 +69,12 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 ```
 
 -->
+
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
 
 ### Intro
 

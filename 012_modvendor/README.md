@@ -3,7 +3,7 @@
 ## "Vendoring" your module download cache
 
 In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was a
-popular way of sharing your code _and it's dependencies_ with others, without requiring network access beyond cloning
+popular way of sharing your code _and its dependencies_ with others, without requiring network access beyond cloning
 the source code repository.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
@@ -79,7 +79,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 ## "Vendoring" your module download cache
 
 In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was a
-popular way of sharing your code _and it's dependencies_ with others, without requiring network access beyond cloning
+popular way of sharing your code _and its dependencies_ with others, without requiring network access beyond cloning
 the source code repository.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.

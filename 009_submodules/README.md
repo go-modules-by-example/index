@@ -91,6 +91,10 @@ go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodul
 $ git add go.mod
 $ git commit -q -am 'Initial commit'
 $ git push -q
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:        
+remote:      https://github.com/myitcv/go-modules-by-example-submodules/pull/new/master        
+remote: 
 ```
 
 Create a sub package `b` and test that it builds:

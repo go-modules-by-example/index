@@ -1,5 +1,11 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
+
 ### Introduction
 
 How do you handle the situation where a package on which you depend has not been converted to be a
@@ -66,6 +72,12 @@ Now check our code builds and runs:
 ```
 
 -->
+
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
 
 ### Introduction
 
