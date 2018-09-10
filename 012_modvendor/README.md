@@ -61,6 +61,17 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 The `modvendor` directory can now be committed alongside the soure code.
 
+----
+
+### Comparison between `modvendor` and `vendor`
+
+For the sake of this guide, we refer to:
+
+* `modvendor` as the "vendoring" of the module download cache, described here in this guide
+* `vendor` as the [Go 1.5 vendor](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md)
+
+----
+
 ### Open questions
 
 * The above steps are currently manual; tooling (the `go` tool?) can fix this
@@ -185,6 +196,17 @@ Hello, world.
 ```
 
 The `modvendor` directory can now be committed alongside the soure code.
+
+----
+
+### Comparison between `modvendor` and `vendor`
+
+For the sake of this guide, we refer to:
+
+* `modvendor` as the "vendoring" of the module download cache, described here in this guide
+* `vendor` as the [Go 1.5 vendor](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md)
+
+----
 
 ### Open questions
 
