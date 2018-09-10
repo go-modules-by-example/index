@@ -1,5 +1,11 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
+
 ### Examples
 
 This section demonstrates what it's like to use the go tool with modules. Please follow along and
@@ -302,6 +308,12 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 ```
 
 -->
+
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
 
 ### Examples
 
@@ -682,8 +694,7 @@ check out the quote module, using an ordinary git command:
 
 
 ```
-$ git clone https://github.com/rsc/quote ../quote
-Cloning into '../quote'...
+$ git clone -q https://github.com/rsc/quote ../quote
 ```
 
 Then edit ../quote/quote.go to change something about func Hello. For example,
@@ -693,8 +704,7 @@ more interesting greeting.
 
 ```
 $ cd ../quote
-$ git checkout -b my_quote $quoteVersion
-Switched to a new branch 'my_quote'
+$ git checkout -q -b my_quote $quoteVersion
 $ echo "<edit quote.go>"
 <edit quote.go>
 ```
@@ -725,15 +735,15 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[my_quote d6431ca] my fork
+[my_quote 1e4d5be] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
-$ git push $GITHUB_USERNAME
-To https://github.com/myitcv/go-modules-by-example-quote-fork
- * [new branch]      my_quote -> my_quote
+$ git push -q $GITHUB_USERNAME
+remote: 
+remote: Create a pull request for 'my_quote' on GitHub by visiting:        
+remote:      https://github.com/myitcv/go-modules-by-example-quote-fork/pull/new/my_quote        
+remote: 
 $ git tag v0.0.0-myfork
-$ git push $GITHUB_USERNAME v0.0.0-myfork
-To https://github.com/myitcv/go-modules-by-example-quote-fork
- * [new tag]         v0.0.0-myfork -> v0.0.0-myfork
+$ git push -q $GITHUB_USERNAME v0.0.0-myfork
 ```
 
 Then you can use that as the replacement:

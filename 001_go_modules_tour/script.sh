@@ -185,11 +185,11 @@ assert "$? -eq 0" $LINENO
 quoteVersion=$(go list -m -f "{{.Version}}" rsc.io/quote)
 
 # block: prepare local quote
-git clone https://github.com/rsc/quote ../quote
+git clone -q https://github.com/rsc/quote ../quote
 
 # block: update quote.go
 cd ../quote
-git checkout -b my_quote $quoteVersion
+git checkout -q -b my_quote $quoteVersion
 echo "<edit quote.go>"
 
 sed -i 's/return sampler.Hello()/return sampler.Glass()/' quote.go
@@ -222,11 +222,11 @@ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-b
 assert "$? -eq 0" $LINENO
 git commit -a -m 'my fork'
 assert "$? -eq 0" $LINENO
-git push $GITHUB_USERNAME
+git push -q $GITHUB_USERNAME
 assert "$? -eq 0" $LINENO
 git tag v0.0.0-myfork
 assert "$? -eq 0" $LINENO
-git push $GITHUB_USERNAME v0.0.0-myfork
+git push -q $GITHUB_USERNAME v0.0.0-myfork
 assert "$? -eq 0" $LINENO
 
 # block: use our quote

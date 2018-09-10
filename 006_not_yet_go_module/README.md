@@ -1,5 +1,11 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
+
 ### Introduction
 
 How do you handle the situation where a package (project) has a version number `>= 2` but has not yet been converted to
@@ -48,6 +54,12 @@ And check the contents of `go.mod`:
 ```
 
 -->
+
+## `** REVIEW REQUIRED **`
+
+This guide is a WIP.
+
+----
 
 ### Introduction
 
