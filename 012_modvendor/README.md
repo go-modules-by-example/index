@@ -61,12 +61,9 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 The `modvendor` directory can now be committed alongside the soure code.
 
-### Open questions
+### Open questions and discussion
 
-* The above steps are currently manual; tooling (the `go` tool?) can fix this
-* Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
-  simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
-some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
+See https://github.com/golang/go/issues/27618
 
 ### Version details
 
@@ -186,12 +183,9 @@ Hello, world.
 
 The `modvendor` directory can now be committed alongside the soure code.
 
-### Open questions
+### Open questions and discussion
 
-* The above steps are currently manual; tooling (the `go` tool?) can fix this
-* Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
-  simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
-some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
+See https://github.com/golang/go/issues/27618
 
 ### Version details
 
