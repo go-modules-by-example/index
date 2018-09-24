@@ -18,8 +18,9 @@ var (
 	debugOut = false
 	stdOut   = false
 
-	fOut    = flag.String("out", "json", "output format; json(default)|debug|std")
-	fGoRoot = flag.String("goroot", "", "path to GOROOT to use")
+	fOut     = flag.String("out", "json", "output format; json(default)|debug|std")
+	fGoRoot  = flag.String("goroot", "", "path to GOROOT to use")
+	fGoProxy = flag.String("goproxy", "", "path to GOPROXY to use")
 )
 
 const (
@@ -48,8 +49,19 @@ func (b *block) String() string {
 func main() {
 	flag.Parse()
 
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
 	if *fGoRoot == "" {
 		*fGoRoot = os.Getenv("EGRUNNER_GOROOT")
+	}
+
+	if *fGoProxy == "" {
+		*fGoProxy = os.Getenv("EGRUNNER_GOPROXY")
 	}
 
 	switch *fOut {
@@ -146,7 +158,7 @@ assert()
 	// find the # START comment
 	var start *syntax.Comment
 
-	for _, s := range f.Stmts {
+	for si, s := range f.Stmts {
 		if start == nil {
 			for _, c := range s.Comments {
 				if s.Pos().After(c.End()) {
@@ -190,6 +202,20 @@ assert()
 				}
 			}
 		}
+		nextIsAssert := false
+		if si < len(f.Stmts)-1 {
+			s := f.Stmts[si+1]
+			if ce, ok := s.Cmd.(*syntax.CallExpr); ok {
+				if ce.Args != nil && ce.Args[0].Parts != nil {
+					if li, ok := ce.Args[0].Parts[0].(*syntax.Lit); ok {
+						if li.Value == "assert" {
+							nextIsAssert = true
+						}
+					}
+				}
+			}
+		}
+
 		if isAssert {
 			// TODO improve this by actually inspecting the second argument
 			// to assert
@@ -209,6 +235,14 @@ assert()
 				fmt.Fprintf(toRun, "cat <<THISWILLNEVERMATCH\n$ %v\nTHISWILLNEVERMATCH\n", stmtString(s))
 			}
 			fmt.Fprintf(toRun, "%v\n", stmtString(s))
+
+			// if this statement is not an assert, and the next statement is
+			// not an assert, then we need to inject an assert that corresponds
+			// to asserting a zero exit code
+			if !nextIsAssert {
+				fmt.Fprintf(toRun, "assert \"$? -eq 0\" %v\n", s.Pos().Line())
+			}
+
 			pendingSep = true
 
 			if b != nil {
@@ -246,9 +280,11 @@ assert()
 
 	tfn := tf.Name()
 
-	defer func() {
-		os.Remove(tf.Name())
-	}()
+	fmt.Printf("%v\n", tfn)
+
+	// defer func() {
+	// 	os.Remove(tf.Name())
+	// }()
 
 	if err := ioutil.WriteFile(tfn, toRun.Bytes(), 0644); err != nil {
 		errorf("failed to write to temp file %v: %v", tfn, err)
@@ -264,6 +300,10 @@ assert()
 		args = append(args, "-v", fmt.Sprintf("%v:/go", *fGoRoot))
 	}
 
+	if *fGoProxy != "" {
+		args = append(args, "-v", fmt.Sprintf("%v:/goproxy", *fGoProxy), "-e", "GOPROXY=file:///goproxy")
+	}
+
 	args = append(args, "golang", fmt.Sprintf("/%v", scriptName))
 
 	cmd := exec.Command(args[0], args[1:]...)
@@ -273,9 +313,9 @@ assert()
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Run(); err != nil {
-			errorf("failed to run %v: %v", strings.Join(cmd.Args, " "), err)
+			return errorf("failed to run %v: %v", strings.Join(cmd.Args, " "), err)
 		}
-		return
+		return nil
 	}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -321,14 +361,15 @@ assert()
 	}
 
 	fmt.Printf("%s\n", byts)
+
+	return nil
 }
 
-func errorf(format string, args ...interface{}) {
+func errorf(format string, args ...interface{}) error {
 	if debugOut {
 		panic(fmt.Errorf(format, args...))
 	}
-	fmt.Fprintf(os.Stderr, format+"\n", args...)
-	os.Exit(1)
+	return fmt.Errorf(format+"\n", args...)
 }
 
 func debugf(format string, args ...interface{}) {
