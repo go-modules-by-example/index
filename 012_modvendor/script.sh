@@ -58,7 +58,6 @@ cat hello.go
 
 # block: run
 go run .
-assert "$? -eq 0" $LINENO
 
 # block: go mod download
 go mod download
@@ -67,21 +66,15 @@ go mod download
 rm -rf modvendor
 tgp=$(mktemp -d)
 GOPROXY=file://$GOPATH/pkg/mod/cache/download GOPATH=$tgp go mod download
-assert "$? -eq 0" $LINENO
 cp -rp $GOPATH/pkg/mod/cache/download/ modvendor
-assert "$? -eq 0" $LINENO
 GOPATH=$tgp go clean -modcache
-assert "$? -eq 0" $LINENO
 rm -rf $tgp
-assert "$? -eq 0" $LINENO
 
 # block: review modvendor
 find modvendor -type f
-assert "$? -eq 0" $LINENO
 
 # block: check modvendor
 GOPATH=$(mktemp -d) GOPROXY=file://$PWD/modvendor go run .
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

@@ -50,28 +50,19 @@ cd /tmp/gopath
 
 # block: install dep
 go get -u github.com/golang/dep/cmd/dep
-assert "$? -eq 0" $LINENO
 cd src/github.com/golang/dep/cmd/dep
 git checkout $depCommit
-assert "$? -eq 0" $LINENO
 go install
-assert "$? -eq 0" $LINENO
 
 # block: baseline
 cd /tmp/gopath
 go get -tags sqlite github.com/gobuffalo/buffalo
-assert "$? -eq 0" $LINENO
 cd src/github.com/gobuffalo/buffalo
 git checkout $buffaloCommit
-assert "$? -eq 0" $LINENO
 go get .
-assert "$? -eq 0" $LINENO
 go install -tags sqlite
-assert "$? -eq 0" $LINENO
 dep ensure
-assert "$? -eq 0" $LINENO
 go test -tags sqlite ./...
-assert "$? -eq 0" $LINENO
 
 # TODO add README for the following step
 
@@ -80,14 +71,12 @@ export GO111MODULE=on
 
 # block: go build
 go build -tags sqlite
-assert "$? -eq 0" $LINENO
 
 # block: cat go.mod
 cat go.mod
 
 # block: go test
 go test -tags sqlite ./...
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

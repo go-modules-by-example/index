@@ -58,9 +58,7 @@ cat go.mod
 
 # block: go build
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: replace pdf
 git clone https://github.com/rsc/pdf pdf
@@ -85,9 +83,7 @@ cd ..
 
 # block: go build check
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 
 # block: version details

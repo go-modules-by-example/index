@@ -58,20 +58,16 @@ cat hello.go
 
 # block: run
 go run .
-assert "$? -eq 0" $LINENO
 
 # block: review deps
 go list -m all
 
 # block: vendor
 go mod vendor
-assert "$? -eq 0" $LINENO
 
 # block: review vendor
 cat vendor/modules.txt
-assert "$? -eq 0" $LINENO
 find vendor -type d
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

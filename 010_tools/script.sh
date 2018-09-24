@@ -38,9 +38,7 @@ git config --global push.default current
 # block: setup
 mkdir /tmp/go-modules-by-example-tools
 cd /tmp/go-modules-by-example-tools
-assert "$? -eq 0" $LINENO
 go mod init example.com/blah/painkiller
-assert "$? -eq 0" $LINENO
 
 # block: set bin target
 export GOBIN=$PWD/bin
@@ -62,11 +60,9 @@ cat tools.go
 
 # block: install tool dependency
 go install golang.org/x/tools/cmd/stringer
-assert "$? -eq 0" $LINENO
 
 # block: module deps
 go mod edit -json
-assert "$? -eq 0" $LINENO
 
 # block: tool on path
 which stringer

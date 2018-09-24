@@ -43,9 +43,7 @@ PATH=/tmp/go/bin:$PATH go version
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists go-modules-by-example-v2-module go-modules-by-example-v2-module_$now
-assert "$? -eq 0" $LINENO
 githubcli repo create go-modules-by-example-v2-module
-assert "$? -eq 0" $LINENO
 
 # block: create go module v2
 cd $HOME
@@ -68,29 +66,18 @@ package goodbye
 const Name = "Goodbye"
 EOD
 go test ./...
-assert "$? -eq 0" $LINENO
 git init
-assert "$? -eq 0" $LINENO
 git add -A
-assert "$? -eq 0" $LINENO
 git commit -m 'Initial commit'
-assert "$? -eq 0" $LINENO
 git remote add origin https://github.com/myitcv/go-modules-by-example-v2-module
-assert "$? -eq 0" $LINENO
 git push origin master
-assert "$? -eq 0" $LINENO
 git tag v2.0.0
-assert "$? -eq 0" $LINENO
 git push origin v2.0.0
-assert "$? -eq 0" $LINENO
 
 # block: Go module use v2 module
 cd $HOME
-assert "$? -eq 0" $LINENO
 mkdir usehello
-assert "$? -eq 0" $LINENO
 cd usehello
-assert "$? -eq 0" $LINENO
 cat <<EOD > main.go
 package main
 
@@ -103,17 +90,12 @@ func main() {
 EOD
 go mod init example.com/usehello
 go build
-assert "$? -eq 0" $LINENO
 ./usehello
-assert "$? -eq 0" $LINENO
 
 # block: GOPATH use v2 module
 cd $GOPATH
-assert "$? -eq 0" $LINENO
 mkdir -p src/example.com/hello
-assert "$? -eq 0" $LINENO
 cd src/example.com/hello
-assert "$? -eq 0" $LINENO
 cat <<EOD > main.go
 package main
 
@@ -125,11 +107,8 @@ func main() {
 }
 EOD
 PATH=/tmp/go/bin:$PATH go get github.com/myitcv/go-modules-by-example-v2-module
-assert "$? -eq 0" $LINENO
 PATH=/tmp/go/bin:$PATH go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

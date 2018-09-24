@@ -57,11 +57,9 @@ EOD
 
 # block: go get specific version
 go get github.com/go-chi/chi@v3.3.2
-assert "$? -eq 0" $LINENO
 
 # block: go build
 go build
-assert "$? -eq 0" $LINENO
 
 # block: check go.mod
 cat go.mod
