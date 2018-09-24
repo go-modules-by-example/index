@@ -73,11 +73,9 @@ go mod init example.com/hello
 
 # block: step 2
 go get github.com/labstack/echo@v3.2.1
-assert "$? -eq 0" $LINENO
 
 # block: step 3
 go build
-assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: version details

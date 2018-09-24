@@ -121,7 +121,7 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20180910044924-becf93d7cfc6
+go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
 ```
 
 The module reflects the dependency:
@@ -135,7 +135,7 @@ $ go mod edit -json
 	"Require": [
 		{
 			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180910044924-becf93d7cfc6",
+			"Version": "v0.0.0-20180917221912-90fa682c2a6e",
 			"Indirect": true
 		}
 	],

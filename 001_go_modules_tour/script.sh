@@ -58,45 +58,35 @@ cat hello.go
 # block: initial go build
 go mod init github.com/you/hello
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: cat go.mod initial
 cat go.mod
 
 # block: no rebuild required
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: go list -m demo
 go list -m
-assert "$? -eq 0" $LINENO
 
 # block: french hello
 LANG=fr ./hello
-assert "$? -eq 0" $LINENO
 
 # block: upgrade
 go list -m -u
-assert "$? -eq 0" $LINENO
 
 # block: upgrade text
 go get golang.org/x/text
-assert "$? -eq 0" $LINENO
 cat go.mod
 
 # block: check go.mod
 go list -m
-assert "$? -eq 0" $LINENO
 
 # TODO this should be go test all
 
 # block: go test all
 go test github.com/you/hello rsc.io/quote
-assert "$? -eq 0" $LINENO
 
 # block: go test quote
 go test rsc.io/quote/...
@@ -104,7 +94,6 @@ assert "$? -eq 1" $LINENO
 
 # block: upgrade all
 go get -u
-assert "$? -eq 0" $LINENO
 cat go.mod
 
 # TODO this should be go test all
@@ -115,34 +104,25 @@ assert "$? -eq 1" $LINENO
 
 # block: bad output
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
-popd > /dev/null
 export GOPATH=$HOME
 
 # block: list sampler
 go list -m -versions rsc.io/sampler
-assert "$? -eq 0" $LINENO
 
 # TODO this should be go test all
 
 # block: specific version
 cat go.mod
 go get rsc.io/sampler@v1.3.1
-assert "$? -eq 0" $LINENO
 go list -m
-assert "$? -eq 0" $LINENO
 cat go.mod
 go test github.com/you/hello rsc.io/quote
-assert "$? -eq 0" $LINENO
 
 # block: downgrade others
 go get rsc.io/sampler@v1.2.0
-assert "$? -eq 0" $LINENO
 go list -m
-assert "$? -eq 0" $LINENO
 cat go.mod
 
 # TODO this should be go get rsc.io/sampler@none
@@ -150,18 +130,13 @@ cat go.mod
 
 # block: remove dependency
 go mod edit -droprequire rsc.io/sampler
-assert "$? -eq 0" $LINENO
 go list -m
-assert "$? -eq 0" $LINENO
 cat go.mod
 go test github.com/you/hello rsc.io/quote
-assert "$? -eq 0" $LINENO
 
 # block: back to latest
 go get -u
-assert "$? -eq 0" $LINENO
 go list -m
-assert "$? -eq 0" $LINENO
 
 # TODO this should be go test all
 
@@ -174,14 +149,10 @@ go mod edit -exclude=rsc.io/sampler@v1.99.99
 echo "** TODO: REMOVE THIS HACK; see https://github.com/golang/go/issues/26454 **"
 cat go.mod
 go mod edit -require rsc.io/sampler@v1.3.1
-assert "$? -eq 0" $LINENO
 go list -m -versions rsc.io/sampler
-assert "$? -eq 0" $LINENO
 go list -m
-assert "$? -eq 0" $LINENO
 cat go.mod
 go test github.com/you/hello rsc.io/quote
-assert "$? -eq 0" $LINENO
 quoteVersion=$(go list -m -f "{{.Version}}" rsc.io/quote)
 
 # block: prepare local quote
@@ -203,57 +174,39 @@ echo $replace
 cd ../hello
 go mod edit -replace=rsc.io/quote=../quote
 go list -m
-assert "$? -eq 0" $LINENO
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists go-modules-by-example-quote-fork go-modules-by-example-quote-fork_$now
-assert "$? -eq 0" $LINENO
 githubcli repo create go-modules-by-example-quote-fork
-assert "$? -eq 0" $LINENO
 
 # block: setup our quote
 cd ../quote
 git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
-assert "$? -eq 0" $LINENO
 git commit -a -m 'my fork'
-assert "$? -eq 0" $LINENO
 git push -q $GITHUB_USERNAME
-assert "$? -eq 0" $LINENO
 git tag v0.0.0-myfork
-assert "$? -eq 0" $LINENO
 git push -q $GITHUB_USERNAME v0.0.0-myfork
-assert "$? -eq 0" $LINENO
 
 # block: use our quote
 cd ../hello
 go mod edit -replace=rsc.io/quote=github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork@v0.0.0-myfork
 go list -m
-assert "$? -eq 0" $LINENO
 go build
-assert "$? -eq 0" $LINENO
 LANG=fr ./hello
-assert "$? -eq 0" $LINENO
 
 # block: vendor
 go mod vendor
-assert "$? -eq 0" $LINENO
 mkdir -p $GOPATH/src/github.com/you
 cp -a . $GOPATH/src/github.com/you/hello
 go build -o vhello github.com/you/hello
-assert "$? -eq 0" $LINENO
 LANG=es ./vhello
-assert "$? -eq 0" $LINENO
 
 # block: nm compare
 go tool nm hello | grep sampler.hello
-assert "$? -eq 0" $LINENO
 go tool nm vhello | grep sampler.hello
-assert "$? -eq 0" $LINENO
 
 # block: version details
 go version

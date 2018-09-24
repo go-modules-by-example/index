@@ -69,7 +69,7 @@ func run() error {
 	case outStd:
 	case outDebug:
 	default:
-		errorf("unknown option to -out: %v", *fOut)
+		return errorf("unknown option to -out: %v", *fOut)
 	}
 
 	debugOut = *fOut == outDebug
@@ -105,23 +105,23 @@ assert()
 
 	ghcli, err := exec.LookPath(commgithubcli)
 	if err != nil {
-		errorf("failed to find %v in PATH", commgithubcli)
+		return errorf("failed to find %v in PATH", commgithubcli)
 	}
 
 	if len(flag.Args()) != 1 {
-		errorf("expected a single argument script file to run")
+		return errorf("expected a single argument script file to run")
 	}
 
 	fn := flag.Arg(0)
 
 	fi, err := os.Open(fn)
 	if err != nil {
-		errorf("failed to open %v: %v", fn, err)
+		return errorf("failed to open %v: %v", fn, err)
 	}
 
 	f, err := syntax.NewParser(syntax.KeepComments).Parse(fi, fn)
 	if err != nil {
-		errorf("failed to parse %v: %v", fn, err)
+		return errorf("failed to parse %v: %v", fn, err)
 	}
 
 	var last *syntax.Pos
@@ -178,7 +178,7 @@ assert()
 				if strings.HasPrefix(l, blockPrefix) {
 					v := block(strings.TrimSpace(strings.TrimPrefix(l, blockPrefix)))
 					if seenBlocks[v] {
-						errorf("block %q used multiple times", v)
+						return errorf("block %q used multiple times", v)
 					}
 					seenBlocks[v] = true
 					b = &v
@@ -275,19 +275,17 @@ assert()
 	// home directory because of "security"
 	tf, err := ioutil.TempFile(os.Getenv("HOME"), ".vgo_by_example")
 	if err != nil {
-		errorf("failed to create temp file: %v", err)
+		return errorf("failed to create temp file: %v", err)
 	}
 
 	tfn := tf.Name()
 
-	fmt.Printf("%v\n", tfn)
-
-	// defer func() {
-	// 	os.Remove(tf.Name())
-	// }()
+	defer func() {
+		os.Remove(tf.Name())
+	}()
 
 	if err := ioutil.WriteFile(tfn, toRun.Bytes(), 0644); err != nil {
-		errorf("failed to write to temp file %v: %v", tfn, err)
+		return errorf("failed to write to temp file %v: %v", tfn, err)
 	}
 
 	user := os.Getenv("GITHUB_USERNAME")
@@ -319,7 +317,7 @@ assert()
 	}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		errorf("failed to run %v: %v\n%s", strings.Join(cmd.Args, " "), err, out)
+		return errorf("failed to run %v: %v\n%s", strings.Join(cmd.Args, " "), err, out)
 	}
 
 	var lines []string
@@ -336,11 +334,11 @@ assert()
 		cur.WriteString("\n")
 	}
 	if err := scanner.Err(); err != nil {
-		errorf("error scanning cmd output: %v", err)
+		return errorf("error scanning cmd output: %v", err)
 	}
 
 	if len(lines) != len(stmts) {
-		errorf("had %v statements but %v lines of output", len(stmts), len(lines))
+		return errorf("had %v statements but %v lines of output", len(stmts), len(lines))
 	}
 
 	for i := range stmts {
@@ -357,7 +355,7 @@ assert()
 
 	byts, err := json.MarshalIndent(tmpl, "", "  ")
 	if err != nil {
-		errorf("error marshaling JSON: %v", err)
+		return errorf("error marshaling JSON: %v", err)
 	}
 
 	fmt.Printf("%s\n", byts)

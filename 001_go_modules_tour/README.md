@@ -527,7 +527,6 @@ It appears that something is wrong with rsc.io/sampler v1.99.99. Sure enough:
 $ go build
 $ ./hello
 99 bottles of beer on the wall, 99 bottles of beer, ...
-/script.sh: line 114: popd: directory stack empty
 ```
 
 The go get -u behavior of taking the latest of every dependency is exactly
@@ -735,7 +734,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[my_quote 1e4d5be] my fork
+[my_quote 6e344b9] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push -q $GITHUB_USERNAME
 remote: 

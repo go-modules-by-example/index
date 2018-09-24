@@ -64,16 +64,13 @@ func main() {
 }
 EOD
 gofmt -w hello.go
-assert "$? -eq 0" $LINENO
 
 # block: cat hello.go
 cat hello.go
 
 # block: initial go build
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: cat go.mod initial
 cat go.mod
@@ -102,16 +99,13 @@ func main() {
 }
 EOD
 gofmt -w hello.go
-assert "$? -eq 0" $LINENO
 
 # block: cat hello.go v2
 cat hello.go
 
 # block: go build v2
 go build
-assert "$? -eq 0" $LINENO
 ./hello
-assert "$? -eq 0" $LINENO
 
 # block: cat go.mod v2
 cat go.mod
