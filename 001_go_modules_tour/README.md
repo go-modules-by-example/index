@@ -469,7 +469,7 @@ created:
 ```
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.002s
+ok  	rsc.io/quote	0.003s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -734,7 +734,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
 $ git commit -a -m 'my fork'
-[my_quote 6e344b9] my fork
+[my_quote ac67d49] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push -q $GITHUB_USERNAME
 remote: 

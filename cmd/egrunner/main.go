@@ -232,7 +232,7 @@ assert()
 			}
 			stmts = append(stmts, co)
 			if debugOut || (stdOut && b != nil) {
-				fmt.Fprintf(toRun, "cat <<THISWILLNEVERMATCH\n$ %v\nTHISWILLNEVERMATCH\n", stmtString(s))
+				fmt.Fprintf(toRun, "cat <<'THISWILLNEVERMATCH'\n$ %v\nTHISWILLNEVERMATCH\n", stmtString(s))
 			}
 			fmt.Fprintf(toRun, "%v\n", stmtString(s))
 
