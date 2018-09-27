@@ -75,6 +75,7 @@ Create a `main` module:
 $ mkdir hello
 $ cd hello
 $ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 ```
 
 Add a simple dependency:
