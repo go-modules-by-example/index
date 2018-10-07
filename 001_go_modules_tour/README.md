@@ -570,7 +570,7 @@ require (
 )
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.003s
+ok  	rsc.io/quote	0.002s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -734,7 +734,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/quote-fork
 $ git commit -a -m 'my fork'
-[my_quote 86b72ac] my fork
+[my_quote 541f9ef] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push -q $GITHUB_ORG
 remote: 
@@ -799,7 +799,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 ### Version details
 
 ```
-go version go1.11 linux/amd64
+go version go1.11.1 linux/amd64
 ```
 
 <!-- END -->

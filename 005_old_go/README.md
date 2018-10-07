@@ -90,7 +90,7 @@ $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) 5c02002] Initial commit
+[master (root-commit) 9d719ca] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
@@ -161,7 +161,7 @@ Goodbye
 ### Version details
 
 ```
-go version go1.11 linux/amd64
+go version go1.11.1 linux/amd64
 ```
 
 <!-- END -->

@@ -197,7 +197,7 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 ### Version details
 
 ```
-go version go1.11 linux/amd64
+go version go1.11.1 linux/amd64
 ```
 
 <!-- END -->
