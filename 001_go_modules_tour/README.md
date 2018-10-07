@@ -732,29 +732,29 @@ fork github.com/rsc/quote and then push your change to your fork.
 
 ```
 $ cd ../quote
-$ git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
+$ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/quote-fork
 $ git commit -a -m 'my fork'
-[my_quote ac67d49] my fork
+[my_quote 86b72ac] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
-$ git push -q $GITHUB_USERNAME
+$ git push -q $GITHUB_ORG
 remote: 
 remote: Create a pull request for 'my_quote' on GitHub by visiting:        
-remote:      https://github.com/myitcv/go-modules-by-example-quote-fork/pull/new/my_quote        
+remote:      https://github.com/go-modules-by-example/quote-fork/pull/new/my_quote        
 remote: 
 $ git tag v0.0.0-myfork
-$ git push -q $GITHUB_USERNAME v0.0.0-myfork
+$ git push -q $GITHUB_ORG v0.0.0-myfork
 ```
 
 Then you can use that as the replacement:
 
 ```
 $ cd ../hello
-$ go mod edit -replace=rsc.io/quote=github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork@v0.0.0-myfork
+$ go mod edit -replace=rsc.io/quote=github.com/$GITHUB_ORG/quote-fork@v0.0.0-myfork
 $ go list -m
-go: finding github.com/myitcv/go-modules-by-example-quote-fork v0.0.0-myfork
+go: finding github.com/go-modules-by-example/quote-fork v0.0.0-myfork
 github.com/you/hello
 $ go build
-go: downloading github.com/myitcv/go-modules-by-example-quote-fork v0.0.0-myfork
+go: downloading github.com/go-modules-by-example/quote-fork v0.0.0-myfork
 $ LANG=fr ./hello
 Je peux manger du verre, ça ne me fait pas mal.
 ```

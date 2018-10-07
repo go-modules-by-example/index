@@ -1,28 +1,5 @@
 #!/usr/bin/env bash
 
-set -u
-set -x
-
-assert()
-{
-  E_PARAM_ERR=98
-  E_ASSERT_FAILED=99
-
-  if [ -z "$2" ]
-  then
-    exit $E_PARAM_ERR
-  fi
-
-  lineno=$2
-
-  if [ ! $1 ]
-  then
-    echo "Assertion failed:  \"$1\""
-    echo "File \"$0\", line $lineno"
-    exit $E_ASSERT_FAILED
-  fi
-}
-
 # **START**
 
 export GOPATH=$HOME
@@ -37,17 +14,18 @@ git config --global push.default current
 
 # tidy up if we already have the repo
 now=$(date +'%Y%m%d%H%M%S_%N')
-githubcli repo renameIfExists go-modules-by-example-submodules go-modules-by-example-submodules_$now
-githubcli repo create go-modules-by-example-submodules
+githubcli repo renameIfExists $GITHUB_ORG/submodules submodules_$now
+githubcli repo transfer $GITHUB_ORG/submodules_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/submodules
 
 # block: setup
-mkdir go-modules-by-example-submodules
-cd go-modules-by-example-submodules
+mkdir submodules
+cd submodules
 git init -q
-git remote add origin https://github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
+git remote add origin https://github.com/$GITHUB_ORG/submodules
 
 # block: define repo root module
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
+go mod init github.com/$GITHUB_ORG/submodules
 git add go.mod
 git commit -q -am 'Initial commit'
 git push -q
@@ -60,7 +38,7 @@ package b
 
 const Name = "Gopher"
 EOD
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
+go mod init github.com/$GITHUB_ORG/submodules/b
 go test
 
 # block: commit and tag b
@@ -81,7 +59,7 @@ cat <<EOD > a.go
 package main
 
 import (
-	"github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b"
+	"github.com/$GITHUB_ORG/submodules/b"
 	"fmt"
 )
 
@@ -91,11 +69,11 @@ func main() {
 	fmt.Println(Name)
 }
 EOD
-go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
+go mod init github.com/$GITHUB_ORG/submodules/a
 
 # block: run package a
 go run .
-go list -m github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
+go list -m github.com/$GITHUB_ORG/submodules/b
 
 # block: commit and tag a
 cd ..
@@ -110,7 +88,7 @@ cd $(mktemp -d)
 export GOBIN=$PWD/.bin
 export PATH=$GOBIN:$PATH
 go mod init example.com/blah
-go get github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a@v1.0.0
+go get github.com/$GITHUB_ORG/submodules/a@v1.0.0
 a
 
 # block: version details

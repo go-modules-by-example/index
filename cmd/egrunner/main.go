@@ -288,11 +288,7 @@ assert()
 		return errorf("failed to write to temp file %v: %v", tfn, err)
 	}
 
-	user := os.Getenv("GITHUB_USERNAME")
-	pat := os.Getenv("GITHUB_PAT")
-	vgoversion := os.Getenv("VGO_VERSION")
-
-	args := []string{"docker", "run", "--rm", "-w", "/root", "-e", "GITHUB_PAT=" + pat, "-e", "GITHUB_USERNAME=" + user, "-e", "VGO_VERSION=" + vgoversion, "--entrypoint", "bash", "-v", "/home/myitcv/.gostuff/1.11/pkg/mod/cache/download/:/cache/", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName)}
+	args := []string{"docker", "run", "--rm", "-w", "/root", "-e", "GITHUB_PAT", "-e", "GITHUB_USERNAME", "-e", "VGO_VERSION", "-e", "GITHUB_ORG", "-e", "GITHUB_ORG_ARCHIVE", "--entrypoint", "bash", "-v", "/home/myitcv/.gostuff/1.11/pkg/mod/cache/download/:/cache/", "-v", fmt.Sprintf("%v:/go/bin/%v", ghcli, commgithubcli), "-v", fmt.Sprintf("%v:/%v", tfn, scriptName)}
 
 	if *fGoRoot != "" {
 		args = append(args, "-v", fmt.Sprintf("%v:/go", *fGoRoot))

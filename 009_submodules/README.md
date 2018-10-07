@@ -77,23 +77,23 @@ Initialise a directory as a git repo, and add an appropriate remote:
 
 
 ```
-$ mkdir go-modules-by-example-submodules
-$ cd go-modules-by-example-submodules
+$ mkdir submodules
+$ cd submodules
 $ git init -q
-$ git remote add origin https://github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
+$ git remote add origin https://github.com/$GITHUB_ORG/submodules
 ```
 
 Define a root module, at the root of the repo, commit and push:
 
 ```
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules
+$ go mod init github.com/$GITHUB_ORG/submodules
+go: creating new go.mod: module github.com/go-modules-by-example/submodules
 $ git add go.mod
 $ git commit -q -am 'Initial commit'
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/myitcv/go-modules-by-example-submodules/pull/new/master        
+remote:      https://github.com/go-modules-by-example/submodules/pull/new/master        
 remote: 
 ```
 
@@ -107,10 +107,10 @@ package b
 
 const Name = "Gopher"
 EOD
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/b
+$ go mod init github.com/$GITHUB_ORG/submodules/b
+go: creating new go.mod: module github.com/go-modules-by-example/submodules/b
 $ go test
-?   	github.com/myitcv/go-modules-by-example-submodules/b	[no test files]
+?   	github.com/go-modules-by-example/submodules/b	[no test files]
 ```
 
 Commit, tag and push our new package:
@@ -136,7 +136,7 @@ $ cat <<EOD >a.go
 package main
 
 import (
-	"github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b"
+	"github.com/$GITHUB_ORG/submodules/b"
 	"fmt"
 )
 
@@ -146,19 +146,19 @@ func main() {
 	fmt.Println(Name)
 }
 EOD
-$ go mod init github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a
-go: creating new go.mod: module github.com/myitcv/go-modules-by-example-submodules/a
+$ go mod init github.com/$GITHUB_ORG/submodules/a
+go: creating new go.mod: module github.com/go-modules-by-example/submodules/a
 ```
 
 Build and run that main package:
 
 ```
 $ go run .
-go: finding github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
-go: downloading github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
+go: finding github.com/go-modules-by-example/submodules/b v0.1.1
+go: downloading github.com/go-modules-by-example/submodules/b v0.1.1
 Gopher
-$ go list -m github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/b
-github.com/myitcv/go-modules-by-example-submodules/b v0.1.1
+$ go list -m github.com/$GITHUB_ORG/submodules/b
+github.com/go-modules-by-example/submodules/b v0.1.1
 ```
 
 Notice how we resolve to the tagged version of `package b`.
@@ -184,9 +184,9 @@ $ export GOBIN=$PWD/.bin
 $ export PATH=$GOBIN:$PATH
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
-$ go get github.com/$GITHUB_USERNAME/go-modules-by-example-submodules/a@v1.0.0
-go: finding github.com/myitcv/go-modules-by-example-submodules/a v1.0.0
-go: downloading github.com/myitcv/go-modules-by-example-submodules/a v1.0.0
+$ go get github.com/$GITHUB_ORG/submodules/a@v1.0.0
+go: finding github.com/go-modules-by-example/submodules/a v1.0.0
+go: downloading github.com/go-modules-by-example/submodules/a v1.0.0
 $ a
 Gopher
 ```

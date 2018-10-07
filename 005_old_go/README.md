@@ -70,12 +70,12 @@ $ cd hello
 $ cat <<EOD >hello.go
 package example
 
-import "github.com/myitcv/go-modules-by-example-v2-module/v2/goodbye"
+import "github.com/$GITHUB_ORG/v2-module/v2/goodbye"
 
 const Name = goodbye.Name
 EOD
 $ cat <<EOD >go.mod
-module github.com/myitcv/go-modules-by-example-v2-module/v2
+module github.com/$GITHUB_ORG/v2-module/v2
 EOD
 $ mkdir goodbye
 $ cat <<EOD >goodbye/goodbye.go
@@ -84,28 +84,28 @@ package goodbye
 const Name = "Goodbye"
 EOD
 $ go test ./...
-?   	github.com/myitcv/go-modules-by-example-v2-module/v2	[no test files]
-?   	github.com/myitcv/go-modules-by-example-v2-module/v2/goodbye	[no test files]
+?   	github.com/go-modules-by-example/v2-module/v2	[no test files]
+?   	github.com/go-modules-by-example/v2-module/v2/goodbye	[no test files]
 $ git init
 Initialized empty Git repository in /root/hello/.git/
 $ git add -A
 $ git commit -m 'Initial commit'
-[master (root-commit) c5a3321] Initial commit
+[master (root-commit) 5c02002] Initial commit
  3 files changed, 9 insertions(+)
  create mode 100644 go.mod
  create mode 100644 goodbye/goodbye.go
  create mode 100644 hello.go
-$ git remote add origin https://github.com/myitcv/go-modules-by-example-v2-module
+$ git remote add origin https://github.com/$GITHUB_ORG/v2-module
 $ git push origin master
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/myitcv/go-modules-by-example-v2-module/pull/new/master        
+remote:      https://github.com/go-modules-by-example/v2-module/pull/new/master        
 remote: 
-To https://github.com/myitcv/go-modules-by-example-v2-module
+To https://github.com/go-modules-by-example/v2-module
  * [new branch]      master -> master
 $ git tag v2.0.0
 $ git push origin v2.0.0
-To https://github.com/myitcv/go-modules-by-example-v2-module
+To https://github.com/go-modules-by-example/v2-module
  * [new tag]         v2.0.0 -> v2.0.0
 ```
 
@@ -120,7 +120,7 @@ $ cat <<EOD >main.go
 package main
 
 import "fmt"
-import "github.com/myitcv/go-modules-by-example-v2-module/v2"
+import "github.com/$GITHUB_ORG/v2-module/v2"
 
 func main() {
 	fmt.Println(example.Name)
@@ -129,8 +129,8 @@ EOD
 $ go mod init example.com/usehello
 go: creating new go.mod: module example.com/usehello
 $ go build
-go: finding github.com/myitcv/go-modules-by-example-v2-module/v2 v2.0.0
-go: downloading github.com/myitcv/go-modules-by-example-v2-module/v2 v2.0.0
+go: finding github.com/go-modules-by-example/v2-module/v2 v2.0.0
+go: downloading github.com/go-modules-by-example/v2-module/v2 v2.0.0
 $ ./usehello
 Goodbye
 ```
@@ -146,13 +146,13 @@ $ cat <<EOD >main.go
 package main
 
 import "fmt"
-import "github.com/myitcv/go-modules-by-example-v2-module"
+import "github.com/$GITHUB_ORG/v2-module"
 
 func main() {
 	fmt.Println(example.Name)
 }
 EOD
-$ PATH=/tmp/go/bin:$PATH go get github.com/myitcv/go-modules-by-example-v2-module
+$ PATH=/tmp/go/bin:$PATH go get github.com/$GITHUB_ORG/v2-module
 $ PATH=/tmp/go/bin:$PATH go build
 $ ./hello
 Goodbye
