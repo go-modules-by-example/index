@@ -12,6 +12,7 @@ _Go modules by example_ is a series of work-along guides that look to help expla
 * [Using modules to generate a vendor](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)
 * [How to use submodules](https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md)
 * [Tools as dependencies](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md)
+* [Using `gohack` to "hack" on dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/011_using_gohack/README.md)
 * [Creating a module download cache "vendor"](https://github.com/go-modules-by-example/index/blob/master/012_modvendor/README.md)
 * [Cyclic module dependencies](https://github.com/go-modules-by-example/index/blob/master/013_cyclic/README.md)
 * ...
