@@ -136,12 +136,12 @@ go: finding golang.org/x/crypto latest
 go: downloading golang.org/x/crypto v0.0.0-20181001203147-e3636079e1a4
 go: finding github.com/labstack/gommon v0.2.7
 go: downloading github.com/labstack/gommon v0.2.7
-go: finding github.com/valyala/fasttemplate latest
 go: finding github.com/mattn/go-colorable v0.0.9
+go: finding github.com/valyala/fasttemplate latest
 go: finding github.com/mattn/go-isatty v0.0.4
+go: downloading github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/mattn/go-colorable v0.0.9
 go: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
-go: downloading github.com/mattn/go-isatty v0.0.4
 go: finding github.com/valyala/bytebufferpool v1.0.0
 go: downloading github.com/valyala/bytebufferpool v1.0.0
 ```
@@ -175,7 +175,7 @@ Et voila.
 ### Version details
 
 ```
-go version go1.11 linux/amd64
+go version go1.11.1 linux/amd64
 ```
 
 <!-- END -->

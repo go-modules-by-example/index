@@ -225,7 +225,7 @@ Hello, world.
 ### Version details
 
 ```
-go version go1.11 linux/amd64
+go version go1.11.1 linux/amd64
 gohack commit 9c9664a5b5fe88c58959a302141c6a12dd40421e
 ```
 
