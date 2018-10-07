@@ -83,8 +83,8 @@ First, ceate an example module. This example will require
 [`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer) to help with code generation.
 
 ```
-$ mkdir /tmp/go-modules-by-example-tools
-$ cd /tmp/go-modules-by-example-tools
+$ mkdir /tmp/tools
+$ cd /tmp/tools
 $ go mod init example.com/blah/painkiller
 go: creating new go.mod: module example.com/blah/painkiller
 ```
@@ -121,7 +121,7 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20180927044812-b14f328a6211
+go: downloading golang.org/x/tools v0.0.0-20181006002542-f60d9635b16a
 ```
 
 The module reflects the dependency:
@@ -135,7 +135,7 @@ $ go mod edit -json
 	"Require": [
 		{
 			"Path": "golang.org/x/tools",
-			"Version": "v0.0.0-20180927044812-b14f328a6211",
+			"Version": "v0.0.0-20181006002542-f60d9635b16a",
 			"Indirect": true
 		}
 	],
@@ -149,7 +149,7 @@ $ go mod edit -json
 
 ```
 $ which stringer
-/tmp/go-modules-by-example-tools/bin/stringer
+/tmp/tools/bin/stringer
 ```
 
 Let's use `stringer` via a `go:generate` directive:

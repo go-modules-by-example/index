@@ -1,28 +1,5 @@
 #!/usr/bin/env bash
 
-set -u
-set -x
-
-assert()
-{
-  E_PARAM_ERR=98
-  E_ASSERT_FAILED=99
-
-  if [ -z "$2" ]
-  then
-    exit $E_PARAM_ERR
-  fi
-
-  lineno=$2
-
-  if [ ! $1 ]
-  then
-    echo "Assertion failed:  \"$1\""
-    echo "File \"$0\", line $lineno"
-    exit $E_ASSERT_FAILED
-  fi
-}
-
 # **START**
 
 export GOPATH=$HOME
@@ -42,8 +19,9 @@ PATH=/tmp/go/bin:$PATH go version
 
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
-githubcli repo renameIfExists go-modules-by-example-v2-module go-modules-by-example-v2-module_$now
-githubcli repo create go-modules-by-example-v2-module
+githubcli repo renameIfExists $GITHUB_ORG/v2-module v2-module_$now
+githubcli repo transfer $GITHUB_ORG/v2-module_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/v2-module
 
 # block: create go module v2
 cd $HOME
@@ -52,12 +30,12 @@ cd hello
 cat <<EOD > hello.go
 package example
 
-import "github.com/myitcv/go-modules-by-example-v2-module/v2/goodbye"
+import "github.com/$GITHUB_ORG/v2-module/v2/goodbye"
 
 const Name = goodbye.Name
 EOD
 cat <<EOD > go.mod
-module github.com/myitcv/go-modules-by-example-v2-module/v2
+module github.com/$GITHUB_ORG/v2-module/v2
 EOD
 mkdir goodbye
 cat <<EOD > goodbye/goodbye.go
@@ -69,7 +47,7 @@ go test ./...
 git init
 git add -A
 git commit -m 'Initial commit'
-git remote add origin https://github.com/myitcv/go-modules-by-example-v2-module
+git remote add origin https://github.com/$GITHUB_ORG/v2-module
 git push origin master
 git tag v2.0.0
 git push origin v2.0.0
@@ -82,7 +60,7 @@ cat <<EOD > main.go
 package main
 
 import "fmt"
-import "github.com/myitcv/go-modules-by-example-v2-module/v2"
+import "github.com/$GITHUB_ORG/v2-module/v2"
 
 func main() {
 	fmt.Println(example.Name)
@@ -100,13 +78,13 @@ cat <<EOD > main.go
 package main
 
 import "fmt"
-import "github.com/myitcv/go-modules-by-example-v2-module"
+import "github.com/$GITHUB_ORG/v2-module"
 
 func main() {
 	fmt.Println(example.Name)
 }
 EOD
-PATH=/tmp/go/bin:$PATH go get github.com/myitcv/go-modules-by-example-v2-module
+PATH=/tmp/go/bin:$PATH go get github.com/$GITHUB_ORG/v2-module
 PATH=/tmp/go/bin:$PATH go build
 ./hello
 

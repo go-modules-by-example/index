@@ -1,28 +1,5 @@
 #!/usr/bin/env bash
 
-set -u
-set -x
-
-assert()
-{
-  E_PARAM_ERR=98
-  E_ASSERT_FAILED=99
-
-  if [ -z "$2" ]
-  then
-    exit $E_PARAM_ERR
-  fi
-
-  lineno=$2
-
-  if [ ! $1 ]
-  then
-    echo "Assertion failed:  \"$1\""
-    echo "File \"$0\", line $lineno"
-    exit $E_ASSERT_FAILED
-  fi
-}
-
 # **START**
 
 export GOPATH=$HOME
@@ -179,20 +156,21 @@ go build
 
 # ensure repo exists and clean up any existing tag
 now=$(date +'%Y%m%d%H%M%S_%N')
-githubcli repo renameIfExists go-modules-by-example-quote-fork go-modules-by-example-quote-fork_$now
-githubcli repo create go-modules-by-example-quote-fork
+githubcli repo renameIfExists $GITHUB_ORG/quote-fork quote-fork_$now
+githubcli repo transfer $GITHUB_ORG/quote-fork_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/quote-fork
 
 # block: setup our quote
 cd ../quote
-git remote add $GITHUB_USERNAME https://github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork
+git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/quote-fork
 git commit -a -m 'my fork'
-git push -q $GITHUB_USERNAME
+git push -q $GITHUB_ORG
 git tag v0.0.0-myfork
-git push -q $GITHUB_USERNAME v0.0.0-myfork
+git push -q $GITHUB_ORG v0.0.0-myfork
 
 # block: use our quote
 cd ../hello
-go mod edit -replace=rsc.io/quote=github.com/$GITHUB_USERNAME/go-modules-by-example-quote-fork@v0.0.0-myfork
+go mod edit -replace=rsc.io/quote=github.com/$GITHUB_ORG/quote-fork@v0.0.0-myfork
 go list -m
 go build
 LANG=fr ./hello

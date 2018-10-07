@@ -5,6 +5,7 @@ import (
 	"flag"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
@@ -22,6 +23,7 @@ const (
 
 	commRepoRenameIfExists = "renameIfExists"
 	commRepoCreate         = "create"
+	commRepoTransfer       = "transfer"
 )
 
 var (
@@ -38,6 +40,10 @@ func (l logger) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func main() {
+	// repo create (org/)name
+	// repo renameIfExists (org/)from to
+	// repo transfer (orgfrom/)name nameOrOrg
+
 	flag.Parse()
 
 	pat, ok := os.LookupEnv(envGithubPAT)
@@ -84,17 +90,23 @@ func main() {
 	// TODO actually write this properly
 	switch args[0] {
 	case commRepoRenameIfExists:
-		rnArgs := args[1:]
-		if v := len(rnArgs); v != 2 {
+		args := args[1:]
+		if v := len(args); v != 2 {
 			fatalf("expected 2 arguments for %v; got %v", commRepoRenameIfExists, v)
 		}
 
-		from := rnArgs[0]
+		fromParts := strings.Split(args[0], "/")
 		to := &github.Repository{
-			Name: &rnArgs[1],
+			Name: &args[1],
 		}
 
-		_, resp, err := client.Repositories.Edit(ctxt, user, from, to)
+		orgOrUser := user
+		if len(fromParts) == 2 {
+			orgOrUser = fromParts[0]
+		}
+		from := fromParts[len(fromParts)-1]
+
+		_, resp, err := client.Repositories.Edit(ctxt, orgOrUser, from, to)
 		if err != nil {
 			if resp == nil || resp.StatusCode != http.StatusNotFound {
 				fatalf("failed to %v: %v", commRepoRenameIfExists, err)
@@ -102,18 +114,53 @@ func main() {
 		}
 
 	case commRepoCreate:
-		cArgs := args[1:]
-		if v := len(cArgs); v != 1 {
+		args := args[1:]
+		if v := len(args); v != 1 {
 			fatalf("expected 1 argument for %v; got %v", commRepoCreate, v)
 		}
 
+		nameParts := strings.Split(args[0], "/")
+
 		r := &github.Repository{
-			Name: &cArgs[0],
+			Name: &nameParts[len(nameParts)-1],
 		}
 
-		_, _, err := client.Repositories.Create(ctxt, "", r)
+		// when creating a repo, we set userOrOrg to "" to indicate a
+		// user repo
+		userOrOrg := ""
+
+		if len(nameParts) == 2 && nameParts[0] != user {
+			userOrOrg = nameParts[0]
+		}
+
+		_, _, err := client.Repositories.Create(ctxt, userOrOrg, r)
 		if err != nil {
 			fatalf("failed to %v: %v", commRepoCreate, err)
+		}
+
+	case commRepoTransfer:
+		args := args[1:]
+
+		if v := len(args); v != 2 {
+			fatalf("expected 2 arguments for %v; got %v", commRepoTransfer, v)
+		}
+
+		fromParts := strings.Split(args[0], "/")
+		tr := github.TransferRequest{
+			NewOwner: args[1],
+		}
+
+		orgOrUser := user
+		if len(fromParts) == 2 {
+			orgOrUser = fromParts[0]
+		}
+		from := fromParts[len(fromParts)-1]
+
+		_, resp, err := client.Repositories.Transfer(ctxt, orgOrUser, from, tr)
+		if err != nil && (resp == nil || resp.StatusCode != http.StatusAccepted) {
+			if resp == nil || resp.StatusCode != http.StatusNotFound {
+				fatalf("failed to %v: %v", commRepoTransfer, err)
+			}
 		}
 
 	default:
