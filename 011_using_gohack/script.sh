@@ -13,7 +13,9 @@ git config --global advice.detachedHead false
 git config --global push.default current
 
 # block: install gohack
-GO111MODULE=off go get github.com/rogpeppe/gohack
+git clone https://github.com/rogpeppe/gohack /tmp/gohack
+cd /tmp/gohack
+go install
 gohack help
 
 # block: setup
@@ -68,6 +70,8 @@ go run .
 gohack undo rsc.io/quote
 go run .
 
+
 # block: version details
 go version
-echo "gohack commit $(cd $GOPATH/src/github.com/rogpeppe/gohack; git rev-parse HEAD)"
+cd /tmp/gohack
+echo "gohack commit $(git rev-parse HEAD)"
