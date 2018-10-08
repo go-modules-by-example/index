@@ -18,6 +18,9 @@ githubcli repo renameIfExists $GITHUB_ORG/submodules submodules_$now
 githubcli repo transfer $GITHUB_ORG/submodules_$now $GITHUB_ORG_ARCHIVE
 githubcli repo create $GITHUB_ORG/submodules
 
+# block: repo
+echo https://github.com/$GITHUB_ORG/submodules
+
 # block: setup
 mkdir submodules
 cd submodules
@@ -52,9 +55,6 @@ git push -q origin b/v0.1.1
 # block: create package a
 mkdir a
 cd a
-cat <<EOD > .gitignore
-/a
-EOD
 cat <<EOD > a.go
 package main
 

@@ -22,7 +22,7 @@ your GOPATH/src tree and change into it:
 Then create a file hello.go which uses the original v1 of the yaml package:
 
 ```go
-{{PrintOut "cat hello.go" -}}
+{{PrintBlockOut "cat hello.go" -}}
 ```
 
 Create an empty go.mod file to mark the root of this module, and then build and
@@ -44,7 +44,7 @@ major version bump, to v2.x.x. We update hello.go:
 
 
 ```go
-{{PrintOut "cat hello.go v2" -}}
+{{PrintBlockOut "cat hello.go v2" -}}
 ```
 
 Now we go build again; notice the resolution to v2 of the yaml package this time around:

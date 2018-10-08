@@ -29,7 +29,7 @@ your GOPATH/src tree and change into it:
 Then create a file hello.go:
 
 ```go
-{{PrintOut "cat hello.go" -}}
+{{PrintBlockOut "cat hello.go" -}}
 ```
 
 Create an empty go.mod file to mark the root of this module, and then build and
@@ -250,7 +250,7 @@ Having changed the fork, we can make our build use it in place of the real one
 by adding a replacement directive to go.mod:
 
 ```
-{{PrintOut "show replace" -}}
+{{PrintBlockOut "show replace" -}}
 ```
 
 Then we can build our program using it:
@@ -469,7 +469,7 @@ created:
 ```
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.003s
+ok  	rsc.io/quote	0.002s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -570,7 +570,7 @@ require (
 )
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.002s
+ok  	rsc.io/quote	0.003s
 ```
 
 Downgrading one package may require downgrading others. For example:
@@ -734,7 +734,7 @@ fork github.com/rsc/quote and then push your change to your fork.
 $ cd ../quote
 $ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/quote-fork
 $ git commit -a -m 'my fork'
-[my_quote 541f9ef] my fork
+[my_quote 1f15b3d] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
 $ git push -q $GITHUB_ORG
 remote: 

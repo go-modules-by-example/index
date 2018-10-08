@@ -6,7 +6,7 @@ Cyclic module dependencies typically come about through test dependencies. This 
 dependency between two package, through one's external test package. Those two packages are initially part of the
 same module, but then split into two separate modules where the cyclic dependency is created.
 
-The resulting repository state can be seen at {{PrintBlockOut "repo"}}.
+The resulting repository state can be seen at {{PrintOut "repo"}}.
 
 ### Walkthrough
 
@@ -72,8 +72,7 @@ Cyclic module dependencies typically come about through test dependencies. This 
 dependency between two package, through one's external test package. Those two packages are initially part of the
 same module, but then split into two separate modules where the cyclic dependency is created.
 
-The resulting repository state can be seen at https://github.com/go-modules-by-example/cyclic
-.
+The resulting repository state can be seen at https://github.com/go-modules-by-example/cyclic.
 
 ### Walkthrough
 
@@ -120,11 +119,11 @@ $ go test -v ./...
 Here is A: B
 --- PASS: TestUsingA (0.00s)
 PASS
-ok  	github.com/go-modules-by-example/cyclic/b	0.033s
+ok  	github.com/go-modules-by-example/cyclic/b	0.002s
 $ git add -A
 $ git commit -q -am "Commit 1: initial commit of parent module github.com/$GITHUB_ORG/cyclic"
 $ git rev-parse HEAD
-36fb4a5092c26211d8475ebbaf767d6882a28c59
+d1d904025716fb4998b1ab77d713843cc9744839
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
@@ -149,7 +148,7 @@ $ cd ..
 $ git add -A
 $ git commit -q -am "Commit 2: create github.com/$GITHUB_ORG/cyclic/b"
 $ git rev-parse HEAD
-812432f8a973781a074f5e1ff50390d5b2c83c5c
+0de870e490e2e6b71958895a03b8439f08eb8fed
 $ git push -q
 ```
 
@@ -158,13 +157,13 @@ Until #26241 is merged, this is where the mutual dependency gets created:
 ```
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/b latest
-go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181007210839-812432f8a973
+go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181009115017-0de870e490e2
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
 $ cd b
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/a latest
 go: finding github.com/go-modules-by-example/cyclic latest
-go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181007210839-812432f8a973
+go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181009115017-0de870e490e2
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
@@ -179,7 +178,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic
 $ cd ..
 $ go list -m all
 github.com/go-modules-by-example/cyclic
-github.com/go-modules-by-example/cyclic/b v0.0.0-20181007210839-812432f8a973
+github.com/go-modules-by-example/cyclic/b v0.0.0-20181009115017-0de870e490e2
 ```
 
 List the dependencies of `github.com/go-modules-by-example/cyclic/b
@@ -189,7 +188,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic/b
 $ cd b
 $ go list -m all
 github.com/go-modules-by-example/cyclic/b
-github.com/go-modules-by-example/cyclic v0.0.0-20181007210839-812432f8a973
+github.com/go-modules-by-example/cyclic v0.0.0-20181009115017-0de870e490e2
 ```
 
 Commit the mutual dependency:
@@ -199,7 +198,7 @@ $ cd ..
 $ git add -A
 $ git commit -q -am "Commit 3: the mutual dependency"
 $ git rev-parse HEAD
-7d485dbd4a3dceb44c5b6dfe70f6fb306529762a
+bf3bfb1af3e82e4dcea570615376d821a96b594b
 $ git push -q
 ```
 
