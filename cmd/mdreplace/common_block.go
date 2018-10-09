@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+	"unicode"
 
 	"myitcv.io/go-modules-by-example/cmd/mdreplace/internal/itemtype"
 )
@@ -175,7 +176,8 @@ Args:
 					vs := v.([]interface{})
 					if len(vs) == 1 {
 						jv := vs[0].(map[string]interface{})
-						return jv["Out"]
+						res := jv["Out"].(string)
+						return strings.TrimRightFunc(res, unicode.IsSpace)
 					}
 				}
 			}

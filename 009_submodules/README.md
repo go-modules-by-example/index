@@ -4,6 +4,8 @@
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
 
+The resulting code can be found at {{PrintOut "repo" -}}.
+
 ### Walkthrough
 
 Initialise a directory as a git repo, and add an appropriate remote:
@@ -71,6 +73,8 @@ Create another random module and use our `a` command from there:
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
 
+The resulting code can be found at https://github.com/go-modules-by-example/submodules.
+
 ### Walkthrough
 
 Initialise a directory as a git repo, and add an appropriate remote:
@@ -129,9 +133,6 @@ Create a `main` package that will use `b`:
 ```
 $ mkdir a
 $ cd a
-$ cat <<EOD >.gitignore
-/a
-EOD
 $ cat <<EOD >a.go
 package main
 

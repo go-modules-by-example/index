@@ -102,8 +102,8 @@ go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
 go: finding github.com/kr/text v0.1.0
 go: finding github.com/kr/pty v1.1.1
 go: downloading github.com/rogpeppe/go-internal v1.0.0-alpha
-go: downloading gopkg.in/errgo.v2 v2.1.0
 go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
+go: downloading gopkg.in/errgo.v2 v2.1.0
 $ gohack help
 The gohack command checks out Go module dependencies
 into a directory where they can be edited, and adjusts
@@ -239,7 +239,7 @@ Hello, world.
 
 ```
 go version go1.11.1 linux/amd64
-gohack commit 9c9664a5b5fe88c58959a302141c6a12dd40421e
+gohack commit 2a6a2af0593c531b42442998c71abd3ba7965ef3
 ```
 
 <!-- END -->

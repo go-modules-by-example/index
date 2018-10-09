@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+shopt -s globstar
+shopt -s extglob
+
+usage() {
+	echo "Incorrect usage"
+	exit 1
+}
+
+while test $# != 0
+do
+	case "$1" in
+		-prod)
+			export GITHUB_ORG=go-modules-by-example
+			export GITHUB_ORG_ARCHIVE=go-modules-by-example-archive mdreplace
+			;;
+		--) shift; break;;
+		[^-]*) break;;
+		*)  usage ;;
+	esac
+	shift
+done
+
+dir=$(git rev-parse --show-toplevel)
+
+if [ "$#" == "0" ]
+then
+	args="$dir/!(001_go_modules_tour)/README.md $dir/README.md"
+else
+	args="$*"
+fi
+
+go install myitcv.io/go-modules-by-example/cmd/...
+mdreplace -w -long -online $args
