@@ -1,6 +1,8 @@
 ### Go modules by example
 
-_Go modules by example_ is a series of work-along guides that look to help explain how go modules works and how to get things done.
+_Go modules by example_ is a series of work-along guides that look to help explain how go modules works and how to get
+things done. They are designed to complement the official Go documentation and the [Go modules
+wiki](https://github.com/golang/go/wiki/Modules).
 
 * [The go modules tour](https://github.com/go-modules-by-example/index/blob/master/001_go_modules_tour/README.md) (a rewrite of the original vgo tour)
 * [Using go modules with gopkg.in](https://github.com/go-modules-by-example/index/blob/master/002_using_gopkg_in/README.md)
@@ -54,10 +56,11 @@ and comprises all the contiguous lines that follow the special `# block:` commen
 ```
 # block: install tools
 go install example.com/blah
-assert "$? -eq 0" $LINENO
+assert "$? -eq 1" $LINENO
 ```
 
-Assertions can be made within the script to ensure that everything is still "on track".
+By default, each command is assume to have an exit code of `0`, unless it is followed by an `assert` line, like above,
+that asserts otherwise. In this respect, the script behaves much like `set -e`.
 
 The corresponding README.md acts as a template for the guide itself, but crucially it can reference these blocks to
 include the commands themselves and/or their output, e.g.:
@@ -93,17 +96,23 @@ GITHUB_ORG         # an org/user account where forks, examples will be created
 GITHUB_ORG_ARCHIVE # an org/user account where old forks, examples etc will be moved
 ```
 
-_[Create a new personal access token](https://github.com/settings/tokens/new)._
+It's probably a good idea to [create a new personal access token](https://github.com/settings/tokens/new) specifically
+for your "fork" of "Go Modules by Example" - you will need `public_repo` scope.
 
-Ensure `egrunner` is installed (and on your PATH):
+Creating a [new GitHub organisation](https://github.com/organizations/new) will allow you to segregate the
+examples/forks created by your guides (instead of cluttering your personal account). This corresponds to the
+`GITHUB_ORG` environment variable above. Similarly, create another organisation that will act as the archive,
+`GITHUB_ORG_ARCHIVE`.
 
-<!-- __TEMPLATE: go install myitcv.io/go-modules-by-example/cmd/egrunner
+Ensure `egrunner` and `githubcli` are installed (and on your PATH):
+
+<!-- __TEMPLATE: go install myitcv.io/go-modules-by-example/cmd/...
 ```
 {{.Cmd}}
 ```
 -->
 ```
-go install myitcv.io/go-modules-by-example/cmd/egrunner
+go install myitcv.io/go-modules-by-example/cmd/...
 ```
 <!-- END -->
 
@@ -123,13 +132,13 @@ egrunner -out debug ./001_go_modules_tour/script.sh
 
 First ensure `mdreplace` and `egrunner` are installed (and on your PATH):
 
-<!-- __TEMPLATE: go install myitcv.io/go-modules-by-example/cmd/egrunner myitcv.io/go-modules-by-example/cmd/mdreplace
+<!-- __TEMPLATE: go install myitcv.io/go-modules-by-example/cmd/...
 ```
 {{.Cmd}}
 ```
 -->
 ```
-go install myitcv.io/go-modules-by-example/cmd/egrunner myitcv.io/go-modules-by-example/cmd/mdreplace
+go install myitcv.io/go-modules-by-example/cmd/...
 ```
 <!-- END -->
 
@@ -147,8 +156,4 @@ mdreplace -w -long -online ./001_go_modules_tour/README.md
 
 ### Caveats
 
-This project is:
-
-* work-in-progress
-* pending review
-* likely to move somewhere else
+This project is work-in-progress. Feedback/PRs welcome.
