@@ -4,9 +4,31 @@
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
 
-Test edit.
-
 The resulting code can be found at {{PrintOut "repo" -}}.
+
+### Brief Background 
+
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) predicts that most projects will follow the simplest approach of using a single Go module per repository, which typically means creating one `go.mod` file located in the root directory of a repository. However, there are cases when multiple modules in a single repository are worth the extra on-going work, and here we show a runnable example of how to create a multiple module repository with Go submodules.
+
+### Example Overview
+
+The end result will be similar to the following, with three modules defined by the three `go.mod` files:
+
+```
+├── go.mod             // module github.com/$GITHUB_ORG/submodules
+├── a
+│   ├── go.mod         // module github.com/$GITHUB_ORG/submodules/a
+│   └── a.go
+└── b
+    ├── go.mod         // module github.com/$GITHUB_ORG/submodules/b
+    └── b.go
+```
+
+In this walkthrough:
+* We create a root module and two submodules.
+* We version the submodules independently by applying separate git tags (`v0.1.1` and `v1.0.0`)
+* We have `a` import `b` to make things slightly more interesting.
+* We finish by creating a module on our local filesystem to use our `a` command.
 
 ### Walkthrough
 
@@ -77,7 +99,29 @@ Go modules supports nesting of modules, which gives us submodules. This example 
 
 The resulting code can be found at https://github.com/go-modules-by-example/submodules.
 
-Test edit 2.
+### Brief Background 
+
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) predicts that most projects will follow the simplest approach of using a single Go module per repository, which typically means creating one `go.mod` file located in the root directory of a repository. However, there are cases when multiple modules in a single repository are worth the extra on-going work, and here we show a runnable example of how to create a multiple module repository with Go submodules.
+
+### Example Overview
+
+The end result will be similar to the following, with three modules defined by the three `go.mod` files:
+
+```
+├── go.mod             // module github.com/$GITHUB_ORG/submodules
+├── a
+│   ├── go.mod         // module github.com/$GITHUB_ORG/submodules/a
+│   └── a.go
+└── b
+    ├── go.mod         // module github.com/$GITHUB_ORG/submodules/b
+    └── b.go
+```
+
+In this walkthrough:
+* We create a root module and two submodules.
+* We version the submodules independently by applying separate git tags (`v0.1.1` and `v1.0.0`)
+* We have `a` import `b` to make things slightly more interesting.
+* We finish by creating a module on our local filesystem to use our `a` command.
 
 ### Walkthrough
 
