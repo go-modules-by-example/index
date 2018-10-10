@@ -24,9 +24,9 @@ commentary.
 
 ### Structure
 
-A guide simply comprises a README.md and an accompanying bash script. The README is the human readable bit and the
-script acts as a reproducible set of steps (that can be tested) for the guide. For example, the vgo tour has been
-rewritten as a _Go modules by example_ guide:
+A guide comprises a README.md and an accompanying bash script. The README is the human readable bit and the script acts
+as a reproducible set of steps (that can be tested) for the guide. For example, the vgo tour has been rewritten as a _Go
+modules by example_ guide:
 
 <!-- __TEMPLATE: ls 001_go_modules_tour
 ```
@@ -59,7 +59,7 @@ go install example.com/blah
 assert "$? -eq 1" $LINENO
 ```
 
-By default, each command is assume to have an exit code of `0`, unless it is followed by an `assert` line, like above,
+By default, each command is assumed to have an exit code of `0`, unless it is followed by an `assert` line, like above,
 that asserts otherwise. In this respect, the script behaves much like `set -e`.
 
 The corresponding README.md acts as a template for the guide itself, but crucially it can reference these blocks to
