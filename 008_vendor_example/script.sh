@@ -46,5 +46,8 @@ go mod vendor
 cat vendor/modules.txt
 find vendor -type d
 
+# block: run with vendor
+go run -mod=vendor .
+
 # block: version details
 go version
