@@ -9,18 +9,18 @@ code to be built with older, non-module aware versions of Go. This example shows
 
 ### Walkthrough
 
-Create a `main` module:
+Create a module:
 
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Add a simple dependency:
+Add a simple dependency to a `main` package in our module:
 
 
 ```
-{{PrintBlockOut "example" -}}
+{{PrintBlock "example" -}}
 ```
 
 Run as a quick "test":
@@ -51,6 +51,15 @@ Review the contents of `vendor`:
 {{PrintBlock "review vendor" -}}
 ```
 
+Re-run our "test" using `vendor`:
+
+```
+{{PrintBlock "run with vendor" -}}
+```
+
+For more information about the `-mod` flag see [`go help
+modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
+
 ### Version details
 
 ```
@@ -68,7 +77,7 @@ code to be built with older, non-module aware versions of Go. This example shows
 
 ### Walkthrough
 
-Create a `main` module:
+Create a module:
 
 
 ```
@@ -78,10 +87,11 @@ $ go mod init example.com/hello
 go: creating new go.mod: module example.com/hello
 ```
 
-Add a simple dependency:
+Add a simple dependency to a `main` package in our module:
 
 
 ```
+$ cat hello.go
 package main
 
 import (
@@ -150,6 +160,16 @@ vendor/golang.org/x/text/internal
 vendor/golang.org/x/text/internal/tag
 vendor/golang.org/x/text/language
 ```
+
+Re-run our "test" using `vendor`:
+
+```
+$ go run -mod=vendor .
+Hello, world.
+```
+
+For more information about the `-mod` flag see [`go help
+modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
 
 ### Version details
 
