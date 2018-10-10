@@ -3,9 +3,14 @@
 ## Vendoring support
 
 Go 1.5 introduced the concept of [`vendor`](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md).
-Go 1.11 (and modules) retains some backwards compatability for `vendor`, which is useful if you are distributing
-code to be built with older, non-module aware versions of Go. This example shows how to use `go mod vendor` to manage
-`vendor`.
+Go 1.11 (and modules) retains support for `vendor`. This is useful to ensure that all files used for a build are stored
+together in a single file tree. In addition, this allows interoperation with older versions of Go given older versions
+understand how to consume the `vendor` directory created by `go mod vendor`.
+
+More information about the relationship between Go modules and vendor can be found
+[in the vendoring FAQ on the wiki](https://github.com/golang/go/wiki/Modules#how-do-i-use-vendoring-with-modules-is-vendoring-going-away).
+
+This example shows how to use `go mod vendor` to manage the `vendor` directory.
 
 ### Walkthrough
 
@@ -71,9 +76,14 @@ modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
 ## Vendoring support
 
 Go 1.5 introduced the concept of [`vendor`](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md).
-Go 1.11 (and modules) retains some backwards compatability for `vendor`, which is useful if you are distributing
-code to be built with older, non-module aware versions of Go. This example shows how to use `go mod vendor` to manage
-`vendor`.
+Go 1.11 (and modules) retains support for `vendor`. This is useful to ensure that all files used for a build are stored
+together in a single file tree. In addition, this allows interoperation with older versions of Go given older versions
+understand how to consume the `vendor` directory created by `go mod vendor`.
+
+More information about the relationship between Go modules and vendor can be found
+[in the vendoring FAQ on the wiki](https://github.com/golang/go/wiki/Modules#how-do-i-use-vendoring-with-modules-is-vendoring-going-away).
+
+This example shows how to use `go mod vendor` to manage the `vendor` directory.
 
 ### Walkthrough
 
@@ -81,6 +91,7 @@ Create a module:
 
 
 ```
+$ cd $HOME
 $ mkdir hello
 $ cd hello
 $ go mod init example.com/hello

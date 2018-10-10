@@ -12,6 +12,7 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
 # block: setup
+cd $HOME
 mkdir hello
 cd hello
 go mod init example.com/hello
