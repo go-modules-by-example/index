@@ -11,10 +11,25 @@ git config --global user.email "$GITHUB_USERNAME@example.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
+# tidy up if we already have the repo
+now=$(date +'%Y%m%d%H%M%S_%N')
+githubcli repo renameIfExists $GITHUB_ORG/modvendor_example modvendor_example_$now
+githubcli repo transfer $GITHUB_ORG/modvendor_example_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/modvendor_example
+
+# block: module
+echo github.com/$GITHUB_ORG/modvendor_example
+
+# block: repo
+echo https://github.com/$GITHUB_ORG/modvendor_example
+
 # block: setup
-mkdir hello
-cd hello
-go mod init example.com/hello
+cd $HOME
+mkdir modvendor_example
+cd modvendor_example
+git init -q
+git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
+go mod init
 
 cat <<EOD > hello.go
 package main
@@ -51,7 +66,12 @@ rm -rf $tgp
 find modvendor -type f
 
 # block: check modvendor
-GOPATH=$(mktemp -d) GOPROXY=file://$PWD/modvendor go run .
+GOPATH=$(mktemp -d) GOPROXY=file://$HOME/modvendor_example/modvendor go run .
+
+# block: commit and push
+git add -A
+git commit -q -am 'Initial commit'
+git push -q origin master
 
 # block: version details
 go version

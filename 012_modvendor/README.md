@@ -2,15 +2,19 @@
 
 ## "Vendoring" your module download cache
 
-In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was a
-popular way of sharing your code _and its dependencies_ with others, without requiring network access beyond cloning
-the source code repository.
+In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was (and
+indeed remains) a popular way of sharing your code _and its dependencies_ with others, without requiring network access
+beyond cloning the source code repository. In the [Vendoring support
+guide](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) we show how to manage a
+`vendor` directory using `go mod vendor`.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
 
 This example shows you how to "vendor" your module download cache alongside your source code.
 
-### Walkthrough
+The resulting repository can be found at {{PrintOut "repo"}}.
+
+### Walk-through
 
 Create a simple module:
 
@@ -19,28 +23,31 @@ Create a simple module:
 {{PrintBlock "setup" -}}
 ```
 
-Add a simple dependency:
+_Notice, because of the git remote, `go mod init` can be called without any arguments and it resolves to
+`{{PrintOut "module"}}`._
+
+Add a simple dependency to a `main` package:
 
 
 ```
-{{PrintBlockOut "example" -}}
+{{PrintBlock "example" -}}
 ```
 
-Run our `main` module as a quick "test":
+Run our example as a quick "test":
 
 
 ```
 {{PrintBlock "run" -}}
 ```
 
-Ensure all depdencies are downloaded:
+Ensure all dependencies are downloaded:
 
 ```
 {{PrintBlock "go mod download" -}}
 ```
 
-Create our module download cache "vendor" (in the future these commands could become a `go` tool command, perhaps `go
-mod modvendor`):
+"Vendor" our dependencies in a module download cache (in the future these commands could become a `go` tool command,
+perhaps `go mod modvendor`):
 
 ```
 {{PrintBlock "fake vendor" -}}
@@ -59,7 +66,11 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 {{PrintBlock "check modvendor" -}}
 ```
 
-The `modvendor` directory can now be committed alongside the soure code.
+The `modvendor` directory can now be committed alongside the source code:
+
+```
+{{PrintBlock "commit and push" -}}
+```
 
 ### Open questions
 
@@ -78,13 +89,17 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 
 ## "Vendoring" your module download cache
 
-In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was a
-popular way of sharing your code _and its dependencies_ with others, without requiring network access beyond cloning
-the source code repository.
+In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was (and
+indeed remains) a popular way of sharing your code _and its dependencies_ with others, without requiring network access
+beyond cloning the source code repository. In the [Vendoring support
+guide](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) we show how to manage a
+`vendor` directory using `go mod vendor`.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
 
 This example shows you how to "vendor" your module download cache alongside your source code.
+
+The resulting repository can be found at https://github.com/go-modules-by-example-staging/modvendor_example.
 
 ### Walkthrough
 
@@ -92,16 +107,23 @@ Create a simple module:
 
 
 ```
-$ mkdir hello
-$ cd hello
-$ go mod init example.com/hello
-go: creating new go.mod: module example.com/hello
+$ cd $HOME
+$ mkdir modvendor_example
+$ cd modvendor_example
+$ git init -q
+$ git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
+$ go mod init
+go: creating new go.mod: module github.com/go-modules-by-example-staging/modvendor_example
 ```
 
-Add a simple dependency:
+_Notice, because of the git remote, `go mod init` can be called without any arguments and it resolves to
+`github.com/go-modules-by-example-staging/modvendor_example`._
+
+Add a simple dependency to a `main` package:
 
 
 ```
+$ cat hello.go
 package main
 
 import (
@@ -114,7 +136,7 @@ func main() {
 }
 ```
 
-Run our `main` module as a quick "test":
+Run our example as a quick "test":
 
 
 ```
@@ -184,7 +206,17 @@ go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
-The `modvendor` directory can now be committed alongside the soure code.
+The `modvendor` directory can now be committed alongside the soure code:
+
+```
+$ git add -A
+$ git commit -q -am 'Initial commit'
+$ git push -q origin master
+remote:
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/go-modules-by-example-staging/modvendor_example/pull/new/master
+remote:
+```
 
 ### Open questions
 
