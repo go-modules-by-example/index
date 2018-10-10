@@ -122,7 +122,12 @@ func main() {
 		nameParts := strings.Split(args[0], "/")
 
 		r := &github.Repository{
-			Name: &nameParts[len(nameParts)-1],
+			Name:        &nameParts[len(nameParts)-1],
+			HasWiki:     github.Bool(false),
+			HasIssues:   github.Bool(false),
+			HasProjects: github.Bool(false),
+			Description: github.String("Part of Go Modules By Example"),
+			Homepage:    github.String("https://github.com/go-modules-by-example/index"),
 		}
 
 		// when creating a repo, we set userOrOrg to "" to indicate a

@@ -119,11 +119,11 @@ $ go test -v ./...
 Here is A: B
 --- PASS: TestUsingA (0.00s)
 PASS
-ok  	github.com/go-modules-by-example/cyclic/b	0.002s
+ok  	github.com/go-modules-by-example/cyclic/b	0.003s
 $ git add -A
 $ git commit -q -am "Commit 1: initial commit of parent module github.com/$GITHUB_ORG/cyclic"
 $ git rev-parse HEAD
-d1d904025716fb4998b1ab77d713843cc9744839
+e6225575470d3df28c368534ec649dc085de8f49
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
@@ -148,7 +148,7 @@ $ cd ..
 $ git add -A
 $ git commit -q -am "Commit 2: create github.com/$GITHUB_ORG/cyclic/b"
 $ git rev-parse HEAD
-0de870e490e2e6b71958895a03b8439f08eb8fed
+142b4e87b00ca18b19aaad2b35c4e9c8df3c1d8b
 $ git push -q
 ```
 
@@ -157,13 +157,13 @@ Until #26241 is merged, this is where the mutual dependency gets created:
 ```
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/b latest
-go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181009115017-0de870e490e2
+go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181010093657-142b4e87b00c
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
 $ cd b
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/a latest
 go: finding github.com/go-modules-by-example/cyclic latest
-go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181009115017-0de870e490e2
+go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181010093657-142b4e87b00c
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
@@ -178,7 +178,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic
 $ cd ..
 $ go list -m all
 github.com/go-modules-by-example/cyclic
-github.com/go-modules-by-example/cyclic/b v0.0.0-20181009115017-0de870e490e2
+github.com/go-modules-by-example/cyclic/b v0.0.0-20181010093657-142b4e87b00c
 ```
 
 List the dependencies of `github.com/go-modules-by-example/cyclic/b
@@ -188,7 +188,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic/b
 $ cd b
 $ go list -m all
 github.com/go-modules-by-example/cyclic/b
-github.com/go-modules-by-example/cyclic v0.0.0-20181009115017-0de870e490e2
+github.com/go-modules-by-example/cyclic v0.0.0-20181010093657-142b4e87b00c
 ```
 
 Commit the mutual dependency:
@@ -198,7 +198,7 @@ $ cd ..
 $ git add -A
 $ git commit -q -am "Commit 3: the mutual dependency"
 $ git rev-parse HEAD
-bf3bfb1af3e82e4dcea570615376d821a96b594b
+8cca9bce1e0750660c176fb763c23252750cf51c
 $ git push -q
 ```
 
