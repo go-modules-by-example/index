@@ -77,6 +77,8 @@ Go modules supports nesting of modules, which gives us submodules. This example 
 
 The resulting code can be found at https://github.com/go-modules-by-example/submodules.
 
+Test edit 2.
+
 ### Walkthrough
 
 Initialise a directory as a git repo, and add an appropriate remote:
