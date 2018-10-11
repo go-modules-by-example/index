@@ -74,7 +74,8 @@ The `modvendor` directory can now be committed alongside the source code:
 
 ### Open questions
 
-* The above steps are currently manual; tooling (the `go` tool?) can fix this
+* The above steps are currently manual; tooling could fix this.
+  [The proposal to add a modvendor sub-command](https://github.com/golang/go/issues/27618) explores this further.
 * Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
   simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
 some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
@@ -99,9 +100,9 @@ In a modules world, the module download cache can be used as a higher fidelity s
 
 This example shows you how to "vendor" your module download cache alongside your source code.
 
-The resulting repository can be found at https://github.com/go-modules-by-example-staging/modvendor_example.
+The resulting repository can be found at https://github.com/go-modules-by-example/modvendor_example.
 
-### Walkthrough
+### Walk-through
 
 Create a simple module:
 
@@ -113,11 +114,11 @@ $ cd modvendor_example
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
 $ go mod init
-go: creating new go.mod: module github.com/go-modules-by-example-staging/modvendor_example
+go: creating new go.mod: module github.com/go-modules-by-example/modvendor_example
 ```
 
 _Notice, because of the git remote, `go mod init` can be called without any arguments and it resolves to
-`github.com/go-modules-by-example-staging/modvendor_example`._
+`github.com/go-modules-by-example/modvendor_example`._
 
 Add a simple dependency to a `main` package:
 
@@ -150,14 +151,14 @@ go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
-Ensure all depdencies are downloaded:
+Ensure all dependencies are downloaded:
 
 ```
 $ go mod download
 ```
 
-Create our module download cache "vendor" (in the future these commands could become a `go` tool command, perhaps `go
-mod modvendor`):
+"Vendor" our dependencies in a module download cache (in the future these commands could become a `go` tool command,
+perhaps `go mod modvendor`):
 
 ```
 $ rm -rf modvendor
@@ -196,7 +197,7 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 
 ```
-$ GOPATH=$(mktemp -d) GOPROXY=file://$PWD/modvendor go run .
+$ GOPATH=$(mktemp -d) GOPROXY=file://$HOME/modvendor_example/modvendor go run .
 go: finding rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
@@ -206,21 +207,22 @@ go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
-The `modvendor` directory can now be committed alongside the soure code:
+The `modvendor` directory can now be committed alongside the source code:
 
 ```
 $ git add -A
 $ git commit -q -am 'Initial commit'
 $ git push -q origin master
-remote:
-remote: Create a pull request for 'master' on GitHub by visiting:
-remote:      https://github.com/go-modules-by-example-staging/modvendor_example/pull/new/master
-remote:
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master        
+remote: 
 ```
 
 ### Open questions
 
-* The above steps are currently manual; tooling (the `go` tool?) can fix this
+* The above steps are currently manual; tooling could fix this.
+  [The proposal to add a modvendor sub-command](https://github.com/golang/go/issues/27618) explores this further.
 * Reviewing "vendored" dependencies is now more involved without further tooling. For example it's no longer possible to
   simply browse the source of a dependency via a GitHub PR when it is added. Again, tooling could help here. As could
 some central source of truth for trusted, reviewed modules ([Athens?](https://github.com/gomods/athens))
