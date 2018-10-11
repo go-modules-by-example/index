@@ -157,3 +157,13 @@ mdreplace -w -long -online ./001_go_modules_tour/README.md
 ### Caveats
 
 This project is work-in-progress. Feedback/PRs welcome.
+
+### Credits
+
+With particular thanks (in no particular order) to:
+
+* [bcmills](https://github.com/bcmills)
+* [mvdan](https://github.com/mvdan)
+* [rogpeppe](https://github.com/rogpeppe)
+* [rsc](https://github.com/rsc)
+* [thepudds](https://github.com/thepudds)
