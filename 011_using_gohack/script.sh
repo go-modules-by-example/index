@@ -16,11 +16,11 @@ git config --global push.default current
 git clone https://github.com/rogpeppe/gohack /tmp/gohack
 cd /tmp/gohack
 go install
-gohack help
 
 # block: setup
-mkdir /tmp/using-gohack
-cd /tmp/using-gohack
+cd $HOME
+mkdir using-gohack
+cd using-gohack
 go mod init example.com/blah
 
 cat <<EOD > blah.go
@@ -63,13 +63,15 @@ func Hello() string {
 EOD
 
 # block: rerun
-cd /tmp/using-gohack
+cd $HOME/using-gohack
 go run .
 
 # block: undo
 gohack undo rsc.io/quote
 go run .
 
+# block: gohack help get
+gohack help get
 
 # block: version details
 go version
