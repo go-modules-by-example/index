@@ -6,9 +6,13 @@ Go modules supports nesting of modules, which gives us submodules. This example 
 
 The resulting code can be found at {{PrintOut "repo" -}}.
 
-### Brief Background 
+### Background 
 
-The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) predicts that most projects will follow the simplest approach of using a single Go module per repository, which typically means creating one `go.mod` file located in the root directory of a repository. However, there are cases when multiple modules in a single repository are worth the extra on-going work, and here we show a runnable example of how to create a multiple module repository with Go submodules.
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) 
+predicts that most projects will follow the simplest approach of using a single Go module per repository, 
+which typically means creating one `go.mod` file located in the root directory of a repository. However, 
+there are cases when multiple modules in a single repository are worth the extra on-going work, and here 
+we show a runnable example of how to create a multiple module repository with Go submodules.
 
 ### Example Overview
 
@@ -101,7 +105,11 @@ The resulting code can be found at https://github.com/go-modules-by-example/subm
 
 ### Brief Background 
 
-The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) predicts that most projects will follow the simplest approach of using a single Go module per repository, which typically means creating one `go.mod` file located in the root directory of a repository. However, there are cases when multiple modules in a single repository are worth the extra on-going work, and here we show a runnable example of how to create a multiple module repository with Go submodules.
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) 
+predicts that most projects will follow the simplest approach of using a single Go module per repository, 
+which typically means creating one `go.mod` file located in the root directory of a repository. However, 
+there are cases when multiple modules in a single repository are worth the extra on-going work, and here 
+we show a runnable example of how to create a multiple module repository with Go submodules.
 
 ### Example Overview
 
