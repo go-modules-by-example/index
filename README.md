@@ -13,6 +13,7 @@ The release-ordered list of guides:
 * [How to use submodules](https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md)
 * [Using modules to manage vendor](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)
 * [Creating a module download cache "vendor"](https://github.com/go-modules-by-example/index/blob/master/012_modvendor/README.md)
+* [Using `gohack` to "hack" on dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/011_using_gohack/README.md)
 
 WIP guides:
 
@@ -24,7 +25,6 @@ WIP guides:
 * [Another example of package/project that has not yet been converted to a module](https://github.com/go-modules-by-example/index/blob/master/006_not_yet_go_module/README.md)
 * [Forking a project which has not yet been converted to a Go module](https://github.com/go-modules-by-example/index/blob/master/007_old_code_replace/README.md)
 * [Tools as dependencies](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md)
-* [Using `gohack` to "hack" on dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/011_using_gohack/README.md)
 * [Cyclic module dependencies](https://github.com/go-modules-by-example/index/blob/master/013_cyclic/README.md)
 * ...
 
