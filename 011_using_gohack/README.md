@@ -2,10 +2,15 @@
 
 ## Using `github.com/rogpeppe/gohack`
 
-[`gohack`](https://github.com/rogpeppe/gohack) is a tool that makes it easy to make temporary edits to your Go modules dependencies. This example shows how to
-use it.
+[`gohack`](https://github.com/rogpeppe/gohack) is a tool that helps you make temporary edits to your Go module's
+dependencies. By default, dependencies are stored in a read-only cache. `gohack` adds a `replace` directive to directory
+where you can "hack" the dependency's code, and then removes the directive when you are done. For more details on
+`replace` directives, see [the Go modules
+wiki](https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive).
 
-### Walkthrough
+This example shows how to use `gohack`.
+
+### Walk-through
 
 Install `gohack`:
 
@@ -13,32 +18,32 @@ Install `gohack`:
 {{PrintBlock "install gohack" -}}
 ```
 
-Ceate an example module:
+Create a module:
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Depend on some module:
+Add a simple dependency to a `main` package in our module:
 
 ```
-{{PrintBlockOut "simple example" -}}
+{{PrintBlock "simple example" -}}
 ```
 
-In this case, we will use a specific version of our dependency:
+In this case, we use a specific version of our dependency:
 
 ```
 {{PrintBlock "use a specific version of quote" -}}
 ```
 
-Run the example:
+Run as a quick "test":
 
 ```
 {{PrintBlock "run example" -}}
 ```
 
 Now let's assume we want to tweak the `rsc.io/quote` package, in particular we want to tweak the `Hello` function we are
-using. We will use `gohack` to do this.
+using. We use `gohack` to do this.
 
 
 "Hack" on `rsc.io/quote`:
@@ -72,6 +77,12 @@ Revert to the original `rsc.io/quote`:
 {{PrintBlock "undo" -}}
 ```
 
+More specific information about subcommands is available via `help`, for example:
+
+```
+{{PrintBlock "gohack help get" -}}
+```
+
 ### Version details
 
 ```
@@ -82,16 +93,20 @@ Revert to the original `rsc.io/quote`:
 
 ## Using `github.com/rogpeppe/gohack`
 
-[`gohack`](https://github.com/rogpeppe/gohack) is a tool that makes it easy to make temporary edits to your Go modules dependencies. This example shows how to
-use it.
+[`gohack`](https://github.com/rogpeppe/gohack) is a tool that helps you make temporary edits to your Go module's
+dependencies. By default, dependencies are stored in a read-only cache. `gohack` adds a `replace` directive to directory
+where you can "hack" the dependency's code, and then removes the directive when you are done. For more details on
+`replace` directives, see [the Go modules
+wiki](https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive).
 
-### Walkthrough
+This example shows how to use `gohack`.
+
+### Walk-through
 
 Install `gohack`:
 
 ```
 $ git clone https://github.com/rogpeppe/gohack /tmp/gohack
-Cloning into '/tmp/gohack'...
 $ cd /tmp/gohack
 $ go install
 go: finding github.com/rogpeppe/go-internal v1.0.0-alpha
@@ -102,38 +117,24 @@ go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
 go: finding github.com/kr/text v0.1.0
 go: finding github.com/kr/pty v1.1.1
 go: downloading github.com/rogpeppe/go-internal v1.0.0-alpha
-go: downloading gopkg.in/errgo.v2 v2.1.0
 go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
-$ gohack help
-The gohack command checks out Go module dependencies
-into a directory where they can be edited, and adjusts
-the go.mod file appropriately.
-
-Usage:
-
-	gohack <command> [arguments]
-
-The commands are:
-
-	get         start hacking a module
-	undo        stop hacking a module
-	status      print the current hack status of a module
-
-Use "gohack help <command>" for more information about a command.
+go: downloading gopkg.in/errgo.v2 v2.1.0
 ```
 
-Ceate an example module:
+Create a module:
 
 ```
-$ mkdir /tmp/using-gohack
-$ cd /tmp/using-gohack
+$ cd $HOME
+$ mkdir using-gohack
+$ cd using-gohack
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
 ```
 
-Depend on some module:
+Add a simple dependency to a `main` package in our module:
 
 ```
+$ cat blah.go
 package main
 
 import (
@@ -146,7 +147,7 @@ func main() {
 }
 ```
 
-In this case, we will use a specific version of our dependency:
+In this case, we use a specific version of our dependency:
 
 ```
 $ go get rsc.io/quote@v1.5.1
@@ -158,7 +159,7 @@ go: downloading rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 ```
 
-Run the example:
+Run as a quick "test":
 
 ```
 $ go run .
@@ -166,7 +167,7 @@ Hello, world.
 ```
 
 Now let's assume we want to tweak the `rsc.io/quote` package, in particular we want to tweak the `Hello` function we are
-using. We will use `gohack` to do this.
+using. We use `gohack` to do this.
 
 
 "Hack" on `rsc.io/quote`:
@@ -221,7 +222,7 @@ EOD
 Rerun our example:
 
 ```
-$ cd /tmp/using-gohack
+$ cd $HOME/using-gohack
 $ go run .
 My hello
 ```
@@ -233,6 +234,25 @@ $ gohack undo rsc.io/quote
 dropped rsc.io/quote
 $ go run .
 Hello, world.
+```
+
+More specific information about subcommands is available via `help`, for example:
+
+```
+$ gohack help get
+usage: get [-vcs] [-u] [-f] [module...]
+
+The get command checks out Go module dependencies
+into a directory where they can be edited.
+
+It uses $HOME/gohack/&lt;module&gt; as the destination directory.
+(TODO implement directory overriding)
+
+By default it copies module source code from the existing
+source directory in $GOPATH/pkg/mod. If the -vcs
+flag is specified, it also checks out the version control information into that
+directory and updates it to the expected version. If the directory
+already exists, it will be updated in place.
 ```
 
 ### Version details
