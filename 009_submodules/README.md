@@ -19,13 +19,7 @@ we show a runnable example of how to create a multiple module repository with Go
 The end result will be similar to the following, with three modules defined by the three `go.mod` files:
 
 ```
-├── go.mod             // module github.com/$GITHUB_ORG/submodules
-├── a
-│   ├── go.mod         // module github.com/$GITHUB_ORG/submodules/a
-│   └── a.go
-└── b
-    ├── go.mod         // module github.com/$GITHUB_ORG/submodules/b
-    └── b.go
+{{PrintOut "final tree output" -}}
 ```
 
 In this walkthrough:
@@ -116,13 +110,14 @@ we show a runnable example of how to create a multiple module repository with Go
 The end result will be similar to the following, with three modules defined by the three `go.mod` files:
 
 ```
-├── go.mod             // module github.com/$GITHUB_ORG/submodules
-├── a
-│   ├── go.mod         // module github.com/$GITHUB_ORG/submodules/a
-│   └── a.go
-└── b
-    ├── go.mod         // module github.com/$GITHUB_ORG/submodules/b
-    └── b.go
+.
+├── go.mod
+├── b
+│   ├── go.mod
+│   └── b.go
+└── a
+    ├── go.mod
+    └── a.go
 ```
 
 In this walkthrough:
