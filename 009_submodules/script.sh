@@ -83,6 +83,9 @@ git push -q
 git tag a/v1.0.0
 git push -q origin a/v1.0.0
 
+# block: final tree output
+tree --noreport -rP '*.go|go.mod'
+
 # block: use a
 cd $(mktemp -d)
 export GOBIN=$PWD/.bin
