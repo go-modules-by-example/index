@@ -28,6 +28,11 @@ In this walkthrough:
 * We have `a` import `b` to make things slightly more interesting.
 * We finish by creating a module on our local filesystem to use our `a` command.
 
+Note that the root `go.mod` is optional here. (In general, you can have a multi-module 
+repository without a root `go.mod`, and without any nesting of modules. The techniques 
+shown in this example also apply to multi-module repositories that do not have any 
+nested modules).
+
 ### Walkthrough
 
 Initialise a directory as a git repo, and add an appropriate remote:
