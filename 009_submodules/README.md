@@ -102,7 +102,7 @@ Go modules supports nesting of modules, which gives us submodules. This example 
 
 The resulting code can be found at https://github.com/go-modules-by-example/submodules.
 
-### Brief Background 
+### Background 
 
 The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) 
 predicts that most projects will follow the simplest approach of using a single Go module per repository, 
