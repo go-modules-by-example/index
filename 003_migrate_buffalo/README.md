@@ -1,22 +1,21 @@
 <!-- __JSON: egrunner script.sh # LONG ONLINE
 
-## `** REVIEW REQUIRED **`
-
-This guide is a WIP.
-
-----
-
 ### Intro
 
-[Buffalo](https://gobuffalo.io/en) is a popular Go web development eco-system, "designed to make the
-life of a Go web developer easier." Buffalo uses dep for dependency management. This guide looks at
-the steps require to migrate from using dep to go modules. This guide is based on [a PR Russ
-opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project.
+[Buffalo](https://gobuffalo.io/en) is a popular Go web development eco-system, "designed to make the life of a Go web
+developer easier." Before switching to Go modules, Buffalo used [`dep`](https://github.com/golang/dep) for dependency
+management.
+
+This guide looks at the steps that were required to migrate from `dep` to Go modules and is based on [a PR Russ Cox
+opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project. Note the `go` tool understands a
+[number of different dependency mangement formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
+including Glide and Godeps; the steps for migrating from these will be similar.
+
+The results of this migration can be found at {{PrintOut "repo" -}}.
 
 ### Getting started
 
-For this guide we will work known commits of Buffalo and dep so the guide remains reproducible. We
-will be using:
+We will use known commits of Buffalo and `dep` so the guide remains reproducible:
 
 ```
 {{PrintBlock "pinned commits" -}}
@@ -24,38 +23,72 @@ will be using:
 
 ### The migration
 
-Let's perform this migration in a clean GOPATH:
+Let's perform this migration in a clean `GOPATH` (remember, Buffalo is not yet a module for the purposes of this guide).
+We also update our `PATH` to make it easier to run `dep`.
 
 ```
 {{PrintBlock "setup" -}}
 ```
 
-Next, let's install dep and ensure we have our desired commit:
+Get `dep` and ensure we have our desired commit installed:
 
 ```
 {{PrintBlock "install dep" -}}
 ```
 
-Now, establish baseline buffalo behaviour, by using dep ensure and then running tests.
+Get Buffalo at the desired commit:
+
+```
+{{PrintBlock "get buffalo" -}}
+```
+
+Verify that Buffalo's tests pass by using `dep ensure` and then running tests.
 
 ```
 {{PrintBlock "baseline" -}}
 ```
 
-Now use go build (or any other go command) to turn dep's Gopkg.lock into a populated go.mod file:
+Up until this point we have been working in ["`GOPATH`
+mode"](https://golang.org/cmd/go/#hdr-Preliminary_module_support). Because we are working inside `GOPATH` we need to
+explicitly switch to "module-aware mode" to perform any module operations:
 
 ```
-{{lineEllipsis 8 (PrintBlock "go build") -}}
+{{PrintBlock "set GO111MODULE" -}}
+```
+
+Initialise our module (see the [wiki for more
+details](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)):
+
+```
+{{lineEllipsis 8 (PrintBlock "go mod init") -}}
+```
+
+Tidy for good measure:
+
+```
+{{lineEllipsis 8 (PrintBlock "go mod tidy") -}}
+```
+
+Verify that our `go.mod` has been populated with dependencies:
+
+```
 {{lineEllipsis 8 (PrintBlock "cat go.mod") -}}
 ```
 
-Run tests to see that baseline behaviour hasn't changed:
+Run tests to confirm that behaviour hasn't changed:
 
 ```
 {{PrintBlock "go test" -}}
 ```
 
-At this point we would now git add go.mod and git commit.
+Remove the now redundant `vendor` directory and `Gopkg.toml`, commit and push:
+
+```
+{{PrintBlock "commit" -}}
+```
+
+If you want to retain `vendor`, see ["Using modules to manage
+vendor"](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) for more details.
 
 ### Version details
 
@@ -65,23 +98,22 @@ At this point we would now git add go.mod and git commit.
 
 -->
 
-## `** REVIEW REQUIRED **`
-
-This guide is a WIP.
-
-----
-
 ### Intro
 
-[Buffalo](https://gobuffalo.io/en) is a popular Go web development eco-system, "designed to make the
-life of a Go web developer easier." Buffalo uses dep for dependency management. This guide looks at
-the steps require to migrate from using dep to go modules. This guide is based on [a PR Russ
-opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project.
+[Buffalo](https://gobuffalo.io/en) is a popular Go web development eco-system, "designed to make the life of a Go web
+developer easier." Before switching to Go modules, Buffalo used [`dep`](https://github.com/golang/dep) for dependency
+management.
+
+This guide looks at the steps that were required to migrate from `dep` to Go modules and is based on [a PR Russ Cox
+opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project. Note the `go` tool understands a
+[number of different dependency mangement formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
+including Glide and Godeps; the steps for migrating from these will be similar.
+
+The results of this migration can be found at https://github.com/go-modules-by-example/buffalo.
 
 ### Getting started
 
-For this guide we will work known commits of Buffalo and dep so the guide remains reproducible. We
-will be using:
+We will use known commits of Buffalo and `dep` so the guide remains reproducible:
 
 ```
 $ buffaloCommit=354657dfd81584bb82b8b6dff9bb9f6ab22712a8
@@ -90,16 +122,16 @@ $ depCommit=3e697f6afb332b6e12b8b399365e724e2e8dea7e
 
 ### The migration
 
-Let's perform this migration in a clean GOPATH:
+Let's perform this migration in a clean `GOPATH` (remember, Buffalo is not yet a module for the purposes of this guide).
+We also update our `PATH` to make it easier to run `dep`.
 
 ```
-$ mkdir /tmp/gopath
-$ export GOPATH=/tmp/gopath
+$ export GOPATH=$(mktemp -d)
 $ export PATH=$GOPATH/bin:$PATH
-$ cd /tmp/gopath
+$ cd $GOPATH
 ```
 
-Next, let's install dep and ensure we have our desired commit:
+Get `dep` and ensure we have our desired commit installed:
 
 ```
 $ go get -u github.com/golang/dep/cmd/dep
@@ -109,129 +141,176 @@ HEAD is now at 3e697f6a... Merge pull request #1832 from rousan/issue-1749-multi
 $ go install
 ```
 
-Now, establish baseline buffalo behaviour, by using dep ensure and then running tests.
+Get Buffalo at the desired commit:
 
 ```
-$ cd /tmp/gopath
+$ cd $GOPATH
 $ go get -tags sqlite github.com/gobuffalo/buffalo
 $ cd src/github.com/gobuffalo/buffalo
 $ git checkout $buffaloCommit
 HEAD is now at 354657d... Updated SHOULDERS.md
 $ go get .
-$ go install -tags sqlite
+```
+
+Verify that Buffalo's tests pass by using `dep ensure` and then running tests.
+
+```
 $ dep ensure
 $ go test -tags sqlite ./...
-ok  	github.com/gobuffalo/buffalo	0.271s
-ok  	github.com/gobuffalo/buffalo/binding	0.134s
+ok  	github.com/gobuffalo/buffalo	0.305s
+ok  	github.com/gobuffalo/buffalo/binding	0.085s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.079s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.015s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.062s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.043s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.093s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.114s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.041s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.052s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.035s
+ok  	github.com/gobuffalo/buffalo/mail	0.095s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.167s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.101s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.088s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.128s
+ok  	github.com/gobuffalo/buffalo/middleware	0.225s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.087s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.060s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.089s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.074s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.076s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.066s
-ok  	github.com/gobuffalo/buffalo/worker	0.014s
+ok  	github.com/gobuffalo/buffalo/render	0.057s
+ok  	github.com/gobuffalo/buffalo/worker	0.015s
 ```
 
-Now use go build (or any other go command) to turn dep's Gopkg.lock into a populated go.mod file:
+Up until this point we have been working in ["`GOPATH`
+mode"](https://golang.org/cmd/go/#hdr-Preliminary_module_support). Because we are working inside `GOPATH` we need to
+explicitly switch to "module-aware mode" to perform any module operations:
 
 ```
-$ go build -tags sqlite
+$ export GO111MODULE=on
+```
+
+Initialise our module (see the [wiki for more
+details](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)):
+
+```
+$ go mod init
 go: creating new go.mod: module github.com/gobuffalo/buffalo
 go: copying requirements from Gopkg.lock
+```
+
+Tidy for good measure:
+
+```
+$ go mod tidy
+go: finding github.com/mitchellh/go-homedir v1.0.0
+go: finding github.com/microcosm-cc/bluemonday v1.0.1
 go: finding github.com/gobuffalo/packr v1.13.7
-go: finding github.com/gorilla/sessions v1.1.3
-go: finding github.com/davecgh/go-spew v1.1.1
-go: finding github.com/gobuffalo/pop v4.8.3+incompatible
-go: finding github.com/markbates/refresh v1.4.10
+go: finding github.com/inconshreveable/mousetrap v1.0.0
+go: finding github.com/markbates/deplist v1.0.5
+go: finding github.com/gobuffalo/mapi v1.0.1
+go: finding github.com/gorilla/context v1.1.1
 ...
+```
+
+Verify that our `go.mod` has been populated with dependencies:
+
+```
 $ cat go.mod
 module github.com/gobuffalo/buffalo
 
 require (
-	dmitri.shuralyov.com/text/kebabcase v0.0.0-20180217051803-40e40b42552a
-	github.com/ajg/form v0.0.0-20160822230020-523a5da1a92f
-	github.com/cockroachdb/cockroach-go v0.0.0-20181001143604-e0a95dfd547c
-	github.com/davecgh/go-spew v1.1.1
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/dustin/go-humanize v1.0.0
+	github.com/fatih/color v1.7.0
+	github.com/fatih/structs v1.1.0 // indirect
 ...
 ```
 
-Run tests to see that baseline behaviour hasn't changed:
+Run tests to confirm that behaviour hasn't changed:
 
 ```
 $ go test -tags sqlite ./...
-go: downloading github.com/spf13/cobra v0.0.3
-go: downloading github.com/nicksnyder/go-i18n v1.10.0
-go: downloading github.com/unrolled/secure v0.0.0-20181005190816-ff9db2ff917f
-go: downloading github.com/markbates/deplist v1.0.5
-go: downloading github.com/markbates/willie v1.0.9
-go: downloading github.com/dgrijalva/jwt-go v3.2.0+incompatible
-go: downloading gopkg.in/mail.v2 v2.0.0-20180731213649-a0242b2233b4
-go: downloading golang.org/x/tools v0.0.0-20181010000725-29f11e2b93f4
-go: downloading github.com/markbates/hmax v1.0.0
-go: downloading github.com/ajg/form v0.0.0-20160822230020-523a5da1a92f
-go: downloading github.com/stretchr/testify v1.2.2
-go: downloading github.com/pelletier/go-toml v1.2.0
-go: downloading github.com/spf13/pflag v1.0.3
-go: downloading github.com/pmezard/go-difflib v1.0.0
-go: downloading github.com/davecgh/go-spew v1.1.1
-ok  	github.com/gobuffalo/buffalo	0.324s
-ok  	github.com/gobuffalo/buffalo/binding	0.088s
+go: finding github.com/gobuffalo/fizz/translators latest
+go: finding github.com/cockroachdb/cockroach-go/crdb latest
+go: finding github.com/cockroachdb/cockroach-go latest
+go: finding github.com/jmoiron/sqlx latest
+ok  	github.com/gobuffalo/buffalo	0.370s
+ok  	github.com/gobuffalo/buffalo/binding	0.092s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.121s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.080s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.053s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.041s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.154s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.109s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.201s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.043s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.062s
+ok  	github.com/gobuffalo/buffalo/mail	0.081s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.248s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.118s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.100s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.068s
+ok  	github.com/gobuffalo/buffalo/middleware	0.326s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.114s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.043s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.075s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
 ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.091s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.058s
-ok  	github.com/gobuffalo/buffalo/worker	0.019s
+ok  	github.com/gobuffalo/buffalo/render	0.061s
+ok  	github.com/gobuffalo/buffalo/worker	0.015s
 ```
 
-At this point we would now git add go.mod and git commit.
+Remove the now redundant `vendor` directory and `Gopkg.toml`, commit and push:
+
+```
+$ rm -rf vendor Gopkg.toml
+$ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/buffalo
+$ git checkout -q -b migrate_buffalo
+$ git add go.mod go.sum
+$ git commit -am 'Convert to a Go module'
+[migrate_buffalo 72051b9] Convert to a Go module
+ 14 files changed, 312 insertions(+), 5648 deletions(-)
+ delete mode 100644 Gopkg.toml
+ create mode 100644 go.mod
+ create mode 100644 go.sum
+ delete mode 100644 vendor/github.com/russross/blackfriday/.gitignore
+ delete mode 100644 vendor/github.com/russross/blackfriday/.travis.yml
+ delete mode 100644 vendor/github.com/russross/blackfriday/LICENSE.txt
+ delete mode 100644 vendor/github.com/russross/blackfriday/README.md
+ delete mode 100644 vendor/github.com/russross/blackfriday/block.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/doc.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/html.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/inline.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/latex.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/markdown.go
+ delete mode 100644 vendor/github.com/russross/blackfriday/smartypants.go
+$ git push -q $GITHUB_ORG
+remote: 
+remote: Create a pull request for 'migrate_buffalo' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/buffalo/pull/new/migrate_buffalo        
+remote: 
+```
+
+If you want to retain `vendor`, see ["Using modules to manage
+vendor"](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) for more details.
 
 ### Version details
 

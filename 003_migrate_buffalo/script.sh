@@ -2,6 +2,15 @@
 
 # **START**
 
+# tidy up if we already have the repo
+now=$(date +'%Y%m%d%H%M%S_%N')
+githubcli repo renameIfExists $GITHUB_ORG/buffalo buffalo_$now
+githubcli repo transfer $GITHUB_ORG/buffalo_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/buffalo
+
+# block: repo
+echo https://github.com/$GITHUB_ORG/buffalo
+
 # block: pinned commits
 buffaloCommit=354657dfd81584bb82b8b6dff9bb9f6ab22712a8
 depCommit=3e697f6afb332b6e12b8b399365e724e2e8dea7e
@@ -20,10 +29,9 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 
 # block: setup
-mkdir /tmp/gopath
-export GOPATH=/tmp/gopath
+export GOPATH=$(mktemp -d)
 export PATH=$GOPATH/bin:$PATH
-cd /tmp/gopath
+cd $GOPATH
 
 # block: install dep
 go get -u github.com/golang/dep/cmd/dep
@@ -31,29 +39,39 @@ cd src/github.com/golang/dep/cmd/dep
 git checkout $depCommit
 go install
 
-# block: baseline
-cd /tmp/gopath
+# block: get buffalo
+cd $GOPATH
 go get -tags sqlite github.com/gobuffalo/buffalo
 cd src/github.com/gobuffalo/buffalo
 git checkout $buffaloCommit
 go get .
-go install -tags sqlite
+
+# block: baseline
 dep ensure
 go test -tags sqlite ./...
-
-# TODO add README for the following step
 
 # block: set GO111MODULE
 export GO111MODULE=on
 
-# block: go build
-go build -tags sqlite
+# block: go mod init
+go mod init
+
+# block: go mod tidy
+go mod tidy
 
 # block: cat go.mod
 cat go.mod
 
 # block: go test
 go test -tags sqlite ./...
+
+# block: commit
+rm -rf vendor Gopkg.toml
+git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/buffalo
+git checkout -q -b migrate_buffalo
+git add go.mod go.sum
+git commit -am 'Convert to a Go module'
+git push -q $GITHUB_ORG
 
 # block: version details
 go version
