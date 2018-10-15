@@ -14,12 +14,12 @@ The release-ordered list of guides:
 * [Using modules to manage vendor](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)
 * [Creating a module download cache "vendor"](https://github.com/go-modules-by-example/index/blob/master/012_modvendor/README.md)
 * [Using `gohack` to "hack" on dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/011_using_gohack/README.md)
+* [Migrating Buffalo from `dep` to go modules](https://github.com/go-modules-by-example/index/blob/master/003_migrate_buffalo/README.md)
 
 WIP guides:
 
 * [The go modules tour](https://github.com/go-modules-by-example/index/blob/master/001_go_modules_tour/README.md) (a rewrite of the original vgo tour)
 * [Using go modules with gopkg.in](https://github.com/go-modules-by-example/index/blob/master/002_using_gopkg_in/README.md)
-* [Migrating Buffalo from dep to go modules](https://github.com/go-modules-by-example/index/blob/master/003_migrate_buffalo/README.md)
 * [Using a package that has not been converted to go modules](https://github.com/go-modules-by-example/index/blob/master/004_echo_example/README.md)
 * [Example of backwards compatibility in Go 1.10 with semantic import paths](https://github.com/go-modules-by-example/index/blob/master/005_old_go/README.md)
 * [Another example of package/project that has not yet been converted to a module](https://github.com/go-modules-by-example/index/blob/master/006_not_yet_go_module/README.md)
