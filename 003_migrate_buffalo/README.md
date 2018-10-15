@@ -8,7 +8,7 @@ management.
 
 This guide looks at the steps that were required to migrate from `dep` to Go modules and is based on [a PR Russ Cox
 opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project. Note the `go` tool understands a
-[number of different dependency mangement formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
+[number of different dependency management formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
 including Glide and Godeps; the steps for migrating from these will be similar.
 
 The results of this migration can be found at {{PrintOut "repo" -}}.
@@ -106,7 +106,7 @@ management.
 
 This guide looks at the steps that were required to migrate from `dep` to Go modules and is based on [a PR Russ Cox
 opened](https://github.com/gobuffalo/buffalo/pull/1074) against the Buffalo project. Note the `go` tool understands a
-[number of different dependency mangement formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
+[number of different dependency management formats](https://golang.org/pkg/cmd/go/internal/modconv/?m=all#pkg-variables)
 including Glide and Godeps; the steps for migrating from these will be similar.
 
 The results of this migration can be found at https://github.com/go-modules-by-example/buffalo.
@@ -157,38 +157,38 @@ Verify that Buffalo's tests pass by using `dep ensure` and then running tests.
 ```
 $ dep ensure
 $ go test -tags sqlite ./...
-ok  	github.com/gobuffalo/buffalo	0.305s
-ok  	github.com/gobuffalo/buffalo/binding	0.085s
+ok  	github.com/gobuffalo/buffalo	0.239s
+ok  	github.com/gobuffalo/buffalo/binding	0.065s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.062s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.043s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.066s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.089s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.114s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.065s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.052s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.039s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.095s
+ok  	github.com/gobuffalo/buffalo/mail	0.057s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.225s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.087s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.060s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.089s
+ok  	github.com/gobuffalo/buffalo/middleware	0.196s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.106s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.058s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.081s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.076s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.073s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.057s
-ok  	github.com/gobuffalo/buffalo/worker	0.015s
+ok  	github.com/gobuffalo/buffalo/render	0.058s
+ok  	github.com/gobuffalo/buffalo/worker	0.014s
 ```
 
 Up until this point we have been working in ["`GOPATH`
@@ -240,41 +240,41 @@ Run tests to confirm that behaviour hasn't changed:
 
 ```
 $ go test -tags sqlite ./...
-go: finding github.com/gobuffalo/fizz/translators latest
 go: finding github.com/cockroachdb/cockroach-go/crdb latest
 go: finding github.com/cockroachdb/cockroach-go latest
+go: finding github.com/gobuffalo/fizz/translators latest
 go: finding github.com/jmoiron/sqlx latest
-ok  	github.com/gobuffalo/buffalo	0.370s
-ok  	github.com/gobuffalo/buffalo/binding	0.092s
+ok  	github.com/gobuffalo/buffalo	0.262s
+ok  	github.com/gobuffalo/buffalo/binding	0.034s
 ?   	github.com/gobuffalo/buffalo/buffalo	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/build	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/destroy	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/generate	[no test files]
 ?   	github.com/gobuffalo/buffalo/buffalo/cmd/updater	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators	0.053s
-ok  	github.com/gobuffalo/buffalo/generators/action	0.041s [no tests to run]
+ok  	github.com/gobuffalo/buffalo/generators	0.046s
+ok  	github.com/gobuffalo/buffalo/generators/action	0.030s [no tests to run]
 ?   	github.com/gobuffalo/buffalo/generators/assets	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/standard	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/assets/webpack	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/docker	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/grift	[no test files]
 ?   	github.com/gobuffalo/buffalo/generators/mail	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/newapp	0.109s
+ok  	github.com/gobuffalo/buffalo/generators/newapp	0.096s
 ?   	github.com/gobuffalo/buffalo/generators/refresh	[no test files]
-ok  	github.com/gobuffalo/buffalo/generators/resource	0.043s
+ok  	github.com/gobuffalo/buffalo/generators/resource	0.042s
 ?   	github.com/gobuffalo/buffalo/generators/soda	[no test files]
 ?   	github.com/gobuffalo/buffalo/grifts	[no test files]
-ok  	github.com/gobuffalo/buffalo/mail	0.081s
+ok  	github.com/gobuffalo/buffalo/mail	0.089s
 ?   	github.com/gobuffalo/buffalo/meta	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware	0.326s
-ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.114s
-ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.043s
-ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.075s
+ok  	github.com/gobuffalo/buffalo/middleware	0.264s
+ok  	github.com/gobuffalo/buffalo/middleware/basicauth	0.062s
+ok  	github.com/gobuffalo/buffalo/middleware/csrf	0.066s
+ok  	github.com/gobuffalo/buffalo/middleware/i18n	0.066s
 ?   	github.com/gobuffalo/buffalo/middleware/ssl	[no test files]
-ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.091s
+ok  	github.com/gobuffalo/buffalo/middleware/tokenauth	0.071s
 ?   	github.com/gobuffalo/buffalo/plugins	[no test files]
-ok  	github.com/gobuffalo/buffalo/render	0.061s
+ok  	github.com/gobuffalo/buffalo/render	0.058s
 ok  	github.com/gobuffalo/buffalo/worker	0.015s
 ```
 
@@ -286,7 +286,7 @@ $ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/buffalo
 $ git checkout -q -b migrate_buffalo
 $ git add go.mod go.sum
 $ git commit -am 'Convert to a Go module'
-[migrate_buffalo 72051b9] Convert to a Go module
+[migrate_buffalo 9d50de9] Convert to a Go module
  14 files changed, 312 insertions(+), 5648 deletions(-)
  delete mode 100644 Gopkg.toml
  create mode 100644 go.mod
