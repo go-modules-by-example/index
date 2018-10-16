@@ -12,10 +12,22 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 git config --global push.default current
 
+# tidy up if we already have the repo
+now=$(date +'%Y%m%d%H%M%S_%N')
+githubcli repo renameIfExists $GITHUB_ORG/tools tools_$now
+githubcli repo transfer $GITHUB_ORG/tools_$now $GITHUB_ORG_ARCHIVE
+githubcli repo create $GITHUB_ORG/tools
+
+# block: repo
+echo https://github.com/$GITHUB_ORG/tools
+
 # block: setup
-mkdir /tmp/tools
-cd /tmp/tools
-go mod init example.com/blah/painkiller
+cd $HOME
+mkdir tools
+cd tools
+git init -q
+git remote add origin https://github.com/$GITHUB_ORG/tools
+go mod init
 
 # block: set bin target
 export GOBIN=$PWD/bin
@@ -39,7 +51,7 @@ cat tools.go
 go install golang.org/x/tools/cmd/stringer
 
 # block: module deps
-go mod edit -json
+go list -m all
 
 # block: tool on path
 which stringer
@@ -74,6 +86,13 @@ cat painkiller.go
 go generate
 go run .
 
+# block: commit and push
+cat <<EOD > .gitignore
+/bin
+EOD
+git add -A
+git commit -q -am 'Initial commit'
+git push -q origin
 
 # block: version details
 go version
