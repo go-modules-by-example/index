@@ -72,6 +72,17 @@ The `modvendor` directory can now be committed alongside the source code:
 {{PrintBlock "commit and push" -}}
 ```
 
+----
+
+### Comparison between `modvendor` and `vendor`
+
+For the sake of this guide, we refer to:
+
+* `modvendor` as the "vendoring" of the module download cache, described here in this guide
+* `vendor` as the [Go 1.5 vendor](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md)
+
+----
+
 ### Open questions
 
 * The above steps are currently manual; tooling could fix this.
@@ -218,6 +229,17 @@ remote: Create a pull request for 'master' on GitHub by visiting:
 remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master        
 remote: 
 ```
+
+----
+
+### Comparison between `modvendor` and `vendor`
+
+For the sake of this guide, we refer to:
+
+* `modvendor` as the "vendoring" of the module download cache, described here in this guide
+* `vendor` as the [Go 1.5 vendor](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md)
+
+----
 
 ### Open questions
 
