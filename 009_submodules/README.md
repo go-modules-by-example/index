@@ -100,7 +100,7 @@ Create another random module and use our `a` command from there:
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
 
-The resulting code can be found at https://github.com/go-modules-by-example-staging/submodules.
+The resulting code can be found at https://github.com/go-modules-by-example/submodules.
 
 ### Background
 
@@ -152,13 +152,13 @@ Define a root module, at the root of the repo, commit and push:
 
 ```
 $ go mod init github.com/$GITHUB_ORG/submodules
-go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules
+go: creating new go.mod: module github.com/go-modules-by-example/submodules
 $ git add go.mod
 $ git commit -q -am 'Initial commit'
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example-staging/submodules/pull/new/master        
+remote:      https://github.com/go-modules-by-example/submodules/pull/new/master        
 remote: 
 ```
 
@@ -173,9 +173,9 @@ package b
 const Name = "Gopher"
 EOD
 $ go mod init github.com/$GITHUB_ORG/submodules/b
-go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules/b
+go: creating new go.mod: module github.com/go-modules-by-example/submodules/b
 $ go test
-?   	github.com/go-modules-by-example-staging/submodules/b	[no test files]
+?   	github.com/go-modules-by-example/submodules/b	[no test files]
 ```
 
 Commit, tag and push our new package:
@@ -209,18 +209,18 @@ func main() {
 }
 EOD
 $ go mod init github.com/$GITHUB_ORG/submodules/a
-go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules/a
+go: creating new go.mod: module github.com/go-modules-by-example/submodules/a
 ```
 
 Build and run that main package:
 
 ```
 $ go run .
-go: finding github.com/go-modules-by-example-staging/submodules/b v0.1.1
-go: downloading github.com/go-modules-by-example-staging/submodules/b v0.1.1
+go: finding github.com/go-modules-by-example/submodules/b v0.1.1
+go: downloading github.com/go-modules-by-example/submodules/b v0.1.1
 Gopher
 $ go list -m github.com/$GITHUB_ORG/submodules/b
-github.com/go-modules-by-example-staging/submodules/b v0.1.1
+github.com/go-modules-by-example/submodules/b v0.1.1
 ```
 
 Notice how we resolve to the tagged version of `package b`.
@@ -247,8 +247,8 @@ $ export PATH=$GOBIN:$PATH
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
 $ go get github.com/$GITHUB_ORG/submodules/a@v1.0.0
-go: finding github.com/go-modules-by-example-staging/submodules/a v1.0.0
-go: downloading github.com/go-modules-by-example-staging/submodules/a v1.0.0
+go: finding github.com/go-modules-by-example/submodules/a v1.0.0
+go: downloading github.com/go-modules-by-example/submodules/a v1.0.0
 $ a
 Gopher
 ```
