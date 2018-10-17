@@ -3,12 +3,12 @@
 ## Cyclic module dependencies
 
 Cyclic module dependencies typically come about through test dependencies. This example presents a simple cyclic
-dependency between two package, through one's external test package. Those two packages are initially part of the
-same module, but then split into two separate modules where the cyclic dependency is created.
+dependency between two packages, through one's external test package. Those two packages are initially part of the same
+module, but then split into two separate modules where the cyclic dependency is created.
 
 The resulting repository state can be seen at {{PrintOut "repo"}}.
 
-### Walkthrough
+### Walk-through
 
 Create a repository root and add a git remote:
 
@@ -16,25 +16,55 @@ Create a repository root and add a git remote:
 {{PrintBlock "setup" -}}
 ```
 
-Define a root module at the root of the repo; add two subpackages `a` and `b`, with a depdency from `a -> b` and `b_test
--> a`; test, commit and push:
+Define a module at the root of the repo:
 
 ```
 {{PrintBlock "define repo root module" -}}
+```
+
+Add two subpackages `a` and `b`, with a dependency from `a -> b` and `b_test -> a`:
+
+```
+{{PrintBlock "add a and b" -}}
+```
+
+Our directory structure now looks like this:
+
+```
+{{PrintBlockOut "tree" -}}
+```
+
+Test:
+
+```
+{{PrintBlock "test" -}}
+```
+
+Commit and push:
+
+```
+{{PrintBlock "commit and push" -}}
 ```
 
 Create a submodule from the subpackage `b`. Note at this point, only `{{PrintBlockOut "module"}}` can be resolved over
 the internet; `{{PrintBlockOut "moduleb"}}` only exists locally. This will also be the case for any CI run before our
 next commit is referenced by `master` on our remote. Hence we temporarily use relative `replace` directives for the
 dependencies `a -> b` and `b -> a`. However, because of [#26241](https://github.com/golang/go/issues/26241), we cannot
-current use a `replace` directive to satisfy the dependency `a -> b`. So for now this next step is pushed in a "broken"
-state; we don't add relative `replace` directives for either dependency. This step will be updated once #26241 is fixed.
+currently use a `replace` directive to satisfy the dependency `a -> b`. So for now this next step is pushed in a "broken"
+state; we don't add relative `replace` directives for either dependency. This step will be updated once
+[#26241](https://github.com/golang/go/issues/26241) is fixed.
 
 ```
 {{PrintBlock "create submodule from b" -}}
 ```
 
-Until #26241 is merged, this is where the mutual dependency gets created:
+Commit and push:
+
+```
+{{PrintBlock "commit and push b submodule" -}}
+```
+
+Until [#26241](https://github.com/golang/go/issues/26241) is merged, this is where the mutual dependency gets created:
 
 ```
 {{PrintBlock "create mutual dependency" -}}
@@ -69,28 +99,33 @@ Commit the mutual dependency:
 ## Cyclic module dependencies
 
 Cyclic module dependencies typically come about through test dependencies. This example presents a simple cyclic
-dependency between two package, through one's external test package. Those two packages are initially part of the
-same module, but then split into two separate modules where the cyclic dependency is created.
+dependency between two packages, through one's external test package. Those two packages are initially part of the same
+module, but then split into two separate modules where the cyclic dependency is created.
 
 The resulting repository state can be seen at https://github.com/go-modules-by-example/cyclic.
 
-### Walkthrough
+### Walk-through
 
 Create a repository root and add a git remote:
 
 ```
+$ cd $HOME
 $ mkdir cyclic
-$ cd cyclic
+$ cd $HOME/cyclic
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/cyclic
 ```
 
-Define a root module at the root of the repo; add two subpackages `a` and `b`, with a depdency from `a -> b` and `b_test
--> a`; test, commit and push:
+Define a module at the root of the repo:
 
 ```
-$ go mod init github.com/$GITHUB_ORG/cyclic
+$ go mod init
 go: creating new go.mod: module github.com/go-modules-by-example/cyclic
+```
+
+Add two subpackages `a` and `b`, with a dependency from `a -> b` and `b_test -> a`:
+
+```
 $ cat a/a.go
 package a
 
@@ -113,17 +148,39 @@ import (
 func TestUsingA(t *testing.T) {
 	fmt.Printf("Here is A: %v\n", a.AName)
 }
+```
+
+Our directory structure now looks like this:
+
+```
+.
+|-- a
+|   `-- a.go
+|-- b
+|   |-- b.go
+|   `-- b_test.go
+`-- go.mod
+```
+
+Test:
+
+```
 $ go test -v ./...
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
 PASS
-ok  	github.com/go-modules-by-example/cyclic/b	0.003s
+ok  	github.com/go-modules-by-example/cyclic/b	0.001s
+```
+
+Commit and push:
+
+```
 $ git add -A
 $ git commit -q -am "Commit 1: initial commit of parent module github.com/$GITHUB_ORG/cyclic"
 $ git rev-parse HEAD
-e6225575470d3df28c368534ec649dc085de8f49
+301201f0f6f5a330e213ea1b5439ca525835a19e
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
@@ -137,33 +194,39 @@ the internet; `github.com/go-modules-by-example/cyclic/b
 ` only exists locally. This will also be the case for any CI run before our
 next commit is referenced by `master` on our remote. Hence we temporarily use relative `replace` directives for the
 dependencies `a -> b` and `b -> a`. However, because of [#26241](https://github.com/golang/go/issues/26241), we cannot
-current use a `replace` directive to satisfy the dependency `a -> b`. So for now this next step is pushed in a "broken"
-state; we don't add relative `replace` directives for either dependency. This step will be updated once #26241 is fixed.
+currently use a `replace` directive to satisfy the dependency `a -> b`. So for now this next step is pushed in a "broken"
+state; we don't add relative `replace` directives for either dependency. This step will be updated once
+[#26241](https://github.com/golang/go/issues/26241) is fixed.
 
 ```
-$ cd b
+$ cd $HOME/cyclic/b
 $ go mod init github.com/$GITHUB_ORG/cyclic/b
 go: creating new go.mod: module github.com/go-modules-by-example/cyclic/b
-$ cd ..
+```
+
+Commit and push:
+
+```
+$ cd $HOME/cyclic
 $ git add -A
 $ git commit -q -am "Commit 2: create github.com/$GITHUB_ORG/cyclic/b"
 $ git rev-parse HEAD
-142b4e87b00ca18b19aaad2b35c4e9c8df3c1d8b
+2b9342b930ff84e9cb2bb3ecb671c34255e8d490
 $ git push -q
 ```
 
-Until #26241 is merged, this is where the mutual dependency gets created:
+Until [#26241](https://github.com/golang/go/issues/26241) is merged, this is where the mutual dependency gets created:
 
 ```
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/b latest
-go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181010093657-142b4e87b00c
+go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181017231607-2b9342b930ff
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
-$ cd b
+$ cd $HOME/cyclic/b
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/a latest
 go: finding github.com/go-modules-by-example/cyclic latest
-go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181010093657-142b4e87b00c
+go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181017231607-2b9342b930ff
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
@@ -175,30 +238,30 @@ List the dependencies of `github.com/go-modules-by-example/cyclic
 `:
 
 ```
-$ cd ..
+$ cd $HOME/cyclic
 $ go list -m all
 github.com/go-modules-by-example/cyclic
-github.com/go-modules-by-example/cyclic/b v0.0.0-20181010093657-142b4e87b00c
+github.com/go-modules-by-example/cyclic/b v0.0.0-20181017231607-2b9342b930ff
 ```
 
 List the dependencies of `github.com/go-modules-by-example/cyclic/b
 `:
 
 ```
-$ cd b
+$ cd $HOME/cyclic/b
 $ go list -m all
 github.com/go-modules-by-example/cyclic/b
-github.com/go-modules-by-example/cyclic v0.0.0-20181010093657-142b4e87b00c
+github.com/go-modules-by-example/cyclic v0.0.0-20181017231607-2b9342b930ff
 ```
 
 Commit the mutual dependency:
 
 ```
-$ cd ..
+$ cd $HOME/cyclic
 $ git add -A
 $ git commit -q -am "Commit 3: the mutual dependency"
 $ git rev-parse HEAD
-8cca9bce1e0750660c176fb763c23252750cf51c
+9dd6ac75f7e5d6a61926a0273f8029f8fe24d37c
 $ git push -q
 ```
 
