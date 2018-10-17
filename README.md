@@ -41,7 +41,8 @@ WIP guides:
 Wikis:
 
 * [FAQ](https://github.com/go-modules-by-example/index/wiki/FAQ)
-* [Feedback and TODO](https://github.com/go-modules-by-example/index/wiki/Feedback-TODO)
+* [TODO](https://github.com/go-modules-by-example/index/wiki/TODO)
+* [Feedback](https://github.com/go-modules-by-example/index/wiki/Feedback)
 
 ### Structure
 
