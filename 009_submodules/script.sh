@@ -12,6 +12,10 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 git config --global push.default current
 
+# why is tree not installed by default?!
+apt-get update -q > /dev/null 2>&1
+apt-get install -q tree > /dev/null 2>&1
+
 # tidy up if we already have the repo
 now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists $GITHUB_ORG/submodules submodules_$now

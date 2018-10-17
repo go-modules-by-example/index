@@ -6,12 +6,12 @@ Go modules supports nesting of modules, which gives us submodules. This example 
 
 The resulting code can be found at {{PrintOut "repo" -}}.
 
-### Background 
+### Background
 
-The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) 
-predicts that most projects will follow the simplest approach of using a single Go module per repository, 
-which typically means creating one `go.mod` file located in the root directory of a repository. However, 
-there are cases when multiple modules in a single repository are worth the extra on-going work, and here 
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal)
+predicts that most projects will follow the simplest approach of using a single Go module per repository,
+which typically means creating one `go.mod` file located in the root directory of a repository. However,
+there are cases when multiple modules in a single repository are worth the extra on-going work, and here
 we show a runnable example of how to create a multiple module repository with Go submodules.
 
 ### Example Overview
@@ -19,7 +19,7 @@ we show a runnable example of how to create a multiple module repository with Go
 The end result will be similar to the following, with three modules defined by the three `go.mod` files:
 
 ```
-{{PrintOut "final tree output" -}}
+{{PrintBlockOut "final tree output" -}}
 ```
 
 In this walkthrough:
@@ -28,9 +28,9 @@ In this walkthrough:
 * We have `a` import `b` to make things slightly more interesting.
 * We finish by creating a module on our local filesystem to use our `a` command.
 
-Note that the root `go.mod` is optional here. (In general, you can have a multi-module 
-repository without a root `go.mod`, and without any nesting of modules. The techniques 
-shown in this example also apply to multi-module repositories that do not have any 
+Note that the root `go.mod` is optional here. (In general, you can have a multi-module
+repository without a root `go.mod`, and without any nesting of modules. The techniques
+shown in this example also apply to multi-module repositories that do not have any
 nested modules).
 
 ### Walkthrough
@@ -100,14 +100,14 @@ Create another random module and use our `a` command from there:
 
 Go modules supports nesting of modules, which gives us submodules. This example shows you how.
 
-The resulting code can be found at https://github.com/go-modules-by-example/submodules.
+The resulting code can be found at https://github.com/go-modules-by-example-staging/submodules.
 
-### Background 
+### Background
 
-The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal) 
-predicts that most projects will follow the simplest approach of using a single Go module per repository, 
-which typically means creating one `go.mod` file located in the root directory of a repository. However, 
-there are cases when multiple modules in a single repository are worth the extra on-going work, and here 
+The [official modules proposal](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md#proposal)
+predicts that most projects will follow the simplest approach of using a single Go module per repository,
+which typically means creating one `go.mod` file located in the root directory of a repository. However,
+there are cases when multiple modules in a single repository are worth the extra on-going work, and here
 we show a runnable example of how to create a multiple module repository with Go submodules.
 
 ### Example Overview
@@ -116,13 +116,13 @@ The end result will be similar to the following, with three modules defined by t
 
 ```
 .
-├── go.mod
-├── b
-│   ├── go.mod
-│   └── b.go
-└── a
-    ├── go.mod
-    └── a.go
+|-- go.mod
+|-- b
+|   |-- go.mod
+|   `-- b.go
+`-- a
+    |-- go.mod
+    `-- a.go
 ```
 
 In this walkthrough:
@@ -130,6 +130,11 @@ In this walkthrough:
 * We version the submodules independently by applying separate git tags (`v0.1.1` and `v1.0.0`)
 * We have `a` import `b` to make things slightly more interesting.
 * We finish by creating a module on our local filesystem to use our `a` command.
+
+Note that the root `go.mod` is optional here. (In general, you can have a multi-module
+repository without a root `go.mod`, and without any nesting of modules. The techniques
+shown in this example also apply to multi-module repositories that do not have any
+nested modules).
 
 ### Walkthrough
 
@@ -147,13 +152,13 @@ Define a root module, at the root of the repo, commit and push:
 
 ```
 $ go mod init github.com/$GITHUB_ORG/submodules
-go: creating new go.mod: module github.com/go-modules-by-example/submodules
+go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules
 $ git add go.mod
 $ git commit -q -am 'Initial commit'
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/submodules/pull/new/master        
+remote:      https://github.com/go-modules-by-example-staging/submodules/pull/new/master        
 remote: 
 ```
 
@@ -168,9 +173,9 @@ package b
 const Name = "Gopher"
 EOD
 $ go mod init github.com/$GITHUB_ORG/submodules/b
-go: creating new go.mod: module github.com/go-modules-by-example/submodules/b
+go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules/b
 $ go test
-?   	github.com/go-modules-by-example/submodules/b	[no test files]
+?   	github.com/go-modules-by-example-staging/submodules/b	[no test files]
 ```
 
 Commit, tag and push our new package:
@@ -204,18 +209,18 @@ func main() {
 }
 EOD
 $ go mod init github.com/$GITHUB_ORG/submodules/a
-go: creating new go.mod: module github.com/go-modules-by-example/submodules/a
+go: creating new go.mod: module github.com/go-modules-by-example-staging/submodules/a
 ```
 
 Build and run that main package:
 
 ```
 $ go run .
-go: finding github.com/go-modules-by-example/submodules/b v0.1.1
-go: downloading github.com/go-modules-by-example/submodules/b v0.1.1
+go: finding github.com/go-modules-by-example-staging/submodules/b v0.1.1
+go: downloading github.com/go-modules-by-example-staging/submodules/b v0.1.1
 Gopher
 $ go list -m github.com/$GITHUB_ORG/submodules/b
-github.com/go-modules-by-example/submodules/b v0.1.1
+github.com/go-modules-by-example-staging/submodules/b v0.1.1
 ```
 
 Notice how we resolve to the tagged version of `package b`.
@@ -242,8 +247,8 @@ $ export PATH=$GOBIN:$PATH
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
 $ go get github.com/$GITHUB_ORG/submodules/a@v1.0.0
-go: finding github.com/go-modules-by-example/submodules/a v1.0.0
-go: downloading github.com/go-modules-by-example/submodules/a v1.0.0
+go: finding github.com/go-modules-by-example-staging/submodules/a v1.0.0
+go: downloading github.com/go-modules-by-example-staging/submodules/a v1.0.0
 $ a
 Gopher
 ```
