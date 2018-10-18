@@ -21,6 +21,7 @@ The release-ordered list of guides:
   modules](https://github.com/go-modules-by-example/index/blob/master/003_migrate_buffalo/README.md)
 * [Tools as dependencies](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md)
 * [Cyclic module dependencies](https://github.com/go-modules-by-example/index/blob/master/013_cyclic/README.md)
+* [Visually analysing module dependencies](https://github.com/go-modules-by-example/index/blob/master/014_mod_graph/README.md)
 
 WIP guides:
 
@@ -184,6 +185,7 @@ This project is work-in-progress. Feedback/PRs welcome.
 
 With particular thanks (in no particular order) to:
 
+* [ajstarks](https://github.com/ajstarks)
 * [bcmills](https://github.com/bcmills)
 * [mvdan](https://github.com/mvdan)
 * [rogpeppe](https://github.com/rogpeppe)
