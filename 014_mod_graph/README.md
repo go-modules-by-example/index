@@ -67,6 +67,12 @@ Convert the module requirement graph into a histogram of module dependencies:
 {{PrintBlock "hist" -}}
 ```
 
+This results in:
+
+```
+{{PrintBlock "hist cat" | lineEllipsis 8 -}}
+```
+
 Using [`github.com/ajstarks/deck/cmd/dchart`](https://github.com/ajstarks/deck/blob/master/cmd/dchart/README.md),
 generate a radial chart from the histogram data:
 
@@ -121,12 +127,12 @@ Ensure all dependencies of the Buffalo module are available locally:
 ```
 $ go mod download
 go: finding github.com/spf13/cobra v0.0.3
-go: finding github.com/spf13/viper v1.2.1
-go: finding github.com/markbates/refresh v1.4.10
-go: finding github.com/gobuffalo/mw-forcessl v0.0.0-20180802152810-73921ae7a130
-go: finding github.com/markbates/oncer v0.0.0-20181014194634-05fccaae8fc4
-go: finding github.com/gobuffalo/mw-i18n v0.0.0-20180802152014-e3060b7e13d6
 go: finding github.com/gobuffalo/mw-contenttype v0.0.0-20180802152300-74f5a47f4d56
+go: finding github.com/spf13/viper v1.2.1
+go: finding github.com/markbates/inflect v1.0.1
+go: finding github.com/markbates/refresh v1.4.10
+go: finding github.com/gobuffalo/mw-paramlogger v0.0.0-20181005191442-d6ee392ec72e
+go: finding github.com/gobuffalo/mw-i18n v0.0.0-20180802152014-e3060b7e13d6
 ...
 ```
 
@@ -184,7 +190,7 @@ Visualise the resulting module dependency graph as a directed graph using [Graph
 command:
 
 ```
-$ echo "digraph {" >>graph.dot
+$ echo "digraph {" >graph.dot
 $ echo "graph [rankdir=TB, overlap=false];" >>graph.dot
 $ cat unver.txt | awk '{print "\""$1"\" -> \""$2"\""};' >>graph.dot
 $ echo "}" >>graph.dot
@@ -193,12 +199,26 @@ $ twopi -Tsvg -o dag.svg graph.dot
 
 This results in:
 
-![Module Dependency Graph](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/dag.svg?sanitize=true)
+![Module Dependency Graph](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/dag.svg?sanitize=true)
 
 Convert the module requirement graph into a histogram of module dependencies:
 
 ```
 $ cat unver.txt | awk '{print $1}' | sort | uniq -c | sort -nr | awk '{print $2 "\t" $1}' >hist.txt
+```
+
+This results in:
+
+```
+$ cat hist.txt
+github.com/gobuffalo/buffalo	60
+github.com/gobuffalo/genny	27
+github.com/gobuffalo/buffalo-plugins	23
+github.com/gobuffalo/fizz	22
+github.com/gobuffalo/buffalo-pop	18
+github.com/markbates/going	16
+github.com/gobuffalo/github_flavored_markdown	16
+...
 ```
 
 Using [`github.com/ajstarks/deck/cmd/dchart`](https://github.com/ajstarks/deck/blob/master/cmd/dchart/README.md),
@@ -211,7 +231,7 @@ $ svgdeck -outdir radial -pagesize 1000,1000 radial.xml
 
 This results in:
 
-![Dependency Histogram Radial](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/radial.svg?sanitize=true)
+![Dependency Histogram Radial](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/radial.svg?sanitize=true)
 
 
 Generate a horizontal bar chart from the histogram data:
@@ -223,7 +243,7 @@ $ svgdeck -outdir hbar -pagesize 1000,1000 hbar.xml
 
 This results in:
 
-![Dependency Histogram Horizontal Bar](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/hbar.svg?sanitize=true)
+![Dependency Histogram Horizontal Bar](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/hbar.svg?sanitize=true)
 
 ### Version details
 
