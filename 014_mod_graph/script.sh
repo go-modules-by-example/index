@@ -59,7 +59,7 @@ go mod graph | sed -Ee 's/@[^[:blank:]]+//g' | sort | uniq > unver.txt
 cat unver.txt
 
 # block: dot graph
-echo "digraph {" >> graph.dot
+echo "digraph {" > graph.dot
 echo "graph [rankdir=TB, overlap=false];" >> graph.dot
 cat unver.txt  | awk '{print "\""$1"\" -> \""$2"\""};' >> graph.dot
 echo "}" >> graph.dot
@@ -74,6 +74,9 @@ popd
 
 # block: hist
 cat unver.txt | awk '{print $1}' | sort |  uniq -c  | sort -nr | awk '{print $2 "\t" $1}' > hist.txt
+
+# block: hist cat
+cat hist.txt
 
 # block: radial
 dchart -psize=10 -pwidth=30 -left=50 -top=50 -radial -textsize=1.5 -chartitle=Buffalo hist.txt > radial.xml
