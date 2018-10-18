@@ -129,10 +129,10 @@ $ go mod download
 go: finding github.com/spf13/cobra v0.0.3
 go: finding github.com/gobuffalo/mw-contenttype v0.0.0-20180802152300-74f5a47f4d56
 go: finding github.com/spf13/viper v1.2.1
-go: finding github.com/markbates/inflect v1.0.1
 go: finding github.com/markbates/refresh v1.4.10
-go: finding github.com/gobuffalo/mw-paramlogger v0.0.0-20181005191442-d6ee392ec72e
 go: finding github.com/gobuffalo/mw-i18n v0.0.0-20180802152014-e3060b7e13d6
+go: finding github.com/gobuffalo/mw-forcessl v0.0.0-20180802152810-73921ae7a130
+go: finding github.com/pkg/errors v0.8.0
 ...
 ```
 
@@ -199,7 +199,7 @@ $ twopi -Tsvg -o dag.svg graph.dot
 
 This results in:
 
-![Module Dependency Graph](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/dag.svg?sanitize=true)
+![Module Dependency Graph](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/dag.svg?sanitize=true)
 
 Convert the module requirement graph into a histogram of module dependencies:
 
@@ -231,7 +231,7 @@ $ svgdeck -outdir radial -pagesize 1000,1000 radial.xml
 
 This results in:
 
-![Dependency Histogram Radial](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/radial.svg?sanitize=true)
+![Dependency Histogram Radial](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/radial.svg?sanitize=true)
 
 
 Generate a horizontal bar chart from the histogram data:
@@ -243,7 +243,7 @@ $ svgdeck -outdir hbar -pagesize 1000,1000 hbar.xml
 
 This results in:
 
-![Dependency Histogram Horizontal Bar](https://raw.githubusercontent.com/go-modules-by-example-staging/mod_graph/master/hbar.svg?sanitize=true)
+![Dependency Histogram Horizontal Bar](https://raw.githubusercontent.com/go-modules-by-example/mod_graph/master/hbar.svg?sanitize=true)
 
 ### Version details
 
