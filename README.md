@@ -22,6 +22,7 @@ The release-ordered list of guides:
 * [Tools as dependencies](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md)
 * [Cyclic module dependencies](https://github.com/go-modules-by-example/index/blob/master/013_cyclic/README.md)
 * [Visually analysing module dependencies](https://github.com/go-modules-by-example/index/blob/master/014_mod_graph/README.md)
+* [Semantic import versioning by example](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md)
 
 WIP guides:
 
@@ -59,6 +60,7 @@ With particular thanks (in no particular order) to:
 
 * [ajstarks](https://github.com/ajstarks)
 * [bcmills](https://github.com/bcmills)
+* [marwan-at-work](https://github.com/marwan-at-work)
 * [mvdan](https://github.com/mvdan)
 * [rogpeppe](https://github.com/rogpeppe)
 * [rsc](https://github.com/rsc)
