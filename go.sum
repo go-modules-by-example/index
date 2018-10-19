@@ -1,10 +1,9 @@
-github.com/golang/protobuf v1.1.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
-github.com/google/go-github v0.0.0-20180529120358-2ae5df784832 h1:X8kXx1lcmPzVOi2BR4pc/c1um+DRUcRbKVa+9CfiVj0=
-github.com/google/go-github v0.0.0-20180529120358-2ae5df784832/go.mod h1:zLgOLi98H3fifZn+44m+umXrS52loVEgC2AApnigrVQ=
-github.com/google/go-querystring v0.0.0-20170111101155-53e6ce116135 h1:zLTLjkaOFEFIOxY5BWLFLwh+cL8vOBW4XJ2aqLE/Tf0=
-github.com/google/go-querystring v0.0.0-20170111101155-53e6ce116135/go.mod h1:odCYkC5MyYFN7vkCjXpyrEuKhc/BUO6wN/zVPAxq5ck=
+github.com/google/go-github v17.0.0+incompatible h1:N0LgJ1j65A7kfXrZnUDaYCs/Sf4rEjNlfyDHW9dolSY=
+github.com/google/go-github v17.0.0+incompatible/go.mod h1:zLgOLi98H3fifZn+44m+umXrS52loVEgC2AApnigrVQ=
+github.com/google/go-querystring v1.0.0 h1:Xkwi/a1rcvNg1PPYe5vI8GbeBY/jrVuDX5ASuANWTrk=
+github.com/google/go-querystring v1.0.0/go.mod h1:odCYkC5MyYFN7vkCjXpyrEuKhc/BUO6wN/zVPAxq5ck=
 github.com/gopherjs/gopherjs v0.0.0-20180628210949-0892b62f0d9f/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
 github.com/gopherjs/jsbuiltin v0.0.0-20180426082241-50091555e127/go.mod h1:7X1acUyFRf+oVFTU6SWw9mnb57Vxn+Nbh8iPbKg95hs=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
@@ -23,8 +22,8 @@ github.com/sclevine/agouti v3.0.0+incompatible/go.mod h1:b4WX9W9L1sfQKXeJf1mUTLZ
 golang.org/x/net v0.0.0-20180724234803-3673e40ba225/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
 golang.org/x/net v0.0.0-20180731172858-49c15d80dfbc h1:fxZeP24od5lQwTpFLCU8QkWPRbntiOgNkcTByEnKbbo=
 golang.org/x/net v0.0.0-20180731172858-49c15d80dfbc/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
-golang.org/x/oauth2 v0.0.0-20180529203656-ec22f46f877b h1:nCwwlzLoBQhkY/S3CJ2CGAU4pYfR8+5/TPGEHT+p5Nk=
-golang.org/x/oauth2 v0.0.0-20180529203656-ec22f46f877b/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
+golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4 h1:99CA0JJbUX4ozCnLon680Jc9e0T1i8HCaLVJMwtI8Hc=
+golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
 golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f h1:wMNYb4v58l5UBM7MYRLPG6ZhfOqbKu7X5eyFl8ZhKvA=
 golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
@@ -42,7 +41,5 @@ honnef.co/go/js/util v0.0.0-20150216223935-96b8dd9d1621/go.mod h1:WrAIh8rWfzvMdL
 honnef.co/go/js/xhr v0.0.0-20150307031022-00e3346113ae/go.mod h1:QwoYXdHZpuR080H32s5jqyk7zh/k/U9bDFg2g8OMmOM=
 mvdan.cc/sh v2.5.0+incompatible h1:JNM6l18iQFGZl0dK2n/7Z85sNaFq9zSl3qooNNyl+qA=
 mvdan.cc/sh v2.5.0+incompatible/go.mod h1:IeeQbZq+x2SUGBensq/jge5lLQbS3XT2ktyp3wrt4x8=
-myitcv.io v0.0.0-20181016190939-e90fc17eeef6 h1:E3NKNMaKG5pCdBgI8hOxpqm02RzyJKIQr1lcECIuz5U=
-myitcv.io v0.0.0-20181016190939-e90fc17eeef6/go.mod h1:txRIUfat+ZMMZE0tPo7rybqxPMyuDxTLUjiw1m+OY4E=
-myitcv.io v0.0.0-20181017223909-e02283c9ded4 h1:MaZqullViDD37Ll/E86wzghbMf7RoNDPAbhgbZ+lb3c=
-myitcv.io v0.0.0-20181017223909-e02283c9ded4/go.mod h1:txRIUfat+ZMMZE0tPo7rybqxPMyuDxTLUjiw1m+OY4E=
+myitcv.io v0.0.0-20181019162659-7f388ca9e56a h1:PP98qxkzanYdV6BVB0qOyZ1lHewkRb3KurW4VJDM4y8=
+myitcv.io v0.0.0-20181019162659-7f388ca9e56a/go.mod h1:0yVf2bHw6qSFxyjj1hJ+yA68GjlMIr6FZcQgBG9Cqq0=
