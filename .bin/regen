@@ -34,5 +34,5 @@ else
 	args="$*"
 fi
 
-go install myitcv.io/go-modules-by-example/cmd/... myitcv.io/cmd/{mdreplace,egrunner}
+go install myitcv.io/cmd/{mdreplace,egrunner,githubcli}
 mdreplace -w -long -online $args
