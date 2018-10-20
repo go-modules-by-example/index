@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: egrunner -df -v=/tmp:/tmp script.sh # LONG ONLINE
 
 ## Simple example
 

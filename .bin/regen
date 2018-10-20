@@ -29,7 +29,7 @@ dir=$(git rev-parse --show-toplevel)
 
 if [ "$#" == "0" ]
 then
-	args="$dir/!(001_go_modules_tour)/README.md $dir/README.md"
+	args="$dir/!(001_go_modules_tour)/README.md $dir/*.md"
 else
 	args="$*"
 fi
