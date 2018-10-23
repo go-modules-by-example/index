@@ -1,3 +1,3 @@
 module myitcv.io/go-modules-by-example
 
-require myitcv.io v0.0.0-20181019205227-29e3c27c8823
+require myitcv.io v0.0.0-20181023150345-4b1a6f97347f
