@@ -24,9 +24,8 @@ echo github.com/$GITHUB_ORG/modvendor_example
 echo https://github.com/$GITHUB_ORG/modvendor_example
 
 # block: setup
-cd $HOME
-mkdir modvendor_example
-cd modvendor_example
+mkdir -p $HOME/scratchpad/modvendor_example
+cd $HOME/scratchpad/modvendor_example
 git init -q
 git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
 go mod init
@@ -66,7 +65,7 @@ rm -rf $tgp
 find modvendor -type f
 
 # block: check modvendor
-GOPATH=$(mktemp -d) GOPROXY=file://$HOME/modvendor_example/modvendor go run .
+GOPATH=$(mktemp -d) GOPROXY=file://$HOME/scratchpad/modvendor_example/modvendor go run .
 
 # block: commit and push
 git add -A

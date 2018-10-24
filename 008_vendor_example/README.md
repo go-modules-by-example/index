@@ -91,9 +91,8 @@ Create a module:
 
 
 ```
-$ cd $HOME
-$ mkdir hello
-$ cd hello
+$ mkdir -p $HOME/scratchpad/hello
+$ cd $HOME/scratchpad/hello
 $ go mod init example.com/hello
 go: creating new go.mod: module example.com/hello
 ```

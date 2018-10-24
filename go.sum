@@ -43,3 +43,7 @@ mvdan.cc/sh v2.5.0+incompatible h1:JNM6l18iQFGZl0dK2n/7Z85sNaFq9zSl3qooNNyl+qA=
 mvdan.cc/sh v2.5.0+incompatible/go.mod h1:IeeQbZq+x2SUGBensq/jge5lLQbS3XT2ktyp3wrt4x8=
 myitcv.io v0.0.0-20181023163946-9f9d041e9b12 h1:N/I4Y7vb5yNrLwYUPrlt+Y28p3P6aFNw9QU0QDgxpSE=
 myitcv.io v0.0.0-20181023163946-9f9d041e9b12/go.mod h1:0yVf2bHw6qSFxyjj1hJ+yA68GjlMIr6FZcQgBG9Cqq0=
+myitcv.io v0.0.0-20181024122431-141b9f0a80ad h1:rkPjb2KMhWnzrEPRoU80pRpm8dcXCBpZXaP6PhyUIO4=
+myitcv.io v0.0.0-20181024122431-141b9f0a80ad/go.mod h1:0yVf2bHw6qSFxyjj1hJ+yA68GjlMIr6FZcQgBG9Cqq0=
+myitcv.io v0.0.0-20181024123957-0907f093ddd0 h1:Ell1I/79URXvGcwvKy0DIwp2qzb7xUOaiMA3QOxs3i0=
+myitcv.io v0.0.0-20181024123957-0907f093ddd0/go.mod h1:0yVf2bHw6qSFxyjj1hJ+yA68GjlMIr6FZcQgBG9Cqq0=

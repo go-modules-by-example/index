@@ -18,10 +18,6 @@ githubcli repo renameIfExists $GITHUB_ORG/cyclic cyclic_$now
 githubcli repo transfer $GITHUB_ORG/cyclic_$now $GITHUB_ORG_ARCHIVE
 githubcli repo create $GITHUB_ORG/cyclic
 
-# why is tree not installed by default?!
-apt-get update -q > /dev/null 2>&1
-apt-get install -q tree > /dev/null 2>&1
-
 # block: repo
 echo https://github.com/$GITHUB_ORG/cyclic
 
@@ -32,9 +28,8 @@ echo github.com/$GITHUB_ORG/cyclic
 echo github.com/$GITHUB_ORG/cyclic/b
 
 # block: setup
-cd $HOME
-mkdir cyclic
-cd $HOME/cyclic
+mkdir -p $HOME/scratchpad/cyclic
+cd $HOME/scratchpad/cyclic
 git init -q
 git remote add origin https://github.com/$GITHUB_ORG/cyclic
 
@@ -88,11 +83,11 @@ git rev-parse HEAD
 git push -q
 
 # block: create submodule from b
-cd $HOME/cyclic/b
+cd $HOME/scratchpad/cyclic/b
 go mod init github.com/$GITHUB_ORG/cyclic/b
 
 # block: commit and push b submodule
-cd $HOME/cyclic
+cd $HOME/scratchpad/cyclic
 git add -A
 git commit -q -am "Commit 2: create github.com/$GITHUB_ORG/cyclic/b"
 git rev-parse HEAD
@@ -100,19 +95,19 @@ git push -q
 
 # block: create mutual dependency
 go test -v ./...
-cd $HOME/cyclic/b
+cd $HOME/scratchpad/cyclic/b
 go test -v ./...
 
 # block: list root dependencies
-cd $HOME/cyclic
+cd $HOME/scratchpad/cyclic
 go list -m all
 
 # block: list b dependencies
-cd $HOME/cyclic/b
+cd $HOME/scratchpad/cyclic/b
 go list -m all
 
 # block: commit mutual dependency
-cd $HOME/cyclic
+cd $HOME/scratchpad/cyclic
 git add -A
 git commit -q -am "Commit 3: the mutual dependency"
 git rev-parse HEAD

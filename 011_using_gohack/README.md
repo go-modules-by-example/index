@@ -106,7 +106,7 @@ This example shows how to use `gohack`.
 Install `gohack`:
 
 ```
-$ git clone https://github.com/rogpeppe/gohack /tmp/gohack
+$ git clone -q https://github.com/rogpeppe/gohack /tmp/gohack
 $ cd /tmp/gohack
 $ go install
 go: finding github.com/rogpeppe/go-internal v1.0.0-alpha
@@ -117,16 +117,15 @@ go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
 go: finding github.com/kr/text v0.1.0
 go: finding github.com/kr/pty v1.1.1
 go: downloading github.com/rogpeppe/go-internal v1.0.0-alpha
-go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
 go: downloading gopkg.in/errgo.v2 v2.1.0
+go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
 ```
 
 Create a module:
 
 ```
-$ cd $HOME
-$ mkdir using-gohack
-$ cd using-gohack
+$ mkdir -p $HOME/scratchpad/using-gohack
+$ cd $HOME/scratchpad/using-gohack
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
 ```
@@ -174,7 +173,7 @@ using. We use `gohack` to do this.
 
 ```
 $ gohack get rsc.io/quote
-rsc.io/quote => /root/gohack/rsc.io/quote
+rsc.io/quote => /home/gopher/gohack/rsc.io/quote
 ```
 
 Verify our module is using the local "hack" copy:
@@ -198,7 +197,7 @@ $ go mod edit -json
 				"Path": "rsc.io/quote"
 			},
 			"New": {
-				"Path": "/root/gohack/rsc.io/quote"
+				"Path": "/home/gopher/gohack/rsc.io/quote"
 			}
 		}
 	]
@@ -222,7 +221,7 @@ EOD
 Rerun our example:
 
 ```
-$ cd $HOME/using-gohack
+$ cd $HOME/scratchpad/using-gohack
 $ go run .
 My hello
 ```
@@ -259,7 +258,7 @@ already exists, it will be updated in place.
 
 ```
 go version go1.11.1 linux/amd64
-gohack commit 2a6a2af0593c531b42442998c71abd3ba7965ef3
+gohack commit dad0e3a6b0b76c317b1a9df2e775baa35d6c2114
 ```
 
 <!-- END -->
