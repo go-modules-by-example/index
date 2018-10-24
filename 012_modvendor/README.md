@@ -108,10 +108,10 @@ Create a simple module:
 
 
 ```
-$ mkdir -p $HOME/scratchpad/modvendor_example
-$ cd $HOME/scratchpad/modvendor_example
+$ mkdir -p /home/gopher/scratchpad/modvendor_example
+$ cd /home/gopher/scratchpad/modvendor_example
 $ git init -q
-$ git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
+$ git remote add origin https://github.com/go-modules-by-example/modvendor_example
 $ go mod init
 go: creating new go.mod: module github.com/go-modules-by-example/modvendor_example
 ```
@@ -196,7 +196,7 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 
 ```
-$ GOPATH=$(mktemp -d) GOPROXY=file://$HOME/scratchpad/modvendor_example/modvendor go run .
+$ GOPATH=$(mktemp -d) GOPROXY=file:///home/gopher/scratchpad/modvendor_example/modvendor go run .
 go: finding rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c

@@ -98,10 +98,10 @@ The resulting code can be found at https://github.com/go-modules-by-example/tool
 Create a module:
 
 ```
-$ mkdir -p $HOME/scratchpad/tools
-$ cd $HOME/scratchpad/tools
+$ mkdir -p /home/gopher/scratchpad/tools
+$ cd /home/gopher/scratchpad/tools
 $ git init -q
-$ git remote add origin https://github.com/$GITHUB_ORG/tools
+$ git remote add origin https://github.com/go-modules-by-example/tools
 $ go mod init
 go: creating new go.mod: module github.com/go-modules-by-example/tools
 ```
