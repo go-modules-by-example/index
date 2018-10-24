@@ -142,8 +142,8 @@ Initialise a directory as a git repo, and add an appropriate remote:
 
 
 ```
-$ mkdir submodules
-$ cd submodules
+$ mkdir -p $HOME/scratchpad/submodules
+$ cd $HOME/scratchpad/submodules
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/submodules
 ```

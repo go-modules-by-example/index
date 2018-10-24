@@ -98,9 +98,8 @@ The resulting code can be found at https://github.com/go-modules-by-example/tool
 Create a module:
 
 ```
-$ cd $HOME
-$ mkdir tools
-$ cd tools
+$ mkdir -p $HOME/scratchpad/tools
+$ cd $HOME/scratchpad/tools
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/tools
 $ go mod init
@@ -139,7 +138,7 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20181016151354-3bba45614315
+go: downloading golang.org/x/tools v0.0.0-20181023010539-40a48ad93fbe
 ```
 
 Our module reflects the dependency:
@@ -147,14 +146,14 @@ Our module reflects the dependency:
 ```
 $ go list -m all
 github.com/go-modules-by-example/tools
-golang.org/x/tools v0.0.0-20181016151354-3bba45614315
+golang.org/x/tools v0.0.0-20181023010539-40a48ad93fbe
 ```
 
 Verify `stringer` is available on our `PATH`:
 
 ```
 $ which stringer
-/root/tools/bin/stringer
+/home/gopher/scratchpad/tools/bin/stringer
 ```
 
 Use `stringer` via a `go:generate` directive:

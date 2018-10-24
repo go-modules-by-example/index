@@ -109,9 +109,8 @@ The resulting repository state can be seen at https://github.com/go-modules-by-e
 Create a repository root and add a git remote:
 
 ```
-$ cd $HOME
-$ mkdir cyclic
-$ cd $HOME/cyclic
+$ mkdir -p $HOME/scratchpad/cyclic
+$ cd $HOME/scratchpad/cyclic
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/cyclic
 ```
@@ -171,7 +170,7 @@ $ go test -v ./...
 Here is A: B
 --- PASS: TestUsingA (0.00s)
 PASS
-ok  	github.com/go-modules-by-example/cyclic/b	0.001s
+ok  	github.com/go-modules-by-example/cyclic/b	0.002s
 ```
 
 Commit and push:
@@ -180,7 +179,7 @@ Commit and push:
 $ git add -A
 $ git commit -q -am "Commit 1: initial commit of parent module github.com/$GITHUB_ORG/cyclic"
 $ git rev-parse HEAD
-301201f0f6f5a330e213ea1b5439ca525835a19e
+4d1f8da63ea3ab4f068f9eb1ab36eee7f5df30ab
 $ git push -q
 remote: 
 remote: Create a pull request for 'master' on GitHub by visiting:        
@@ -199,7 +198,7 @@ state; we don't add relative `replace` directives for either dependency. This st
 [#26241](https://github.com/golang/go/issues/26241) is fixed.
 
 ```
-$ cd $HOME/cyclic/b
+$ cd $HOME/scratchpad/cyclic/b
 $ go mod init github.com/$GITHUB_ORG/cyclic/b
 go: creating new go.mod: module github.com/go-modules-by-example/cyclic/b
 ```
@@ -207,11 +206,11 @@ go: creating new go.mod: module github.com/go-modules-by-example/cyclic/b
 Commit and push:
 
 ```
-$ cd $HOME/cyclic
+$ cd $HOME/scratchpad/cyclic
 $ git add -A
 $ git commit -q -am "Commit 2: create github.com/$GITHUB_ORG/cyclic/b"
 $ git rev-parse HEAD
-2b9342b930ff84e9cb2bb3ecb671c34255e8d490
+7d15b33ccefb1cdedef1c6d11901ba2f0a390b52
 $ git push -q
 ```
 
@@ -220,13 +219,13 @@ Until [#26241](https://github.com/golang/go/issues/26241) is merged, this is whe
 ```
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/b latest
-go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181017231607-2b9342b930ff
+go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20181024125026-7d15b33ccefb
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
-$ cd $HOME/cyclic/b
+$ cd $HOME/scratchpad/cyclic/b
 $ go test -v ./...
 go: finding github.com/go-modules-by-example/cyclic/a latest
 go: finding github.com/go-modules-by-example/cyclic latest
-go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181017231607-2b9342b930ff
+go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20181024125026-7d15b33ccefb
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
@@ -238,30 +237,30 @@ List the dependencies of `github.com/go-modules-by-example/cyclic
 `:
 
 ```
-$ cd $HOME/cyclic
+$ cd $HOME/scratchpad/cyclic
 $ go list -m all
 github.com/go-modules-by-example/cyclic
-github.com/go-modules-by-example/cyclic/b v0.0.0-20181017231607-2b9342b930ff
+github.com/go-modules-by-example/cyclic/b v0.0.0-20181024125026-7d15b33ccefb
 ```
 
 List the dependencies of `github.com/go-modules-by-example/cyclic/b
 `:
 
 ```
-$ cd $HOME/cyclic/b
+$ cd $HOME/scratchpad/cyclic/b
 $ go list -m all
 github.com/go-modules-by-example/cyclic/b
-github.com/go-modules-by-example/cyclic v0.0.0-20181017231607-2b9342b930ff
+github.com/go-modules-by-example/cyclic v0.0.0-20181024125026-7d15b33ccefb
 ```
 
 Commit the mutual dependency:
 
 ```
-$ cd $HOME/cyclic
+$ cd $HOME/scratchpad/cyclic
 $ git add -A
 $ git commit -q -am "Commit 3: the mutual dependency"
 $ git rev-parse HEAD
-9dd6ac75f7e5d6a61926a0273f8029f8fe24d37c
+1f7de75bf0e6b69929292cc2e148ea87be778a0a
 $ git push -q
 ```
 

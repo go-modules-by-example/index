@@ -13,8 +13,8 @@ git config --global advice.detachedHead false
 git config --global push.default current
 
 # why is tree not installed by default?!
-apt-get update -q > /dev/null 2>&1
-apt-get install -q -y graphviz > /dev/null 2>&1
+sudo apt-get update -q > /dev/null 2>&1
+sudo apt-get install -q -y graphviz > /dev/null 2>&1
 
 deckCommit=7b4a8a7c9dfb9243ab16d8a2abd1cedb553e4094
 
@@ -23,9 +23,8 @@ now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists $GITHUB_ORG/mod_graph mod_graph_$now
 githubcli repo transfer $GITHUB_ORG/mod_graph_$now $GITHUB_ORG_ARCHIVE
 githubcli repo create $GITHUB_ORG/mod_graph
-cd $HOME
-mkdir mod_graph
-cd mod_graph
+mkdir -p $HOME/scratchpad/mod_graph
+cd $HOME/scratchpad/mod_graph
 git init
 git remote add origin https://github.com/$GITHUB_ORG/mod_graph
 
@@ -36,7 +35,7 @@ echo https://github.com/$GITHUB_ORG/mod_graph
 echo $GITHUB_ORG
 
 # block: setup
-cd $HOME
+cd $HOME/scratchpad
 git clone --depth=1 --branch v0.13.0 https://github.com/gobuffalo/buffalo
 cd buffalo
 
@@ -86,10 +85,10 @@ svgdeck -outdir radial -pagesize 1000,1000 radial.xml
 dchart -hbar -left=40 -top=90 -textsize=1.1 -chartitle=Buffalo hist.txt > hbar.xml
 svgdeck -outdir hbar -pagesize 1000,1000 hbar.xml
 
-cp dag.svg $HOME/mod_graph
-cp radial/*.svg $HOME/mod_graph/radial.svg
-cp hbar/*.svg $HOME/mod_graph/hbar.svg
-cd $HOME/mod_graph
+cp dag.svg $HOME/scratchpad/mod_graph
+cp radial/*.svg $HOME/scratchpad/mod_graph/radial.svg
+cp hbar/*.svg $HOME/scratchpad/mod_graph/hbar.svg
+cd $HOME/scratchpad/mod_graph
 git add -A
 git commit -q -am 'Initial commit'
 git push -q origin

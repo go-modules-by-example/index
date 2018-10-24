@@ -116,7 +116,7 @@ large number of dependencies which makes for nice visualisations.
 Checkout the Buffalo module:
 
 ```
-$ cd $HOME
+$ cd $HOME/scratchpad
 $ git clone --depth=1 --branch v0.13.0 https://github.com/gobuffalo/buffalo
 Cloning into 'buffalo'...
 $ cd buffalo
@@ -126,13 +126,13 @@ Ensure all dependencies of the Buffalo module are available locally:
 
 ```
 $ go mod download
-go: finding github.com/spf13/cobra v0.0.3
-go: finding github.com/gobuffalo/mw-contenttype v0.0.0-20180802152300-74f5a47f4d56
-go: finding github.com/spf13/viper v1.2.1
+go: finding github.com/gobuffalo/envy v1.6.5
 go: finding github.com/markbates/refresh v1.4.10
-go: finding github.com/gobuffalo/mw-i18n v0.0.0-20180802152014-e3060b7e13d6
-go: finding github.com/gobuffalo/mw-forcessl v0.0.0-20180802152810-73921ae7a130
-go: finding github.com/pkg/errors v0.8.0
+go: finding github.com/stretchr/testify v1.2.2
+go: finding github.com/gobuffalo/mw-paramlogger v0.0.0-20181005191442-d6ee392ec72e
+go: finding github.com/markbates/sigtx v1.0.0
+go: finding github.com/markbates/oncer v0.0.0-20181014194634-05fccaae8fc4
+go: finding github.com/gobuffalo/mw-contenttype v0.0.0-20180802152300-74f5a47f4d56
 ...
 ```
 

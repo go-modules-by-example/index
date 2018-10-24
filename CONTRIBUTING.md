@@ -131,13 +131,13 @@ Install the required commands (assumes your `PATH` is correctly setup):
 
 ```
 $ go install myitcv.io/cmd/{mdreplace,egrunner,githubcli}
-go: finding myitcv.io v0.0.0-20181019205227-29e3c27c8823
-go: finding github.com/jteeuwen/go-bindata v3.0.7+incompatible
-go: finding github.com/sclevine/agouti v3.0.0+incompatible
+go: finding myitcv.io v0.0.0-20181023163946-9f9d041e9b12
 go: finding github.com/google/go-github v17.0.0+incompatible
+go: finding github.com/jteeuwen/go-bindata v3.0.7+incompatible
 go: finding github.com/gopherjs/jsbuiltin v0.0.0-20180426082241-50091555e127
-go: finding github.com/onsi/gomega v1.4.1
-go: finding golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4
+go: finding github.com/sclevine/agouti v3.0.0+incompatible
+go: finding github.com/google/go-querystring v1.0.0
+go: finding mvdan.cc/sh v2.5.0+incompatible
 ...
 ```
 

@@ -13,14 +13,13 @@ git config --global advice.detachedHead false
 git config --global push.default current
 
 # block: install gohack
-git clone https://github.com/rogpeppe/gohack /tmp/gohack
+git clone -q https://github.com/rogpeppe/gohack /tmp/gohack
 cd /tmp/gohack
 go install
 
 # block: setup
-cd $HOME
-mkdir using-gohack
-cd using-gohack
+mkdir -p $HOME/scratchpad/using-gohack
+cd $HOME/scratchpad/using-gohack
 go mod init example.com/blah
 
 cat <<EOD > blah.go
@@ -63,7 +62,7 @@ func Hello() string {
 EOD
 
 # block: rerun
-cd $HOME/using-gohack
+cd $HOME/scratchpad/using-gohack
 go run .
 
 # block: undo

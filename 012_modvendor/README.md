@@ -108,9 +108,8 @@ Create a simple module:
 
 
 ```
-$ cd $HOME
-$ mkdir modvendor_example
-$ cd modvendor_example
+$ mkdir -p $HOME/scratchpad/modvendor_example
+$ cd $HOME/scratchpad/modvendor_example
 $ git init -q
 $ git remote add origin https://github.com/$GITHUB_ORG/modvendor_example
 $ go mod init
@@ -197,7 +196,7 @@ Verify that `modvendor` can be used as a `GOPROXY` source:
 
 
 ```
-$ GOPATH=$(mktemp -d) GOPROXY=file://$HOME/modvendor_example/modvendor go run .
+$ GOPATH=$(mktemp -d) GOPROXY=file://$HOME/scratchpad/modvendor_example/modvendor go run .
 go: finding rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c

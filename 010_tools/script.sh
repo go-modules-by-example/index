@@ -22,9 +22,8 @@ githubcli repo create $GITHUB_ORG/tools
 echo https://github.com/$GITHUB_ORG/tools
 
 # block: setup
-cd $HOME
-mkdir tools
-cd tools
+mkdir -p $HOME/scratchpad/tools
+cd $HOME/scratchpad/tools
 git init -q
 git remote add origin https://github.com/$GITHUB_ORG/tools
 go mod init
