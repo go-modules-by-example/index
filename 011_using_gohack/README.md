@@ -117,15 +117,15 @@ go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
 go: finding github.com/kr/text v0.1.0
 go: finding github.com/kr/pty v1.1.1
 go: downloading github.com/rogpeppe/go-internal v1.0.0-alpha
-go: downloading gopkg.in/errgo.v2 v2.1.0
 go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
+go: downloading gopkg.in/errgo.v2 v2.1.0
 ```
 
 Create a module:
 
 ```
-$ mkdir -p $HOME/scratchpad/using-gohack
-$ cd $HOME/scratchpad/using-gohack
+$ mkdir -p /home/gopher/scratchpad/using-gohack
+$ cd /home/gopher/scratchpad/using-gohack
 $ go mod init example.com/blah
 go: creating new go.mod: module example.com/blah
 ```
@@ -208,7 +208,7 @@ $ go mod edit -json
 
 
 ```
-$ cd $HOME/gohack/rsc.io/quote
+$ cd /home/gopher/gohack/rsc.io/quote
 $ cat <<EOD >quote.go
 package quote
 
@@ -221,7 +221,7 @@ EOD
 Rerun our example:
 
 ```
-$ cd $HOME/scratchpad/using-gohack
+$ cd /home/gopher/scratchpad/using-gohack
 $ go run .
 My hello
 ```
