@@ -15,6 +15,12 @@ while test $# != 0
 do
 	case "$1" in
 		-prod)
+			read -p "Enter \"prod\" to continue: " -r
+			if [ "$REPLY" != "prod" ]
+			then
+				echo "Ok, not doing anything"
+				exit 1
+			fi
 			export GITHUB_ORG=go-modules-by-example
 			export GITHUB_ORG_ARCHIVE=go-modules-by-example-archive mdreplace
 			;;
