@@ -190,9 +190,12 @@ echo
 cat designers/designers.go
 
 # block: install mod
-git clone -q https://github.com/marwan-at-work/mod /tmp/mod
-cd /tmp/mod
+cd $(mktemp -d)
+go mod init mod
+go get -m github.com/marwan-at-work/mod
 go install github.com/marwan-at-work/mod/cmd/mod
+
+mod_version=$(go list -m github.com/marwan-at-work/mod)
 
 # block: ensure mod working
 mod -help
@@ -250,5 +253,4 @@ git push -q origin v1.1.0
 
 # block: version details
 go version
-cd /tmp/mod
-echo "mod commit $(git rev-parse HEAD)"
+echo "$mod_version"
