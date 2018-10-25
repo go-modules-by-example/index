@@ -13,9 +13,12 @@ git config --global advice.detachedHead false
 git config --global push.default current
 
 # block: install gohack
-git clone -q https://github.com/rogpeppe/gohack /tmp/gohack
-cd /tmp/gohack
-go install
+cd $(mktemp -d)
+go mod init mod
+go get -m github.com/rogpeppe/gohack@v1.0.0-alpha.2
+go install github.com/rogpeppe/gohack
+
+gohack_version=$(set -e; go list -m github.com/rogpeppe/gohack)
 
 # block: setup
 mkdir -p $HOME/scratchpad/using-gohack
@@ -74,5 +77,4 @@ gohack help get
 
 # block: version details
 go version
-cd /tmp/gohack
-echo "gohack commit $(git rev-parse HEAD)"
+echo "$gohack_version"

@@ -433,12 +433,12 @@ do this.
 Install `mod`:
 
 ```
-$ git clone -q https://github.com/marwan-at-work/mod /tmp/mod
-$ cd /tmp/mod
-$ go install github.com/marwan-at-work/mod/cmd/mod
-go: finding github.com/google/go-querystring v0.0.0-20170111101155-53e6ce116135
-go: finding github.com/marwan-at-work/vgop v0.0.0-20180824202541-054e5a7d7b48
-go: finding github.com/google/go-github v17.0.0+incompatible
+$ cd $(mktemp -d)
+$ go mod init mod
+go: creating new go.mod: module mod
+$ go get -m github.com/marwan-at-work/mod
+go: finding github.com/marwan-at-work/mod v0.1.0
+go: finding github.com/pkg/errors v0.8.0
 ...
 ```
 
@@ -529,7 +529,7 @@ $ git push -q origin v1.1.0
 
 ```
 go version go1.11.1 linux/amd64
-mod commit e5e963f72586a689d185d5869453d35551209c0d
+github.com/marwan-at-work/mod v0.1.0
 ```
 
 <!-- END -->

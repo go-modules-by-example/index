@@ -15,7 +15,7 @@ This example shows how to use `gohack`.
 Install `gohack`:
 
 ```
-{{PrintBlock "install gohack" -}}
+{{PrintBlock "install gohack" | lineEllipsis 5 -}}
 ```
 
 Create a module:
@@ -106,19 +106,12 @@ This example shows how to use `gohack`.
 Install `gohack`:
 
 ```
-$ git clone -q https://github.com/rogpeppe/gohack /tmp/gohack
-$ cd /tmp/gohack
-$ go install
-go: finding github.com/rogpeppe/go-internal v1.0.0-alpha
-go: finding golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
-go: finding gopkg.in/errgo.v2 v2.1.0
-go: finding github.com/kr/pretty v0.1.0
-go: finding gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
-go: finding github.com/kr/text v0.1.0
-go: finding github.com/kr/pty v1.1.1
-go: downloading github.com/rogpeppe/go-internal v1.0.0-alpha
-go: downloading golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e
-go: downloading gopkg.in/errgo.v2 v2.1.0
+$ cd $(mktemp -d)
+$ go mod init mod
+go: creating new go.mod: module mod
+$ go get -m github.com/rogpeppe/gohack@v1.0.0-alpha.2
+go: finding github.com/rogpeppe/gohack v1.0.0-alpha.2
+...
 ```
 
 Create a module:
@@ -258,7 +251,7 @@ already exists, it will be updated in place.
 
 ```
 go version go1.11.1 linux/amd64
-gohack commit dad0e3a6b0b76c317b1a9df2e775baa35d6c2114
+github.com/rogpeppe/gohack v1.0.0-alpha.2
 ```
 
 <!-- END -->
