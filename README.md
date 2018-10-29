@@ -24,6 +24,7 @@ The release-ordered list of guides:
 * [Visually analysing module dependencies](https://github.com/go-modules-by-example/index/blob/master/014_mod_graph/README.md)
 * [Semantic import versioning by example](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md)
 * [Options for repository structure with multiple major versions](https://github.com/go-modules-by-example/index/blob/master/016_major_version_repo_strategy/README.md)
+* [Using `gobin` to install/run tools](017_using_gobin/README.md)
 
 WIP guides:
 
