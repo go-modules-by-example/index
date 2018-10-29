@@ -46,7 +46,7 @@ include the commands themselves and/or their output, e.g.:
     ```
 
 Look at the raw [Go modules by example tour README.md](https://raw.githubusercontent.com/go-modules-by-example/index/master/001_go_modules_tour/README.md)
-and [corresponding script](https://github.com/go-modules-by-example/index/blob/master/001_go_modules_tour/script.sh) for more examples.
+and [corresponding script](001_go_modules_tour/script.sh) for more examples.
 
 ### Getting started: regenerating a guide
 

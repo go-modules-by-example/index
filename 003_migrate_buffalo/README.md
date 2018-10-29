@@ -57,7 +57,7 @@ explicitly switch to "module-aware mode" to perform any module operations:
 ```
 
 Initialise our module (see the [wiki for more
-details](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)):
+details](https://github.com/golang/go/wiki/Modules)):
 
 ```
 {{lineEllipsis 8 (PrintBlock "go mod init") -}}
@@ -88,7 +88,7 @@ Remove the now redundant `vendor` directory and `Gopkg.toml`, commit and push:
 ```
 
 If you want to retain `vendor`, see ["Using modules to manage
-vendor"](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) for more details.
+vendor"](../008_vendor_example/README.md) for more details.
 
 ### Version details
 
@@ -200,7 +200,7 @@ $ export GO111MODULE=on
 ```
 
 Initialise our module (see the [wiki for more
-details](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md)):
+details](https://github.com/golang/go/wiki/Modules)):
 
 ```
 $ go mod init
@@ -303,14 +303,14 @@ $ git commit -am 'Convert to a Go module'
  delete mode 100644 vendor/github.com/russross/blackfriday/markdown.go
  delete mode 100644 vendor/github.com/russross/blackfriday/smartypants.go
 $ git push -q $GITHUB_ORG
-remote: 
-remote: Create a pull request for 'migrate_buffalo' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/buffalo/pull/new/migrate_buffalo        
-remote: 
+remote:
+remote: Create a pull request for 'migrate_buffalo' on GitHub by visiting:
+remote:      https://github.com/go-modules-by-example/buffalo/pull/new/migrate_buffalo
+remote:
 ```
 
 If you want to retain `vendor`, see ["Using modules to manage
-vendor"](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) for more details.
+vendor"](../008_vendor_example/README.md) for more details.
 
 ### Version details
 

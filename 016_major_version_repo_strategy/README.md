@@ -3,7 +3,7 @@
 ## Options for repository structure with multiple major versions
 
 In ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md) we
+example"](../015_semantic_import_versioning/README.md) we
 briefly touched on the fact that there are options when it comes to deciding how to structure your git repository to
 support breaking changes, i.e. multiple major versions.  In this guide we explore the two main options.
 
@@ -11,12 +11,12 @@ support breaking changes, i.e. multiple major versions.  In this guide we explor
 
 This example creates two modules that have the same package structure as the `github.com/go-modules-by-example/goinfo`
 package in the ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md) guide,
+example"](../015_semantic_import_versioning/README.md) guide,
 but each uses a different strategy when it comes to repository structure:
 
 * [`{{PrintOut "maj-branch mod"}}`]({{PrintOut "maj-branch repo"}}) uses the major branch strategy (the strategy we
   used in ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md))
+example"](../015_semantic_import_versioning/README.md))
 * [`{{PrintOut "maj-subdir mod"}}`]({{PrintOut "maj-subdir repo"}}) uses the major subdirectory strategy
 
 For each strategy, we pick things up at the point where we are about to make the breaking change. We highlight the
@@ -108,7 +108,7 @@ Commit, push and tag an initial release of `{{PrintOut "multi pp mod"}}`:
 ## Options for repository structure with multiple major versions
 
 In ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md) we
+example"](../015_semantic_import_versioning/README.md) we
 briefly touched on the fact that there are options when it comes to deciding how to structure your git repository to
 support breaking changes, i.e. multiple major versions.  In this guide we explore the two main options.
 
@@ -116,12 +116,12 @@ support breaking changes, i.e. multiple major versions.  In this guide we explor
 
 This example creates two modules that have the same package structure as the `github.com/go-modules-by-example/goinfo`
 package in the ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md) guide,
+example"](../015_semantic_import_versioning/README.md) guide,
 but each uses a different strategy when it comes to repository structure:
 
 * [`github.com/go-modules-by-example/goinfo-maj-branch`](https://github.com/go-modules-by-example/goinfo-maj-branch) uses the major branch strategy (the strategy we
   used in ["Semantic import versioning by
-example"](https://github.com/go-modules-by-example/index/blob/master/015_semantic_import_versioning/README.md))
+example"](../015_semantic_import_versioning/README.md))
 * [`github.com/go-modules-by-example/goinfo-maj-subdir`](https://github.com/go-modules-by-example/goinfo-maj-subdir) uses the major subdirectory strategy
 
 For each strategy, we pick things up at the point where we are about to make the breaking change. We highlight the
@@ -152,10 +152,10 @@ Date:   Thu Oct 25 21:04:51 2018 +0000
     Initial commit of goinfo-maj-branch
 $ git branch v1
 $ git push -q origin v1
-remote: 
-remote: Create a pull request for 'v1' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/goinfo-maj-branch/pull/new/v1        
-remote: 
+remote:
+remote: Create a pull request for 'v1' on GitHub by visiting:
+remote:      https://github.com/go-modules-by-example/goinfo-maj-branch/pull/new/v1
+remote:
 ```
 
 Points to note:
@@ -273,10 +273,10 @@ Commit, push and tag an initial release of `github.com/go-modules-by-example/mul
 $ git add -A
 $ git commit -q -am "Initial commit of $r"
 $ git push -q origin
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/multi-peopleprinter/pull/new/master        
-remote: 
+remote:
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/go-modules-by-example/multi-peopleprinter/pull/new/master
+remote:
 $ git tag v1.0.0
 $ git push -q origin v1.0.0
 ```
