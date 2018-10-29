@@ -5,7 +5,7 @@
 In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was (and
 indeed remains) a popular way of sharing your code _and its dependencies_ with others, without requiring network access
 beyond cloning the source code repository. In the [Vendoring support
-guide](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) we show how to manage a
+guide](../008_vendor_example/README.md) we show how to manage a
 `vendor` directory using `go mod vendor`.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
@@ -93,7 +93,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 In a pre-modules world, [vendoring](https://github.com/golang/proposal/blob/master/design/25719-go15vendor.md) was (and
 indeed remains) a popular way of sharing your code _and its dependencies_ with others, without requiring network access
 beyond cloning the source code repository. In the [Vendoring support
-guide](https://github.com/go-modules-by-example/index/blob/master/008_vendor_example/README.md) we show how to manage a
+guide](../008_vendor_example/README.md) we show how to manage a
 `vendor` directory using `go mod vendor`.
 
 In a modules world, the module download cache can be used as a higher fidelity source of module dependencies.
@@ -212,10 +212,10 @@ The `modvendor` directory can now be committed alongside the source code:
 $ git add -A
 $ git commit -q -am 'Initial commit'
 $ git push -q origin master
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master        
-remote: 
+remote:
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master
+remote:
 ```
 
 ### Open questions
