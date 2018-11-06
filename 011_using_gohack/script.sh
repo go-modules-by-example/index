@@ -12,13 +12,11 @@ git config --global user.name "$GITHUB_USERNAME"
 git config --global advice.detachedHead false
 git config --global push.default current
 
-# block: install gohack
-cd $(mktemp -d)
-go mod init mod
-go get -m github.com/rogpeppe/gohack@v1.0.0-alpha.2
-go install github.com/rogpeppe/gohack
+# fix the version of gohack behind the scenes
+gobin github.com/rogpeppe/gohack@v1.0.0
 
-gohack_version=$(set -e; go list -m github.com/rogpeppe/gohack)
+# block: install gohack
+gobin github.com/rogpeppe/gohack
 
 # block: setup
 mkdir -p $HOME/scratchpad/using-gohack
@@ -40,7 +38,7 @@ EOD
 gofmt -w blah.go
 
 # block: simple example
-cat blah.go
+catfile blah.go
 
 # block: use a specific version of quote
 go get rsc.io/quote@v1.5.1
@@ -77,4 +75,4 @@ gohack help get
 
 # block: version details
 go version
-echo "$gohack_version"
+gobin -v github.com/rogpeppe/gohack

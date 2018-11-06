@@ -68,10 +68,14 @@ go mod init
 # block: tree
 tree --noreport
 
-# block: add a and b
-cat a/a.go
-cat b/b.go
-cat b/b_test.go
+# block: cat a
+catfile a/a.go
+
+# block: cat b
+catfile b/b.go
+
+# block: cat b_test
+catfile b/b_test.go
 
 # block: test
 go test -v ./...

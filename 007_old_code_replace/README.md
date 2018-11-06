@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## `** REVIEW REQUIRED **`
 
@@ -159,7 +159,7 @@ Now check our code still builds:
 
 ```
 $ go build
-go: parsing pdf/go.mod: open /root/hello/pdf/go.mod: no such file or directory
+go: parsing pdf/go.mod: open /home/gopher/hello/pdf/go.mod: no such file or directory
 go: error loading module requirements
 ```
 
@@ -186,7 +186,7 @@ $ ./hello
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

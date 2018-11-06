@@ -44,7 +44,7 @@ EOD
 gofmt -w tools.go
 
 # block: add tool dependency
-cat tools.go
+catfile tools.go
 
 # block: install tool dependency
 go install golang.org/x/tools/cmd/stringer
@@ -79,7 +79,7 @@ EOD
 gofmt -w painkiller.go
 
 # block: painkiller.go
-cat painkiller.go
+catfile painkiller.go
 
 # block: go generate and run
 go generate

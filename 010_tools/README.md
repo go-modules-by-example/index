@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## Tools as dependencies
 
@@ -33,8 +33,8 @@ The file and the build constraint names are not particularly important, but we c
 consistency:
 
 
-```
-{{PrintBlock "add tool dependency" -}}
+```go
+{{PrintBlockOut "add tool dependency" -}}
 ```
 
 Install `stringer`:
@@ -57,8 +57,8 @@ Verify `stringer` is available on our `PATH`:
 
 Use `stringer` via a `go:generate` directive:
 
-```
-{{PrintBlock "painkiller.go" -}}
+```go
+{{PrintBlockOut "painkiller.go" -}}
 ```
 
 `go generate` and run the result:
@@ -120,7 +120,7 @@ The file and the build constraint names are not particularly important, but we c
 consistency:
 
 
-```
+```go
 $ cat tools.go
 // +build tools
 
@@ -138,7 +138,7 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20181023010539-40a48ad93fbe
+go: downloading golang.org/x/tools v0.0.0-20181107161202-aa0cdd1ef5f1
 ```
 
 Our module reflects the dependency:
@@ -146,7 +146,7 @@ Our module reflects the dependency:
 ```
 $ go list -m all
 github.com/go-modules-by-example/tools
-golang.org/x/tools v0.0.0-20181023010539-40a48ad93fbe
+golang.org/x/tools v0.0.0-20181107161202-aa0cdd1ef5f1
 ```
 
 Verify `stringer` is available on our `PATH`:
@@ -158,7 +158,7 @@ $ which stringer
 
 Use `stringer` via a `go:generate` directive:
 
-```
+```go
 $ cat painkiller.go
 package main
 
@@ -207,7 +207,7 @@ remote:
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

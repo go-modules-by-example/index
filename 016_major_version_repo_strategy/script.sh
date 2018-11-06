@@ -15,11 +15,7 @@ git config --global push.default current
 mkdir -p $HOME/scratchpad/repos
 repo=$HOME/scratchpad/repos/goinfo
 
-cd $(mktemp -d)
-go mod init mod
-go get -m github.com/marwan-at-work/mod
-go install github.com/marwan-at-work/mod/cmd/mod
-mod_version=$(go list -m github.com/marwan-at-work/mod)
+gobin github.com/marwan-at-work/mod/cmd/mod@v0.1.0
 
 # =====================================================
 # Generic initial commit for all repos
@@ -237,4 +233,4 @@ echo github.com/$GITHUB_ORG/goinfo-maj-subdir
 
 # block: version details
 go version
-echo "$mod_version"
+gobin -v github.com/marwan-at-work/mod/cmd/mod

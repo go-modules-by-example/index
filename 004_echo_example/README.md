@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## `** REVIEW REQUIRED **`
 
@@ -128,17 +128,17 @@ Now, we explicitly add `github.com/labstack/echo@v3.2.1` as a requirement:
 $ go get github.com/labstack/echo@v3.2.1
 go: finding github.com/labstack/echo v3.2.1
 go: downloading github.com/labstack/echo v3.2.1+incompatible
-go: finding github.com/labstack/gommon/log latest
 go: finding github.com/labstack/gommon/color latest
+go: finding github.com/labstack/gommon/log latest
 go: finding golang.org/x/crypto/acme/autocert latest
 go: finding golang.org/x/crypto/acme latest
 go: finding golang.org/x/crypto latest
-go: downloading golang.org/x/crypto v0.0.0-20181009213950-7c1a557ab941
+go: downloading golang.org/x/crypto v0.0.0-20181106171534-e4dc69e5b2fd
 go: finding github.com/labstack/gommon v0.2.7
 go: downloading github.com/labstack/gommon v0.2.7
+go: finding github.com/mattn/go-isatty v0.0.4
 go: finding github.com/valyala/fasttemplate latest
 go: finding github.com/mattn/go-colorable v0.0.9
-go: finding github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/mattn/go-isatty v0.0.4
 go: downloading github.com/mattn/go-colorable v0.0.9
 go: downloading github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4
@@ -166,7 +166,7 @@ require (
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v0.0.0-20170224212429-dcecefd839c4 // indirect
-	golang.org/x/crypto v0.0.0-20181009213950-7c1a557ab941 // indirect
+	golang.org/x/crypto v0.0.0-20181106171534-e4dc69e5b2fd // indirect
 )
 ```
 
@@ -175,7 +175,7 @@ Et voila.
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

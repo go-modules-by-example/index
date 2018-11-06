@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## Semantic import versioning by example
 
@@ -228,8 +228,7 @@ $ mkdir contributors designers
 Create the `contributors` package:
 
 ```go
-// /home/gopher/scratchpad/goinfo/contributors/contributors.go
-
+$ cat contributors/contributors.go
 package contributors
 
 type Person struct {
@@ -253,8 +252,7 @@ func Details() []Person {
 Create the `designers` package:
 
 ```go
-// /home/gopher/scratchpad/goinfo/designers/designers.go
-
+$ cat designers/designers.go
 package designers
 
 import "github.com/go-modules-by-example/goinfo/contributors"
@@ -286,8 +284,7 @@ go: creating new go.mod: module github.com/go-modules-by-example/peopleprinter
 Create a single `main` package in `github.com/go-modules-by-example/peopleprinter`.
 
 ```go
-// /home/gopher/scratchpad/peopleprinter/main.go
-
+$ cat main.go
 package main
 
 import (
@@ -311,8 +308,7 @@ $ go mod edit -require=github.com/go-modules-by-example/goinfo@v0.0.0 -replace=g
 We see the effect in the `go.mod` file:
 
 ```
-// /home/gopher/scratchpad/peopleprinter/go.mod
-
+$ cat go.mod
 module github.com/go-modules-by-example/peopleprinter
 
 require github.com/go-modules-by-example/goinfo v0.0.0
@@ -353,8 +349,7 @@ $ go mod edit -require=github.com/go-modules-by-example/goinfo@v1.0.0 -droprepla
 Confirm the effect in `go.mod`:
 
 ```
-// /home/gopher/scratchpad/peopleprinter/go.mod
-
+$ cat go.mod
 module github.com/go-modules-by-example/peopleprinter
 
 require github.com/go-modules-by-example/goinfo v1.0.0
@@ -408,8 +403,7 @@ remote:
 Now we make the breaking change to `designers`:
 
 ```go
-// /home/gopher/scratchpad/goinfo/designers/designers.go
-
+$ cat designers/designers.go
 package designers
 
 import "github.com/go-modules-by-example/goinfo/contributors"
@@ -438,7 +432,7 @@ $ go mod init mod
 go: creating new go.mod: module mod
 $ go get -m github.com/marwan-at-work/mod
 go: finding github.com/marwan-at-work/mod v0.1.0
-go: finding github.com/pkg/errors v0.8.0
+go: finding github.com/marwan-at-work/vgop v0.0.0-20180824202541-054e5a7d7b48
 ...
 ```
 
@@ -477,8 +471,7 @@ $ git push -q origin v2.0.0
 Adapt `peopleprinter` to use both `github.com/go-modules-by-example/goinfo` and `github.com/go-modules-by-example/goinfo/v2`:
 
 ```go
-// /home/gopher/scratchpad/peopleprinter/main.go
-
+$ cat main.go
 package main
 
 import (
@@ -528,7 +521,7 @@ $ git push -q origin v1.1.0
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 github.com/marwan-at-work/mod v0.1.0
 ```
 

@@ -16,7 +16,7 @@ git config --global push.default current
 sudo apt-get update -q > /dev/null 2>&1
 sudo apt-get install -q -y graphviz > /dev/null 2>&1
 
-deckCommit=7b4a8a7c9dfb9243ab16d8a2abd1cedb553e4094
+export deckCommit=7b4a8a7c9dfb9243ab16d8a2abd1cedb553e4094
 
 # tidy up if we already have the repo
 now=$(date +'%Y%m%d%H%M%S_%N')
@@ -63,6 +63,8 @@ echo "graph [rankdir=TB, overlap=false];" >> graph.dot
 cat unver.txt  | awk '{print "\""$1"\" -> \""$2"\""};' >> graph.dot
 echo "}" >> graph.dot
 twopi -Tsvg -o dag.svg graph.dot
+
+# egrunner_envsubst: +deckCommit
 
 mkdir radial hbar
 pushd $GOPATH

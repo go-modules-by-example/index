@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## Options for repository structure with multiple major versions
 
@@ -145,17 +145,17 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit d26d22605786b6365bf037261734ac2e5199d464 (HEAD -> master, tag: v1.0.0, origin/master)
+commit 737f5c62c273a58a0c71df2349fd1720e6a4f8c6 (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Thu Oct 25 21:04:51 2018 +0000
+Date:   Wed Nov 7 16:25:31 2018 +0000
 
     Initial commit of goinfo-maj-branch
 $ git branch v1
 $ git push -q origin v1
-remote:
-remote: Create a pull request for 'v1' on GitHub by visiting:
-remote:      https://github.com/go-modules-by-example/goinfo-maj-branch/pull/new/v1
-remote:
+remote: 
+remote: Create a pull request for 'v1' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/goinfo-maj-branch/pull/new/v1        
+remote: 
 ```
 
 Points to note:
@@ -180,9 +180,9 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit a043da1d4d8e9d6430606614e02a94295b6dd8c1 (HEAD -> master, tag: v1.0.0, origin/master)
+commit 5971ffd7043b8078a63bf37df612d6eba103d670 (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Thu Oct 25 21:04:41 2018 +0000
+Date:   Wed Nov 7 16:25:20 2018 +0000
 
     Initial commit of goinfo-maj-subdir
 $ mkdir v2
@@ -250,14 +250,14 @@ go: finding github.com/go-modules-by-example/goinfo-maj-branch/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-subdir/designers latest
-go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
-go: downloading github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
-go: finding github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
-go: downloading github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
+go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
+go: downloading github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
+go: finding github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
+go: downloading github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
 go: finding github.com/go-modules-by-example/goinfo/contributors latest
 go: finding github.com/go-modules-by-example/goinfo v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo v1.0.0
@@ -273,10 +273,10 @@ Commit, push and tag an initial release of `github.com/go-modules-by-example/mul
 $ git add -A
 $ git commit -q -am "Initial commit of $r"
 $ git push -q origin
-remote:
-remote: Create a pull request for 'master' on GitHub by visiting:
-remote:      https://github.com/go-modules-by-example/multi-peopleprinter/pull/new/master
-remote:
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/multi-peopleprinter/pull/new/master        
+remote: 
 $ git tag v1.0.0
 $ git push -q origin v1.0.0
 ```
@@ -284,7 +284,7 @@ $ git push -q origin v1.0.0
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 github.com/marwan-at-work/mod v0.1.0
 ```
 

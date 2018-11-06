@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## Vendoring support
 
@@ -24,8 +24,8 @@ Create a module:
 Add a simple dependency to a `main` package in our module:
 
 
-```
-{{PrintBlock "example" -}}
+```go
+{{PrintBlockOut "example" -}}
 ```
 
 Run as a quick "test":
@@ -100,7 +100,7 @@ go: creating new go.mod: module example.com/hello
 Add a simple dependency to a `main` package in our module:
 
 
-```
+```go
 $ cat hello.go
 package main
 
@@ -184,7 +184,7 @@ modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

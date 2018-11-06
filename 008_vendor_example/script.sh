@@ -31,7 +31,7 @@ EOD
 gofmt -w hello.go
 
 # block: example
-cat hello.go
+catfile hello.go
 
 # block: run
 go run .

@@ -19,16 +19,19 @@ docker pull golang
 git clone https://github.com/go-modules-by-example/index
 cd index
 
-# block: go install
-go install myitcv.io/cmd/{mdreplace,egrunner,githubcli}
+# behind the scenes we switch to self in order that we
+# utilise the current version, not the latest remote commit
+cd /self
 
-egrun="egrunner -df -v=/tmp:/tmp -out std ./000_simple_example/script.sh"
+export egrun="gobin -m -run myitcv.io/cmd/egrunner -df -v=/tmp:/tmp -out std ./000_simple_example/script.sh"
 
 # block: echo egrun
 echo "\$ $(echo $egrun | sed -e 's+ -df -v=/tmp:/tmp++')"
+
+# egrunner_envsubst: +egrun
 
 # block: egrun
 $egrun | head -n -1
 
 # block: mdrun
-mdreplace -w -long -online ./000_simple_example/README.md
+gobin -m -run myitcv.io/cmd/mdreplace -w -long -online ./000_simple_example/README.md
