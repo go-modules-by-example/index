@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## Using `github.com/rogpeppe/gohack`
 
@@ -26,8 +26,8 @@ Create a module:
 
 Add a simple dependency to a `main` package in our module:
 
-```
-{{PrintBlock "simple example" -}}
+```go
+{{PrintBlockOut "simple example" -}}
 ```
 
 In this case, we use a specific version of our dependency:
@@ -106,12 +106,8 @@ This example shows how to use `gohack`.
 Install `gohack`:
 
 ```
-$ cd $(mktemp -d)
-$ go mod init mod
-go: creating new go.mod: module mod
-$ go get -m github.com/rogpeppe/gohack@v1.0.0-alpha.2
-go: finding github.com/rogpeppe/gohack v1.0.0-alpha.2
-...
+$ gobin github.com/rogpeppe/gohack
+Installed github.com/rogpeppe/gohack@v1.0.0 to /home/gopher/bin/gohack
 ```
 
 Create a module:
@@ -125,7 +121,7 @@ go: creating new go.mod: module example.com/blah
 
 Add a simple dependency to a `main` package in our module:
 
-```
+```go
 $ cat blah.go
 package main
 
@@ -250,8 +246,8 @@ already exists, it will be updated in place.
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
-github.com/rogpeppe/gohack v1.0.0-alpha.2
+go version go1.11.2 linux/amd64
+github.com/rogpeppe/gohack v1.0.0
 ```
 
 <!-- END -->

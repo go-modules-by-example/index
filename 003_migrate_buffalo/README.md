@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ### Intro
 

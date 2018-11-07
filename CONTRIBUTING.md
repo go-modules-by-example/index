@@ -69,7 +69,7 @@ examples/forks created by your guides (instead of cluttering your personal accou
 `GITHUB_ORG` environment variable above. Similarly, create another organisation that will act as the archive,
 `GITHUB_ORG_ARCHIVE`.
 
-<!-- __JSON: egrunner -df -v=/var/run/docker.sock:/var/run/docker.sock -df -v=/tmp:/tmp contributing.sh # LONG ONLINE
+<!-- __JSON: sh -c "gobin -m -run myitcv.io/cmd/egrunner -df -v=${DOLLAR}PWD:/self -df -v=/var/run/docker.sock:/var/run/docker.sock -df -v=/tmp:/tmp contributing.sh" # LONG ONLINE
 
 Verify that you can pull the required image:
 
@@ -81,12 +81,6 @@ Clone this repo:
 
 ```
 {{PrintBlock "clone" -}}
-```
-
-Install the required commands (assumes your `PATH` is correctly setup):
-
-```
-{{PrintBlock "go install" | lineEllipsis 8 -}}
 ```
 
 Check that you can use `egrunner`:
@@ -115,7 +109,7 @@ Verify that you can pull the required image:
 $ docker pull golang
 Using default tag: latest
 latest: Pulling from library/golang
-Digest: sha256:63ec0e29aeba39c0fe2fc6551c9ca7fa16ddf95394d77ccee75bc7062526a96c
+Digest: sha256:05f8812f1a3e1c9ce44c5a0ba462d1a6d75a0b89abbb2f86b2e02efeda85ce1e
 Status: Image is up to date for golang:latest
 ```
 
@@ -127,31 +121,17 @@ Cloning into 'index'...
 $ cd index
 ```
 
-Install the required commands (assumes your `PATH` is correctly setup):
-
-```
-$ go install myitcv.io/cmd/{mdreplace,egrunner,githubcli}
-go: finding myitcv.io v0.0.0-20181024123957-0907f093ddd0
-go: finding github.com/sclevine/agouti v3.0.0+incompatible
-go: finding github.com/jteeuwen/go-bindata v3.0.7+incompatible
-go: finding github.com/onsi/ginkgo v1.6.0
-go: finding github.com/onsi/gomega v1.4.1
-go: finding github.com/google/go-github v17.0.0+incompatible
-go: finding golang.org/x/net v0.0.0-20180731172858-49c15d80dfbc
-...
-```
-
 Check that you can use `egrunner`:
 
 ```
-$ egrunner -out std ./000_simple_example/script.sh
+$ gobin -m -run myitcv.io/cmd/egrunner -out std ./000_simple_example/script.sh
 ```
 
 should give the output:
 
 ```
 go: creating new go.mod: module example.com/simple
-$ cd $HOME
+$ cd /home/gopher
 $ mkdir simple
 $ cd simple
 $ go mod init example.com/simple
@@ -162,7 +142,7 @@ example.com/simple
 Finally check you can use `mdreplace`:
 
 ```
-$ mdreplace -w -long -online ./000_simple_example/README.md
+$ gobin -m -run myitcv.io/cmd/mdreplace -w -long -online ./000_simple_example/README.md
 ```
 
 <!-- END -->

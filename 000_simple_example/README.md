@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner -df -v=/tmp:/tmp script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner -df -v=/tmp:/tmp script.sh # LONG ONLINE
 
 ## Simple example
 
@@ -14,7 +14,7 @@ This is a simple example
 This is a simple example
 
 ```
-$ cd $HOME
+$ cd /home/gopher
 $ mkdir simple
 $ cd simple
 $ go mod init example.com/simple

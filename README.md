@@ -16,7 +16,7 @@ The release-ordered list of guides:
 * [Creating a module download cache
   "vendor"](012_modvendor/README.md)
 * [Using `gohack` to "hack" on
-  dependencies](https://github.com/myitcv/go-modules-by-example/blob/master/011_using_gohack/README.md)
+  dependencies](011_using_gohack/README.md)
 * [Migrating Buffalo from `dep` to go
   modules](003_migrate_buffalo/README.md)
 * [Tools as dependencies](010_tools/README.md)

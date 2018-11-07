@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## `** REVIEW REQUIRED **`
 
@@ -130,7 +130,7 @@ require github.com/go-chi/chi v3.3.2+incompatible
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

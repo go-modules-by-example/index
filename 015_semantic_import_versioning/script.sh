@@ -87,14 +87,10 @@ func Names() []string {
 EOD
 
 # block: create contributors
-echo // $PWD/contributors/contributors.go
-echo
-cat contributors/contributors.go
+catfile contributors/contributors.go
 
 # block: create designers
-echo // $PWD/designers/designers.go
-echo
-cat designers/designers.go
+catfile designers/designers.go
 
 # block: setup pp structure
 cd $HOME/scratchpad
@@ -119,17 +115,13 @@ func main() {
 EOD
 
 # block: peopleprinter
-echo // $PWD/main.go
-echo
-cat main.go
+catfile main.go
 
 # block: pp initial replace
 go mod edit -require=github.com/$GITHUB_ORG/goinfo@v0.0.0 -replace=github.com/$GITHUB_ORG/goinfo=$HOME/scratchpad/goinfo
 
 # block: pp replace go.mod
-echo // $PWD/go.mod
-echo
-cat go.mod
+catfile go.mod
 
 # block: run peopleprinter
 go run .
@@ -147,9 +139,7 @@ cd $HOME/scratchpad/peopleprinter
 go mod edit -require=github.com/$GITHUB_ORG/goinfo@v1.0.0 -dropreplace=github.com/$GITHUB_ORG/goinfo
 
 # block: pp go.mod v2
-echo // $PWD/go.mod
-echo
-cat go.mod
+catfile go.mod
 
 # block: pp run v2
 go run .
@@ -185,9 +175,7 @@ func FullNames() []string {
 EOD
 
 # block: breaking designers
-echo // $PWD/designers/designers.go
-echo
-cat designers/designers.go
+catfile designers/designers.go
 
 # block: install mod
 cd $(mktemp -d)
@@ -233,9 +221,7 @@ func main() {
 EOD
 
 # block: pp v2
-echo // $HOME/scratchpad/peopleprinter/main.go
-echo
-cat main.go
+catfile main.go
 
 # block: run v2
 cd $HOME/scratchpad/peopleprinter

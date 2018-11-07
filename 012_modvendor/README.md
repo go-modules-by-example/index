@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## "Vendoring" your module download cache
 
@@ -29,8 +29,8 @@ _Notice, because of the git remote, `go mod init` can be called without any argu
 Add a simple dependency to a `main` package:
 
 
-```
-{{PrintBlock "example" -}}
+```go
+{{PrintBlockOut "example" -}}
 ```
 
 Run our example as a quick "test":
@@ -122,8 +122,8 @@ _Notice, because of the git remote, `go mod init` can be called without any argu
 Add a simple dependency to a `main` package:
 
 
-```
-$ cat hello.go
+```go
+$ cat /home/gopher/scratchpad/modvendor_example/hello.go
 package main
 
 import (
@@ -212,10 +212,10 @@ The `modvendor` directory can now be committed alongside the source code:
 $ git add -A
 $ git commit -q -am 'Initial commit'
 $ git push -q origin master
-remote:
-remote: Create a pull request for 'master' on GitHub by visiting:
-remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master
-remote:
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master        
+remote: 
 ```
 
 ### Open questions
@@ -229,7 +229,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->

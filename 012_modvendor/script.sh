@@ -45,7 +45,7 @@ EOD
 gofmt -w hello.go
 
 # block: example
-cat hello.go
+catfile $PWD/hello.go
 
 # block: run
 go run .

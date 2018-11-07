@@ -1,4 +1,4 @@
-<!-- __JSON: egrunner script.sh # LONG ONLINE
+<!-- __JSON: gobin -m -run myitcv.io/cmd/egrunner script.sh # LONG ONLINE
 
 ## `** REVIEW REQUIRED **`
 
@@ -197,7 +197,7 @@ dependencies is being discussed in https://github.com/golang/go/issues/24101.
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.11.2 linux/amd64
 ```
 
 <!-- END -->
