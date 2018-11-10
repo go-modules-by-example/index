@@ -153,8 +153,8 @@ git push -q origin v1.0.0
 
 # block: tag v1 branch of gi
 cd $HOME/scratchpad/goinfo
-git branch v1
-git push -q origin v1
+git branch master.v1
+git push -q origin master.v1
 
 cd $HOME/scratchpad/goinfo
 cat <<EOD | gofmt > designers/designers.go

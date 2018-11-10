@@ -91,8 +91,8 @@ r=$(basename $PWD)
 
 # block: major branch changes
 git log --decorate -1
-git branch v1
-git push -q origin v1
+git branch master.v1
+git push -q origin master.v1
 
 cat <<EOD | gofmt > designers/designers.go
 package designers
