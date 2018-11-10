@@ -392,11 +392,11 @@ We create a `v1` branch and push:
 
 ```
 $ cd /home/gopher/scratchpad/goinfo
-$ git branch v1
-$ git push -q origin v1
+$ git branch master.v1
+$ git push -q origin master.v1
 remote: 
-remote: Create a pull request for 'v1' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/goinfo/pull/new/v1        
+remote: Create a pull request for 'master.v1' on GitHub by visiting:        
+remote:      https://github.com/go-modules-by-example/goinfo/pull/new/master.v1        
 remote: 
 ```
 
@@ -432,7 +432,7 @@ $ go mod init mod
 go: creating new go.mod: module mod
 $ go get -m github.com/marwan-at-work/mod
 go: finding github.com/marwan-at-work/mod v0.1.0
-go: finding github.com/marwan-at-work/vgop v0.0.0-20180824202541-054e5a7d7b48
+go: finding github.com/PuerkitoBio/goquery v1.4.1
 ...
 ```
 
