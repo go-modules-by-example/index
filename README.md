@@ -25,6 +25,7 @@ The release-ordered list of guides:
 * [Semantic import versioning by example](015_semantic_import_versioning/README.md)
 * [Options for repository structure with multiple major versions](016_major_version_repo_strategy/README.md)
 * [Using `gobin` to install/run tools](017_using_gobin/README.md)
+* [Using `go list`, `go mod why` and `go mod graph`](018_go_list_mod_graph_why/README.md)
 
 WIP guides:
 
