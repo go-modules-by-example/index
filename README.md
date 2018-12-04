@@ -26,6 +26,7 @@ The release-ordered list of guides:
 * [Options for repository structure with multiple major versions](016_major_version_repo_strategy/README.md)
 * [Using `gobin` to install/run tools](017_using_gobin/README.md)
 * [Using `go list`, `go mod why` and `go mod graph`](018_go_list_mod_graph_why/README.md)
+* [Using `apidiff` to determine API compatibility](019_apidiff/README.md)
 
 WIP guides:
 
