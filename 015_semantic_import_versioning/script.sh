@@ -14,10 +14,6 @@ git config --global push.default current
 
 mkdir $HOME/scratchpad
 
-# why is tree not installed by default?!
-# apt-get update -q > /dev/null 2>&1
-# apt-get install -q tree > /dev/null 2>&1
-
 # tidy up if we already have the repos
 now=$(date +'%Y%m%d%H%M%S_%N')
 githubcli repo renameIfExists $GITHUB_ORG/goinfo goinfo_$now
@@ -178,12 +174,9 @@ EOD
 catfile designers/designers.go
 
 # block: install mod
-cd $(mktemp -d)
-go mod init mod
-go get -m github.com/marwan-at-work/mod
-go install github.com/marwan-at-work/mod/cmd/mod
+gobin github.com/marwan-at-work/mod/cmd/mod
 
-mod_version=$(go list -m github.com/marwan-at-work/mod)
+mod_version=$(gobin -p github.com/marwan-at-work/mod/cmd/mod)
 
 # block: ensure mod working
 mod -help
