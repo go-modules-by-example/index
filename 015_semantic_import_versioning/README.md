@@ -130,7 +130,7 @@ Now we need to prepare `{{PrintOut "gi mod"}}` to become a `v2` module. This wil
 intra-module import paths. We will use [`github.com/marwan-at-work/mod`](https://github.com/marwan-at-work/mod) to
 do this.
 
-Install `mod`:
+Install `mod` using [`gobin`](https://github.com/myitcv/gobin):
 
 ```
 {{PrintBlock "install mod" | lineEllipsis 6 -}}
@@ -424,16 +424,11 @@ Now we need to prepare `github.com/go-modules-by-example/goinfo` to become a `v2
 intra-module import paths. We will use [`github.com/marwan-at-work/mod`](https://github.com/marwan-at-work/mod) to
 do this.
 
-Install `mod`:
+Install `mod` using [`gobin`](https://github.com/myitcv/gobin):
 
 ```
-$ cd $(mktemp -d)
-$ go mod init mod
-go: creating new go.mod: module mod
-$ go get -m github.com/marwan-at-work/mod
-go: finding github.com/marwan-at-work/mod v0.1.0
-go: finding github.com/PuerkitoBio/goquery v1.4.1
-...
+$ gobin github.com/marwan-at-work/mod/cmd/mod
+Installed github.com/marwan-at-work/mod/cmd/mod@v0.1.0 to /home/gopher/bin/mod
 ```
 
 Verify `mod` is working:
@@ -522,7 +517,7 @@ $ git push -q origin v1.1.0
 
 ```
 go version go1.11.2 linux/amd64
-github.com/marwan-at-work/mod v0.1.0
+/home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.1.0/github.com/marwan-at-work/mod/cmd/mod/mod
 ```
 
 <!-- END -->
