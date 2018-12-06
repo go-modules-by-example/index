@@ -38,6 +38,12 @@ Use `apidiff` to summarise the changes:
 {{PrintBlock "changes" -}}
 ```
 
+See the usage for more information:
+
+```
+{{PrintBlock "help" -}}
+```
+
 ### Version details
 
 ```
@@ -101,21 +107,36 @@ func FullName() string {
 Use `apidiff` to summarise the changes:
 
 ```
-$ apidiff specialapi_v1.0.0 specialapi_v2.0.0
+$ apidiff ./specialapi_v1.0.0 ./specialapi_v2.0.0
 Incompatible changes:
 - Name: removed
 - Number: changed from untyped int to untyped string
 - RandomNumber: value changed from 4 to 6
-
 Compatible changes:
 - FullName: added
+```
+
+See the usage for more information:
+
+```
+$ apidiff -help
+usage:
+apidiff OLD NEW
+   compares OLD and NEW package APIs
+   where OLD and NEW are either import paths or files of export data
+apidiff -w FILE IMPORT_PATH
+   writes export data of the package at IMPORT_PATH to FILE
+  -incompatible
+    	display only incompatible changes
+  -w string
+    	file for export data
 ```
 
 ### Version details
 
 ```
 go version go1.11.2 linux/amd64
-apidiff https://go.googlesource.com/exp refs/changes/97/143897/6
+golang.org/x/exp v0.0.0-20181206211736-68cc7b1f272e
 ```
 
 <!-- END -->
