@@ -5,9 +5,9 @@
 Very often when working on a library we make changes and are faced with the question: what has changed between two
 versions of a package (or module of packages)? Have we only made backwards compatible changes?
 
-This temporary guide makes use of the command [`apidiff`]({{PrintOut "apidiff repo"}}), a light wrapper around the
-work-in-progress [`apidiff` package](https://go-review.googlesource.com/c/exp/+/143897), to analyse the changes between
-two versions of the [`{{PrintOut "specialapi package"}}`]({{PrintOut "specialapi repo"}}) package.
+This guide makes use of the [`apidiff` command](https://godoc.org/golang.org/x/exp/cmd/apidiff), a light wrapper around
+[the `apidiff` package](https://godoc.org/golang.org/x/exp/apidiff), to analyse the changes between two versions of the
+[`{{PrintOut "specialapi package"}}`]({{PrintOut "specialapi repo"}}) package.
 
 Ultimately this guide will be entirely replaced by a guide that covers `go release`, where it is expected `apidiff` (the
 library) will principally be used.
@@ -57,9 +57,9 @@ See the usage for more information:
 Very often when working on a library we make changes and are faced with the question: what has changed between two
 versions of a package (or module of packages)? Have we only made backwards compatible changes?
 
-This temporary guide makes use of the command [`apidiff`](https://github.com/go-modules-by-example/apidiff), a light wrapper around the
-work-in-progress [`apidiff` package](https://go-review.googlesource.com/c/exp/+/143897), to analyse the changes between
-two versions of the [`github.com/go-modules-by-example/specialapi`](https://github.com/go-modules-by-example/specialapi) package.
+This guide makes use of the [`apidiff` command](https://godoc.org/golang.org/x/exp/cmd/apidiff), a light wrapper around
+[the `apidiff` package](https://godoc.org/golang.org/x/exp/apidiff), to analyse the changes between two versions of the
+[`github.com/go-modules-by-example/specialapi`](https://github.com/go-modules-by-example/specialapi) package.
 
 Ultimately this guide will be entirely replaced by a guide that covers `go release`, where it is expected `apidiff` (the
 library) will principally be used.
@@ -126,6 +126,12 @@ apidiff OLD NEW
    where OLD and NEW are either import paths or files of export data
 apidiff -w FILE IMPORT_PATH
    writes export data of the package at IMPORT_PATH to FILE
+   NOTE: In a GOPATH-less environment, this option consults the
+   module cache by default, unless used in the directory that
+   contains the go.mod module definition that IMPORT_PATH belongs
+   to. In most cases users want the latter behavior, so be sure
+   to cd to the exact directory which contains the module
+   definition of IMPORT_PATH.
   -incompatible
     	display only incompatible changes
   -w string
@@ -135,8 +141,8 @@ apidiff -w FILE IMPORT_PATH
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
-golang.org/x/exp v0.0.0-20181206211736-68cc7b1f272e
+go version go1.11.5 linux/amd64
+golang.org/x/exp v0.0.0-20190125153040-c74c464bbbf2
 ```
 
 <!-- END -->
