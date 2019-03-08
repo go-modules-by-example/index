@@ -121,10 +121,13 @@ Run as a quick "test":
 $ go run .
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2
+go: extracting rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/sampler v1.3.0
+go: extracting rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: extracting golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
@@ -184,7 +187,7 @@ modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->

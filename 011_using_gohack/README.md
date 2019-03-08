@@ -143,8 +143,11 @@ go: finding rsc.io/quote v1.5.1
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/quote v1.5.1
+go: extracting rsc.io/quote v1.5.1
 go: downloading rsc.io/sampler v1.3.0
+go: extracting rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: extracting golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 ```
 
 Run as a quick "test":
@@ -173,6 +176,7 @@ $ go mod edit -json
 	"Module": {
 		"Path": "example.com/blah"
 	},
+	"Go": "1.12",
 	"Require": [
 		{
 			"Path": "rsc.io/quote",
@@ -246,7 +250,7 @@ already exists, it will be updated in place.
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 github.com/rogpeppe/gohack v1.0.0
 ```
 

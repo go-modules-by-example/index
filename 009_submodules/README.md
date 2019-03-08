@@ -156,10 +156,6 @@ go: creating new go.mod: module github.com/go-modules-by-example/submodules
 $ git add go.mod
 $ git commit -q -am 'Initial commit'
 $ git push -q
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/submodules/pull/new/master        
-remote: 
 ```
 
 Create a sub package `b` and test that it builds:
@@ -218,6 +214,7 @@ Build and run that main package:
 $ go run .
 go: finding github.com/go-modules-by-example/submodules/b v0.1.1
 go: downloading github.com/go-modules-by-example/submodules/b v0.1.1
+go: extracting github.com/go-modules-by-example/submodules/b v0.1.1
 Gopher
 $ go list -m github.com/go-modules-by-example/submodules/b
 github.com/go-modules-by-example/submodules/b v0.1.1
@@ -249,6 +246,7 @@ go: creating new go.mod: module example.com/blah
 $ go get github.com/go-modules-by-example/submodules/a@v1.0.0
 go: finding github.com/go-modules-by-example/submodules/a v1.0.0
 go: downloading github.com/go-modules-by-example/submodules/a v1.0.0
+go: extracting github.com/go-modules-by-example/submodules/a v1.0.0
 $ a
 Gopher
 ```
@@ -256,7 +254,7 @@ Gopher
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->
