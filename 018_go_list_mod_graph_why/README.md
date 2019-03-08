@@ -263,7 +263,7 @@ The nodes of this graph can also be given by:
 $ go list -m all
 github.com/go-modules-by-example/listmodwhygraph
 github.com/davecgh/go-spew v1.1.1
-github.com/go-modules-by-example/incomplete v0.0.0-20181113164925-badf929e9e29
+github.com/go-modules-by-example/incomplete v0.0.0-20190308213348-d9340c80762e
 ...
 ```
 
@@ -292,11 +292,11 @@ Use `go list` again to find out more information about `golang.org/x/tools`:
 $ go list -m -json golang.org/x/tools
 {
 	"Path": "golang.org/x/tools",
-	"Version": "v0.0.0-20181113152950-150d8ac28524",
-	"Time": "2018-11-13T15:29:50Z",
+	"Version": "v0.0.0-20190308174544-00c44ba9c14f",
+	"Time": "2019-03-08T17:45:44Z",
 	"Indirect": true,
-	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20181113152950-150d8ac28524",
-	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20181113152950-150d8ac28524.mod"
+	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20190308174544-00c44ba9c14f",
+	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20190308174544-00c44ba9c14f.mod"
 }
 ```
 
@@ -310,11 +310,13 @@ We can also see this from the `// indirect` annotation in the main module's `go.
 $ cat /home/gopher/scratchpad/listmodwhygraph/go.mod
 module github.com/go-modules-by-example/listmodwhygraph
 
+go 1.12
+
 require (
-	github.com/go-modules-by-example/incomplete v0.0.0-20181113164925-badf929e9e29
+	github.com/go-modules-by-example/incomplete v0.0.0-20190308213348-d9340c80762e
 	github.com/kr/pretty v0.1.0
-	github.com/sirupsen/logrus v1.2.0
-	golang.org/x/tools v0.0.0-20181113152950-150d8ac28524 // indirect
+	github.com/sirupsen/logrus v1.3.0
+	golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f // indirect
 )
 ```
 
@@ -354,6 +356,7 @@ github.com/sirupsen/logrus
 golang.org/x/tools/go/internal/gcimporter
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/cgo
+golang.org/x/tools/go/internal/packagesdriver
 golang.org/x/tools/internal/fastwalk
 golang.org/x/tools/internal/gopathwalk
 golang.org/x/tools/internal/semver
@@ -452,7 +455,7 @@ $ sfdp -Tsvg -o graph.svg graph.dot
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->

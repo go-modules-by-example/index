@@ -143,10 +143,13 @@ Run our example as a quick "test":
 $ go run .
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2
+go: extracting rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/sampler v1.3.0
+go: extracting rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: extracting golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
@@ -176,19 +179,25 @@ Review the contents of `modvendor`:
 ```
 $ find modvendor -type f
 modvendor/rsc.io/sampler/@v/list
+modvendor/rsc.io/sampler/@v/v1.3.0.lock
 modvendor/rsc.io/sampler/@v/v1.3.0.mod
 modvendor/rsc.io/sampler/@v/v1.3.0.zip
 modvendor/rsc.io/sampler/@v/v1.3.0.info
 modvendor/rsc.io/sampler/@v/v1.3.0.ziphash
+modvendor/rsc.io/sampler/@v/list.lock
 modvendor/rsc.io/quote/@v/list
 modvendor/rsc.io/quote/@v/v1.5.2.mod
 modvendor/rsc.io/quote/@v/v1.5.2.ziphash
 modvendor/rsc.io/quote/@v/v1.5.2.zip
+modvendor/rsc.io/quote/@v/v1.5.2.lock
 modvendor/rsc.io/quote/@v/v1.5.2.info
+modvendor/rsc.io/quote/@v/list.lock
 modvendor/golang.org/x/text/@v/list
 modvendor/golang.org/x/text/@v/v0.0.0-20170915032832-14c0d48ead0c.mod
 modvendor/golang.org/x/text/@v/v0.0.0-20170915032832-14c0d48ead0c.ziphash
 modvendor/golang.org/x/text/@v/v0.0.0-20170915032832-14c0d48ead0c.info
+modvendor/golang.org/x/text/@v/v0.0.0-20170915032832-14c0d48ead0c.lock
+modvendor/golang.org/x/text/@v/list.lock
 modvendor/golang.org/x/text/@v/v0.0.0-20170915032832-14c0d48ead0c.zip
 ```
 
@@ -201,8 +210,11 @@ go: finding rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/quote v1.5.2
+go: extracting rsc.io/quote v1.5.2
 go: downloading rsc.io/sampler v1.3.0
+go: extracting rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: extracting golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 Hello, world.
 ```
 
@@ -212,10 +224,6 @@ The `modvendor` directory can now be committed alongside the source code:
 $ git add -A
 $ git commit -q -am 'Initial commit'
 $ git push -q origin master
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/modvendor_example/pull/new/master        
-remote: 
 ```
 
 ### Open questions
@@ -229,7 +237,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->

@@ -184,6 +184,7 @@ mod -help
 # block: mod upgrade
 cd $HOME/scratchpad/goinfo
 mod upgrade
+go mod edit -module github.com/$GITHUB_ORG/goinfo/v2
 
 # block: breaking commit of gi
 git add -A

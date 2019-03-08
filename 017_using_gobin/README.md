@@ -168,6 +168,8 @@ Define a module:
 ```
 $ cat go.mod
 module example.com/hello
+
+go 1.12
 ```
 
 Add a [tool dependency](https://github.com/go-modules-by-example/index/blob/master/010_tools/README.md):
@@ -237,7 +239,7 @@ For headaches, take Ibuprofen
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->

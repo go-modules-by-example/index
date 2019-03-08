@@ -138,7 +138,9 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20181107161202-aa0cdd1ef5f1
+go: downloading golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
+go: extracting golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
+go: finding golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
 ```
 
 Our module reflects the dependency:
@@ -146,7 +148,8 @@ Our module reflects the dependency:
 ```
 $ go list -m all
 github.com/go-modules-by-example/tools
-golang.org/x/tools v0.0.0-20181107161202-aa0cdd1ef5f1
+golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
+golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
 ```
 
 Verify `stringer` is available on our `PATH`:
@@ -198,16 +201,12 @@ EOD
 $ git add -A
 $ git commit -q -am 'Initial commit'
 $ git push -q origin
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/tools/pull/new/master        
-remote: 
 ```
 
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->

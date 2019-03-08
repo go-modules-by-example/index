@@ -145,9 +145,9 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit b731cafad14a5eca452a84fb546b5dd3d7fced6f (HEAD -> master, tag: v1.0.0, origin/master)
+commit 39fbe18ab295297f7d37a908a1825d634a6a561b (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Sat Nov 10 20:54:14 2018 +0000
+Date:   Fri Mar 8 21:34:21 2019 +0000
 
     Initial commit of goinfo-maj-branch
 $ git branch master.v1
@@ -180,9 +180,9 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit 5140a73629eb14d0d35d49d34f1ef230320eb90c (HEAD -> master, tag: v1.0.0, origin/master)
+commit b39e30cc0005f142bf3de1dc228174c46ce2171c (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Sat Nov 10 20:54:04 2018 +0000
+Date:   Fri Mar 8 21:34:10 2019 +0000
 
     Initial commit of goinfo-maj-subdir
 $ mkdir v2
@@ -253,14 +253,19 @@ go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2/designers late
 go: finding github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
-go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
-go: downloading github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
+go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
+go: downloading github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: finding github.com/go-modules-by-example/goinfo/contributors latest
 go: finding github.com/go-modules-by-example/goinfo v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo v1.0.0
 .../goinfo-maj-branch/designers.Names():          [Robert Griesemer Rob Pike Ken Thompson]
 .../goinfo-maj-branch/v2/designers.FullNames():   [Robert Griesemer Rob Pike Ken Thompson]
 .../goinfo-maj-subdir/designers.Names():          [Robert Griesemer Rob Pike Ken Thompson]
@@ -273,10 +278,6 @@ Commit, push and tag an initial release of `github.com/go-modules-by-example/mul
 $ git add -A
 $ git commit -q -am "Initial commit of $r"
 $ git push -q origin
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/multi-peopleprinter/pull/new/master        
-remote: 
 $ git tag v1.0.0
 $ git push -q origin v1.0.0
 ```
@@ -284,7 +285,7 @@ $ git push -q origin v1.0.0
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
+go version go1.12 linux/amd64
 github.com/marwan-at-work/mod v0.1.0
 ```
 

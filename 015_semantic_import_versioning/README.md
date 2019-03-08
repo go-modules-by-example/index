@@ -311,6 +311,8 @@ We see the effect in the `go.mod` file:
 $ cat go.mod
 module github.com/go-modules-by-example/peopleprinter
 
+go 1.12
+
 require github.com/go-modules-by-example/goinfo v0.0.0
 
 replace github.com/go-modules-by-example/goinfo => /home/gopher/scratchpad/goinfo
@@ -320,7 +322,6 @@ Run the `main` package as a "test":
 
 ```
 $ go run .
-go: finding github.com/go-modules-by-example/goinfo v0.0.0
 The designers of Go: Robert Griesemer, Rob Pike, Ken Thompson
 ```
 
@@ -331,10 +332,6 @@ $ cd /home/gopher/scratchpad/goinfo
 $ git add -A
 $ git commit -q -am 'Initial commit of goinfo'
 $ git push -q origin
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/goinfo/pull/new/master        
-remote: 
 $ git tag v1.0.0
 $ git push -q origin v1.0.0
 ```
@@ -352,6 +349,8 @@ Confirm the effect in `go.mod`:
 $ cat go.mod
 module github.com/go-modules-by-example/peopleprinter
 
+go 1.12
+
 require github.com/go-modules-by-example/goinfo v1.0.0
 ```
 
@@ -361,6 +360,7 @@ Re-run our "test":
 $ go run .
 go: finding github.com/go-modules-by-example/goinfo v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo v1.0.0
 The designers of Go: Robert Griesemer, Rob Pike, Ken Thompson
 ```
 
@@ -370,10 +370,6 @@ Commit, push and tag version `v1.0.0` of `github.com/go-modules-by-example/peopl
 $ git add -A
 $ git commit -q -am 'Initial commit of peopleprinter'
 $ git push -q origin
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/peopleprinter/pull/new/master        
-remote: 
 $ git tag v1.0.0
 $ git push -q origin v1.0.0
 ```
@@ -428,7 +424,7 @@ Install `mod` using [`gobin`](https://github.com/myitcv/gobin):
 
 ```
 $ gobin github.com/marwan-at-work/mod/cmd/mod
-Installed github.com/marwan-at-work/mod/cmd/mod@v0.1.0 to /home/gopher/bin/mod
+Installed github.com/marwan-at-work/mod/cmd/mod@v0.2.0 to /home/gopher/bin/mod
 ```
 
 Verify `mod` is working:
@@ -449,6 +445,7 @@ Prepare our module for `v2` (the next major version):
 ```
 $ cd /home/gopher/scratchpad/goinfo
 $ mod upgrade
+$ go mod edit -module github.com/go-modules-by-example/goinfo/v2
 ```
 
 Commit, push and tag a new major version of `github.com/go-modules-by-example/goinfo`, which we now refer to as `github.com/go-modules-by-example/goinfo/v2`:
@@ -490,6 +487,7 @@ $ go run .
 go: finding github.com/go-modules-by-example/goinfo/v2/designers latest
 go: finding github.com/go-modules-by-example/goinfo/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo/v2 v2.0.0
+go: extracting github.com/go-modules-by-example/goinfo/v2 v2.0.0
 The designers of Go: Robert Griesemer, Rob Pike, Ken Thompson
 The designers of Go: Robert Griesemer, Rob Pike, Ken Thompson
 ```
@@ -516,8 +514,8 @@ $ git push -q origin v1.1.0
 ### Version details
 
 ```
-go version go1.11.2 linux/amd64
-/home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.1.0/github.com/marwan-at-work/mod/cmd/mod/mod
+go version go1.12 linux/amd64
+/home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.2.0/github.com/marwan-at-work/mod/cmd/mod/mod
 ```
 
 <!-- END -->
