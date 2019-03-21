@@ -214,7 +214,7 @@ module does not exist:
 ```
 
 Exclusions only apply to builds of the current module. If the current module
-were required by a larger build, the exclusions would not apply.= For example,
+were required by a larger build, the exclusions would not apply. For example,
 an exclusion in rsc.io/quote's go.mod will not apply to our “hello, world”
 build. This policy balances giving the authors of the current module almost
 arbitrary control over their own build, without also subjecting them to almost
@@ -332,7 +332,7 @@ Let's write an interesting “hello, world” program. Create a directory outsid
 your GOPATH/src tree and change into it:
 
 ```
-$ cd $HOME
+$ cd /home/gopher
 $ mkdir hello
 $ cd hello
 ```
@@ -361,10 +361,13 @@ go: creating new go.mod: module github.com/you/hello
 $ go build
 go: finding rsc.io/quote v1.5.2
 go: downloading rsc.io/quote v1.5.2
+go: extracting rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 go: downloading rsc.io/sampler v1.3.0
+go: extracting rsc.io/sampler v1.3.0
 go: downloading golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
+go: extracting golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
 $ ./hello
 Hello, world.
 ```
@@ -380,6 +383,8 @@ this case, the go build wrote a new go.mod:
 ```
 $ cat go.mod
 module github.com/you/hello
+
+go 1.12
 
 require rsc.io/quote v1.5.2
 ```
@@ -443,8 +448,11 @@ Let's upgrade golang.org/x/text first:
 $ go get golang.org/x/text
 go: finding golang.org/x/text v0.3.0
 go: downloading golang.org/x/text v0.3.0
+go: extracting golang.org/x/text v0.3.0
 $ cat go.mod
 module github.com/you/hello
+
+go 1.12
 
 require (
 	golang.org/x/text v0.3.0 // indirect
@@ -469,7 +477,7 @@ created:
 ```
 $ go test github.com/you/hello rsc.io/quote
 ?   	github.com/you/hello	[no test files]
-ok  	rsc.io/quote	0.002s
+ok  	rsc.io/quote	0.003s
 ```
 
 In the original go command, the package pattern all meant all packages found in
@@ -497,8 +505,11 @@ Another option is to upgrade all modules needed by the build, using go get -u:
 $ go get -u
 go: finding rsc.io/sampler v1.99.99
 go: downloading rsc.io/sampler v1.99.99
+go: extracting rsc.io/sampler v1.99.99
 $ cat go.mod
 module github.com/you/hello
+
+go 1.12
 
 require (
 	golang.org/x/text v0.3.0 // indirect
@@ -550,6 +561,8 @@ Then use go get to ask for a specific version, like maybe v1.3.1:
 $ cat go.mod
 module github.com/you/hello
 
+go 1.12
+
 require (
 	golang.org/x/text v0.3.0 // indirect
 	rsc.io/quote v1.5.2
@@ -558,10 +571,13 @@ require (
 $ go get rsc.io/sampler@v1.3.1
 go: finding rsc.io/sampler v1.3.1
 go: downloading rsc.io/sampler v1.3.1
+go: extracting rsc.io/sampler v1.3.1
 $ go list -m
 github.com/you/hello
 $ cat go.mod
 module github.com/you/hello
+
+go 1.12
 
 require (
 	golang.org/x/text v0.3.0 // indirect
@@ -583,10 +599,13 @@ go: finding rsc.io/quote v1.5.0
 go: finding rsc.io/quote v1.4.0
 go: finding rsc.io/sampler v1.0.0
 go: downloading rsc.io/sampler v1.2.0
+go: extracting rsc.io/sampler v1.2.0
 $ go list -m
 github.com/you/hello
 $ cat go.mod
 module github.com/you/hello
+
+go 1.12
 
 require (
 	golang.org/x/text v0.3.0 // indirect
@@ -610,13 +629,17 @@ github.com/you/hello
 $ cat go.mod
 module github.com/you/hello
 
+go 1.12
+
 require (
 	golang.org/x/text v0.3.0 // indirect
 	rsc.io/quote v1.4.0
 )
 $ go test github.com/you/hello rsc.io/quote
 go: downloading rsc.io/quote v1.4.0
+go: extracting rsc.io/quote v1.4.0
 go: downloading rsc.io/sampler v1.0.0
+go: extracting rsc.io/sampler v1.0.0
 ?   	github.com/you/hello	[no test files]
 ok  	rsc.io/quote	0.002s
 ```
@@ -644,6 +667,8 @@ $ echo "** TODO: REMOVE THIS HACK; see https://github.com/golang/go/issues/26454
 $ cat go.mod
 module github.com/you/hello
 
+go 1.12
+
 require (
 	golang.org/x/text v0.3.0 // indirect
 	rsc.io/quote v1.5.2
@@ -659,6 +684,8 @@ github.com/you/hello
 $ cat go.mod
 module github.com/you/hello
 
+go 1.12
+
 require (
 	golang.org/x/text v0.3.0 // indirect
 	rsc.io/quote v1.5.2
@@ -673,7 +700,7 @@ $ quoteVersion=$(go list -m -f "{{.Version}}" rsc.io/quote)
 ```
 
 Exclusions only apply to builds of the current module. If the current module
-were required by a larger build, the exclusions would not apply.= For example,
+were required by a larger build, the exclusions would not apply. For example,
 an exclusion in rsc.io/quote's go.mod will not apply to our “hello, world”
 build. This policy balances giving the authors of the current module almost
 arbitrary control over their own build, without also subjecting them to almost
@@ -732,29 +759,26 @@ fork github.com/rsc/quote and then push your change to your fork.
 
 ```
 $ cd ../quote
-$ git remote add $GITHUB_ORG https://github.com/$GITHUB_ORG/quote-fork
+$ git remote add go-modules-by-example https://github.com/go-modules-by-example/quote-fork
 $ git commit -a -m 'my fork'
-[my_quote f8de482] my fork
+[my_quote 1ab8a1a] my fork
  1 file changed, 1 insertion(+), 1 deletion(-)
-$ git push -q $GITHUB_ORG
-remote: 
-remote: Create a pull request for 'my_quote' on GitHub by visiting:        
-remote:      https://github.com/go-modules-by-example/quote-fork/pull/new/my_quote        
-remote: 
+$ git push -q go-modules-by-example
 $ git tag v0.0.0-myfork
-$ git push -q $GITHUB_ORG v0.0.0-myfork
+$ git push -q go-modules-by-example v0.0.0-myfork
 ```
 
 Then you can use that as the replacement:
 
 ```
 $ cd ../hello
-$ go mod edit -replace=rsc.io/quote=github.com/$GITHUB_ORG/quote-fork@v0.0.0-myfork
+$ go mod edit -replace=rsc.io/quote=github.com/go-modules-by-example/quote-fork@v0.0.0-myfork
 $ go list -m
 go: finding github.com/go-modules-by-example/quote-fork v0.0.0-myfork
 github.com/you/hello
 $ go build
 go: downloading github.com/go-modules-by-example/quote-fork v0.0.0-myfork
+go: extracting github.com/go-modules-by-example/quote-fork v0.0.0-myfork
 $ LANG=fr ./hello
 Je peux manger du verre, ça ne me fait pas mal.
 ```
@@ -781,9 +805,9 @@ see vendor directories:
 
 ```
 $ go tool nm hello | grep sampler.hello
-  585de8 D rsc.io/sampler.hello
+  591d48 D rsc.io/sampler.hello
 $ go tool nm vhello | grep sampler.hello
-  585de8 D rsc.io/sampler.hello
+  591d48 D rsc.io/sampler.hello
 ```
 
 Except for this difference, the builds should produce the same binaries. In
@@ -799,7 +823,7 @@ at the start of the title. More posts tomorrow. Thanks, and have fun!
 ### Version details
 
 ```
-go version go1.11.1 linux/amd64
+go version go1.12 linux/amd64
 ```
 
 <!-- END -->
