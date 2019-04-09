@@ -263,7 +263,7 @@ The nodes of this graph can also be given by:
 $ go list -m all
 github.com/go-modules-by-example/listmodwhygraph
 github.com/davecgh/go-spew v1.1.1
-github.com/go-modules-by-example/incomplete v0.0.0-20190308213348-d9340c80762e
+github.com/go-modules-by-example/incomplete v0.0.0-20190409150142-20b11058ff1e
 ...
 ```
 
@@ -292,11 +292,11 @@ Use `go list` again to find out more information about `golang.org/x/tools`:
 $ go list -m -json golang.org/x/tools
 {
 	"Path": "golang.org/x/tools",
-	"Version": "v0.0.0-20190308174544-00c44ba9c14f",
-	"Time": "2019-03-08T17:45:44Z",
+	"Version": "v0.0.0-20190408220357-e5b8258f4918",
+	"Time": "2019-04-08T22:03:57Z",
 	"Indirect": true,
-	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20190308174544-00c44ba9c14f",
-	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20190308174544-00c44ba9c14f.mod"
+	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20190408220357-e5b8258f4918",
+	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20190408220357-e5b8258f4918.mod"
 }
 ```
 
@@ -313,10 +313,10 @@ module github.com/go-modules-by-example/listmodwhygraph
 go 1.12
 
 require (
-	github.com/go-modules-by-example/incomplete v0.0.0-20190308213348-d9340c80762e
+	github.com/go-modules-by-example/incomplete v0.0.0-20190409150142-20b11058ff1e
 	github.com/kr/pretty v0.1.0
-	github.com/sirupsen/logrus v1.3.0
-	golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f // indirect
+	github.com/sirupsen/logrus v1.4.1
+	golang.org/x/tools v0.0.0-20190408220357-e5b8258f4918 // indirect
 )
 ```
 
@@ -351,11 +351,9 @@ Use the `-f` flag to exclude standard library dependencies:
 ```
 $ go list -deps -f "{{if not .Standard}}{{.ImportPath}}{{end}}"
 golang.org/x/sys/unix
-golang.org/x/crypto/ssh/terminal
 github.com/sirupsen/logrus
 golang.org/x/tools/go/internal/gcimporter
 golang.org/x/tools/go/gcexportdata
-golang.org/x/tools/go/internal/cgo
 golang.org/x/tools/go/internal/packagesdriver
 golang.org/x/tools/internal/fastwalk
 golang.org/x/tools/internal/gopathwalk
@@ -455,7 +453,7 @@ $ sfdp -Tsvg -o graph.svg graph.dot
 ### Version details
 
 ```
-go version go1.12 linux/amd64
+go version go1.12.3 linux/amd64
 ```
 
 <!-- END -->

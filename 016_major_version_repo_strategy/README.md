@@ -145,9 +145,9 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit 39fbe18ab295297f7d37a908a1825d634a6a561b (HEAD -> master, tag: v1.0.0, origin/master)
+commit 9fb3586d1bd5212807f4d4d11b6e5163dd95da47 (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Fri Mar 8 21:34:21 2019 +0000
+Date:   Tue Apr 9 15:00:22 2019 +0000
 
     Initial commit of goinfo-maj-branch
 $ git branch master.v1
@@ -180,9 +180,9 @@ Steps:
 
 ```
 $ git log --decorate -1
-commit b39e30cc0005f142bf3de1dc228174c46ce2171c (HEAD -> master, tag: v1.0.0, origin/master)
+commit 4f1119d34bdf01647c77434b3287d39c633e96a4 (HEAD -> master, tag: v1.0.0, origin/master)
 Author: myitcv <myitcv@example.com>
-Date:   Fri Mar 8 21:34:10 2019 +0000
+Date:   Tue Apr 9 15:00:11 2019 +0000
 
     Initial commit of goinfo-maj-subdir
 $ mkdir v2
@@ -246,22 +246,22 @@ Run this as a "test":
 
 ```
 $ go run .
-go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2/designers latest
-go: finding github.com/go-modules-by-example/goinfo-maj-subdir/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2/designers latest
+go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2/designers latest
+go: finding github.com/go-modules-by-example/goinfo-maj-subdir/designers latest
 go: finding github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
-go: extracting github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
-go: extracting github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: finding github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-branch/v2 v2.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-branch v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
-go: extracting github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
 go: extracting github.com/go-modules-by-example/goinfo-maj-subdir/v2 v2.0.0
+go: extracting github.com/go-modules-by-example/goinfo-maj-subdir v1.0.0
 go: finding github.com/go-modules-by-example/goinfo/contributors latest
 go: finding github.com/go-modules-by-example/goinfo v1.0.0
 go: downloading github.com/go-modules-by-example/goinfo v1.0.0
@@ -285,7 +285,7 @@ $ git push -q origin v1.0.0
 ### Version details
 
 ```
-go version go1.12 linux/amd64
+go version go1.12.3 linux/amd64
 github.com/marwan-at-work/mod v0.1.0
 ```
 

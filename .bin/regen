@@ -11,9 +11,14 @@ usage() {
 	exit 1
 }
 
+serial=false
+
 while test $# != 0
 do
 	case "$1" in
+		-serial)
+			serial=true
+			;;
 		-prod)
 			read -p "Enter \"prod\" to continue: " -r
 			if [ "$REPLY" != "prod" ]
@@ -40,4 +45,14 @@ else
 	args="$*"
 fi
 
-gobin -m -run myitcv.io/cmd/mdreplace -w -long -online $args
+if [ "$serial" == "true" ]
+then
+	for i in $args
+	do
+		echo Regen $i
+		gobin -m -run myitcv.io/cmd/mdreplace -w -long -online $i
+	done
+else
+	gobin -m -run myitcv.io/cmd/mdreplace -w -long -online $args
+fi
+

@@ -237,7 +237,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 ### Version details
 
 ```
-go version go1.12 linux/amd64
+go version go1.12.3 linux/amd64
 ```
 
 <!-- END -->

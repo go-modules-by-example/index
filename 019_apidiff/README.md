@@ -141,8 +141,8 @@ apidiff -w FILE IMPORT_PATH
 ### Version details
 
 ```
-go version go1.12 linux/amd64
-golang.org/x/exp v0.0.0-20190306152737-a1d7652674e8
+go version go1.12.3 linux/amd64
+golang.org/x/exp v0.0.0-20190409044807-56b785ea58b2
 ```
 
 <!-- END -->

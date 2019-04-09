@@ -250,7 +250,7 @@ already exists, it will be updated in place.
 ### Version details
 
 ```
-go version go1.12 linux/amd64
+go version go1.12.3 linux/amd64
 github.com/rogpeppe/gohack v1.0.0
 ```
 
