@@ -138,9 +138,12 @@ $ go install golang.org/x/tools/cmd/stringer
 go: finding golang.org/x/tools/cmd/stringer latest
 go: finding golang.org/x/tools/cmd latest
 go: finding golang.org/x/tools latest
-go: downloading golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
-go: extracting golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
-go: finding golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
+go: downloading golang.org/x/tools v0.0.0-20190408220357-e5b8258f4918
+go: extracting golang.org/x/tools v0.0.0-20190408220357-e5b8258f4918
+go: finding golang.org/x/net v0.0.0-20190311183353-d8887717615a
+go: finding golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+go: finding golang.org/x/text v0.3.0
+go: finding golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a
 ```
 
 Our module reflects the dependency:
@@ -148,8 +151,11 @@ Our module reflects the dependency:
 ```
 $ go list -m all
 github.com/go-modules-by-example/tools
-golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
-golang.org/x/tools v0.0.0-20190308174544-00c44ba9c14f
+golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+golang.org/x/net v0.0.0-20190311183353-d8887717615a
+golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a
+golang.org/x/text v0.3.0
+golang.org/x/tools v0.0.0-20190408220357-e5b8258f4918
 ```
 
 Verify `stringer` is available on our `PATH`:
@@ -206,7 +212,7 @@ $ git push -q origin
 ### Version details
 
 ```
-go version go1.12 linux/amd64
+go version go1.12.3 linux/amd64
 ```
 
 <!-- END -->

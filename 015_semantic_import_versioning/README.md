@@ -424,7 +424,7 @@ Install `mod` using [`gobin`](https://github.com/myitcv/gobin):
 
 ```
 $ gobin github.com/marwan-at-work/mod/cmd/mod
-Installed github.com/marwan-at-work/mod/cmd/mod@v0.2.0 to /home/gopher/bin/mod
+Installed github.com/marwan-at-work/mod/cmd/mod@v0.2.1 to /home/gopher/bin/mod
 ```
 
 Verify `mod` is working:
@@ -514,8 +514,8 @@ $ git push -q origin v1.1.0
 ### Version details
 
 ```
-go version go1.12 linux/amd64
-/home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.2.0/github.com/marwan-at-work/mod/cmd/mod/mod
+go version go1.12.3 linux/amd64
+/home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.2.1/github.com/marwan-at-work/mod/cmd/mod/mod
 ```
 
 <!-- END -->
