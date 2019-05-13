@@ -187,7 +187,7 @@ modules`](https://golang.org/cmd/go/#hdr-Maintaining_module_requirements).
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 ```
 
 <!-- END -->
