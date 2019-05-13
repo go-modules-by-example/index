@@ -239,7 +239,7 @@ For headaches, take Ibuprofen
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 ```
 
 <!-- END -->

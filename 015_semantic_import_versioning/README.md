@@ -484,7 +484,6 @@ Check the new behaviour via a run "test":
 ```
 $ cd /home/gopher/scratchpad/peopleprinter
 $ go run .
-go: finding github.com/go-modules-by-example/goinfo/v2/designers latest
 go: finding github.com/go-modules-by-example/goinfo/v2 v2.0.0
 go: downloading github.com/go-modules-by-example/goinfo/v2 v2.0.0
 go: extracting github.com/go-modules-by-example/goinfo/v2 v2.0.0
@@ -514,7 +513,7 @@ $ git push -q origin v1.1.0
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 /home/gopher/.cache/gobin/github.com/marwan-at-work/mod/@v/v0.2.1/github.com/marwan-at-work/mod/cmd/mod/mod
 ```
 

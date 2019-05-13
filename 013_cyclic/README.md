@@ -196,7 +196,7 @@ Commit and push:
 $ git add -A
 $ git commit -q -am "Commit 1: initial commit of parent module github.com/go-modules-by-example/cyclic"
 $ git rev-parse HEAD
-29fd5d243e56c685e34612f2130cece4e1b89fe6
+0fcb217ecb293ac95fdb1a5ad0b44d7728545055
 $ git push -q
 ```
 
@@ -223,7 +223,7 @@ $ cd /home/gopher/scratchpad/cyclic
 $ git add -A
 $ git commit -q -am "Commit 2: create github.com/go-modules-by-example/cyclic/b"
 $ git rev-parse HEAD
-03802c5c345ea6633d1d63382f3de8fcadf71095
+90b499a495c8a2cc907238645b3b4d22d8d39baa
 $ git push -q
 ```
 
@@ -231,16 +231,15 @@ Until [#26241](https://github.com/golang/go/issues/26241) is merged, this is whe
 
 ```
 $ go test -v ./...
-go: finding github.com/go-modules-by-example/cyclic/b latest
-go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20190409145751-03802c5c345e
-go: extracting github.com/go-modules-by-example/cyclic/b v0.0.0-20190409145751-03802c5c345e
+go: finding github.com/go-modules-by-example/cyclic/b v0.0.0-20190513150359-11f10a6d8c2e
+go: downloading github.com/go-modules-by-example/cyclic/b v0.0.0-20190513150359-11f10a6d8c2e
+go: extracting github.com/go-modules-by-example/cyclic/b v0.0.0-20190513150359-11f10a6d8c2e
 ?   	github.com/go-modules-by-example/cyclic/a	[no test files]
 $ cd /home/gopher/scratchpad/cyclic/b
 $ go test -v ./...
-go: finding github.com/go-modules-by-example/cyclic/a latest
-go: finding github.com/go-modules-by-example/cyclic latest
-go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20190409145751-03802c5c345e
-go: extracting github.com/go-modules-by-example/cyclic v0.0.0-20190409145751-03802c5c345e
+go: finding github.com/go-modules-by-example/cyclic v0.0.0-20190513150359-11f10a6d8c2e
+go: downloading github.com/go-modules-by-example/cyclic v0.0.0-20190513150359-11f10a6d8c2e
+go: extracting github.com/go-modules-by-example/cyclic v0.0.0-20190513150359-11f10a6d8c2e
 === RUN   TestUsingA
 Here is A: B
 --- PASS: TestUsingA (0.00s)
@@ -255,7 +254,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic
 $ cd /home/gopher/scratchpad/cyclic
 $ go list -m all
 github.com/go-modules-by-example/cyclic
-github.com/go-modules-by-example/cyclic/b v0.0.0-20190409145751-03802c5c345e
+github.com/go-modules-by-example/cyclic/b v0.0.0-20190513150359-11f10a6d8c2e
 ```
 
 List the dependencies of `github.com/go-modules-by-example/cyclic/b
@@ -265,7 +264,7 @@ List the dependencies of `github.com/go-modules-by-example/cyclic/b
 $ cd /home/gopher/scratchpad/cyclic/b
 $ go list -m all
 github.com/go-modules-by-example/cyclic/b
-github.com/go-modules-by-example/cyclic v0.0.0-20190409145751-03802c5c345e
+github.com/go-modules-by-example/cyclic v0.0.0-20190513150359-11f10a6d8c2e
 ```
 
 Commit the mutual dependency:
@@ -275,14 +274,14 @@ $ cd /home/gopher/scratchpad/cyclic
 $ git add -A
 $ git commit -q -am "Commit 3: the mutual dependency"
 $ git rev-parse HEAD
-3cf68cbfae27f08b5df69de3727e71aa9f42cb05
+92e76549dcd2086c088d76092d25e16c4ebb90f4
 $ git push -q
 ```
 
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 ```
 
 <!-- END -->

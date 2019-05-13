@@ -13,7 +13,7 @@ echo https://github.com/$GITHUB_ORG/buffalo
 
 # block: pinned commits
 buffaloCommit=354657dfd81584bb82b8b6dff9bb9f6ab22712a8
-depCommit=3e697f6afb332b6e12b8b399365e724e2e8dea7e
+depCommit=5025d70ef6f298075c16c835a78924f2edd37502
 
 # block: buffalo commit
 echo $buffaloCommit

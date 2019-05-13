@@ -127,12 +127,12 @@ Ensure all dependencies of the Buffalo module are available locally:
 ```
 $ go mod download
 go: finding github.com/spf13/cobra v0.0.3
-go: finding github.com/markbates/refresh v1.4.10
-go: finding github.com/markbates/inflect v1.0.1
-go: finding github.com/gobuffalo/mw-forcessl v0.0.0-20180802152810-73921ae7a130
-go: finding github.com/gobuffalo/mw-i18n v0.0.0-20180802152014-e3060b7e13d6
 go: finding github.com/gobuffalo/mw-contenttype v0.0.0-20180802152300-74f5a47f4d56
+go: finding github.com/gobuffalo/mw-paramlogger v0.0.0-20181005191442-d6ee392ec72e
+go: finding github.com/markbates/inflect v1.0.1
 go: finding github.com/spf13/viper v1.2.1
+go: finding github.com/gorilla/sessions v1.1.3
+go: finding github.com/gobuffalo/pop v4.8.4+incompatible
 ...
 ```
 
@@ -248,7 +248,7 @@ This results in:
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 github.com/ajstarks/deck commit 7b4a8a7c9dfb9243ab16d8a2abd1cedb553e4094
 ```
 

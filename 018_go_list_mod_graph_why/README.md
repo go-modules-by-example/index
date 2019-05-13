@@ -263,7 +263,7 @@ The nodes of this graph can also be given by:
 $ go list -m all
 github.com/go-modules-by-example/listmodwhygraph
 github.com/davecgh/go-spew v1.1.1
-github.com/go-modules-by-example/incomplete v0.0.0-20190409150142-20b11058ff1e
+github.com/go-modules-by-example/incomplete v0.0.0-20190513150356-5cba17ec1a73
 ...
 ```
 
@@ -292,11 +292,11 @@ Use `go list` again to find out more information about `golang.org/x/tools`:
 $ go list -m -json golang.org/x/tools
 {
 	"Path": "golang.org/x/tools",
-	"Version": "v0.0.0-20190408220357-e5b8258f4918",
-	"Time": "2019-04-08T22:03:57Z",
+	"Version": "v0.0.0-20190511041617-99f201b6807e",
+	"Time": "2019-05-10T21:16:17-07:00",
 	"Indirect": true,
-	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20190408220357-e5b8258f4918",
-	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20190408220357-e5b8258f4918.mod"
+	"Dir": "/home/gopher/pkg/mod/golang.org/x/tools@v0.0.0-20190511041617-99f201b6807e",
+	"GoMod": "/home/gopher/pkg/mod/cache/download/golang.org/x/tools/@v/v0.0.0-20190511041617-99f201b6807e.mod"
 }
 ```
 
@@ -313,10 +313,10 @@ module github.com/go-modules-by-example/listmodwhygraph
 go 1.12
 
 require (
-	github.com/go-modules-by-example/incomplete v0.0.0-20190409150142-20b11058ff1e
+	github.com/go-modules-by-example/incomplete v0.0.0-20190513150356-5cba17ec1a73
 	github.com/kr/pretty v0.1.0
 	github.com/sirupsen/logrus v1.4.1
-	golang.org/x/tools v0.0.0-20190408220357-e5b8258f4918 // indirect
+	golang.org/x/tools v0.0.0-20190511041617-99f201b6807e // indirect
 )
 ```
 
@@ -453,7 +453,7 @@ $ sfdp -Tsvg -o graph.svg graph.dot
 ### Version details
 
 ```
-go version go1.12.3 linux/amd64
+go version go1.12.5 linux/amd64
 ```
 
 <!-- END -->
