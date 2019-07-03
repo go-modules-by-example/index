@@ -17,6 +17,11 @@ githubcli repo renameIfExists $GITHUB_ORG/modvendor_example modvendor_example_$n
 githubcli repo transfer $GITHUB_ORG/modvendor_example_$now $GITHUB_ORG_ARCHIVE
 githubcli repo create $GITHUB_ORG/modvendor_example
 
+# block: fill $GOPATH with random stuff
+cd $(mktemp -d)
+go mod init mod.com
+go get golang.org/x/tools
+
 # block: module
 echo github.com/$GITHUB_ORG/modvendor_example
 
@@ -57,7 +62,7 @@ go mod download
 rm -rf modvendor
 tgp=$(mktemp -d)
 GOPROXY=file://$GOPATH/pkg/mod/cache/download GOPATH=$tgp go mod download
-cp -rp $GOPATH/pkg/mod/cache/download/ modvendor
+cp -rp $tgp/pkg/mod/cache/download/ modvendor
 GOPATH=$tgp go clean -modcache
 rm -rf $tgp
 

@@ -53,6 +53,9 @@ perhaps `go mod modvendor`):
 {{PrintBlock "fake vendor" -}}
 ```
 
+(The use of `GOPROXY=file://$GOPATH/pkg/mod/cache/download` is arguably redundant here, but it is sometimes
+useful to constrain the modules we use to those previously downloaded, and that's what we are doing here.)
+
 Review the contents of `modvendor`:
 
 ```
@@ -169,10 +172,13 @@ $ GOPROXY=file://$GOPATH/pkg/mod/cache/download GOPATH=$tgp go mod download
 go: finding rsc.io/quote v1.5.2
 go: finding rsc.io/sampler v1.3.0
 go: finding golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c
-$ cp -rp $GOPATH/pkg/mod/cache/download/ modvendor
+$ cp -rp $tgp/pkg/mod/cache/download/ modvendor
 $ GOPATH=$tgp go clean -modcache
 $ rm -rf $tgp
 ```
+
+(The use of `GOPROXY=file://$GOPATH/pkg/mod/cache/download` is arguably redundant here, but it is sometimes
+useful to constrain the modules we use to those previously downloaded, and that's what we are doing here.)
 
 Review the contents of `modvendor`:
 
@@ -237,7 +243,7 @@ some central source of truth for trusted, reviewed modules ([Athens?](https://gi
 ### Version details
 
 ```
-go version go1.12.5 linux/amd64
+go version go1.12.6 linux/amd64
 ```
 
 <!-- END -->
