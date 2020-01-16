@@ -27,7 +27,7 @@ Now because, at the time of writing, `github.com/go-chi/chi`:
 * has not been converted to a Go module
 * we want to use v3.3.2
 
-we need to `go get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
+we need to `go get` that specific version, which will be retrieved as a v0.0.0 pseudo version:
 
 
 ```
@@ -101,7 +101,7 @@ Now because, at the time of writing, `github.com/go-chi/chi`:
 * has not been converted to a Go module
 * we want to use v3.3.2
 
-we need to `go get` that specific version, which will be retrieved as a v0.0.0 psuedo version:
+we need to `go get` that specific version, which will be retrieved as a v0.0.0 pseudo version:
 
 
 ```
