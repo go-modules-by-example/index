@@ -24,7 +24,7 @@ The end result will be similar to the following, with three modules defined by t
 
 In this walkthrough:
 * We create a root module and two submodules.
-* We version the submodules independently by applying separate git tags (`v0.1.1` and `v1.0.0`)
+* We version the submodules independently by applying prefixed git tags (`b/v0.1.1` and `a/v1.0.0`)
 * We have `a` import `b` to make things slightly more interesting.
 * We finish by creating a module on our local filesystem to use our `a` command.
 
